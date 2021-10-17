@@ -11,6 +11,12 @@ class tuple:
 
     def __sub__(self, o: tuple) -> tuple:
         return tuple(self.x - o.x, self.y - o.y, self.z - o.z, self.w - o.w)
+    
+    def __mul__(self, o: float) -> tuple:
+        return tuple(self.x * o, self.y * o, self.z * o, self.w * o)
+
+    def __truediv__(self, o: float) -> tuple:
+        return tuple(self.x / o, self.y / o, self.z / o, self.w / o)
 
     def __eq__(self, o: tuple) -> bool:
         return isApproximatelyEqual(self.x, o.x) and isApproximatelyEqual(self.y, o.y) and isApproximatelyEqual(self.z, o.z) and isApproximatelyEqual(self.w, o.w)

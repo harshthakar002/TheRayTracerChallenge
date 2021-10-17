@@ -41,3 +41,19 @@ def test_negate_tuple():
     a = tuple(1, -2, 3, -4)
     b = a.negate()
     assert b == tuple(-1, 2, -3, 4)
+
+
+def test_multiply_tuple_by_scalar():
+    a = tuple(1, -2, 3, -4)
+    b = a * 3.5
+    assert b == tuple(3.5, -7, 10.5, -14)
+
+def test_multiply_tuple_by_fraction():
+    a = tuple(1, -2, 3, -4)
+    b = a * 0.5
+    assert b == tuple(0.5, -1, 1.5, -2)
+
+def test_divide_tuple_by_scalar():
+    a = tuple(1, -2, 3, -4)
+    b = a / 2
+    assert b == tuple(0.5, -1, 1.5, -2)
