@@ -15,6 +15,9 @@ class tuple:
     def __eq__(self, o: tuple) -> bool:
         return isApproximatelyEqual(self.x, o.x) and isApproximatelyEqual(self.y, o.y) and isApproximatelyEqual(self.z, o.z) and isApproximatelyEqual(self.w, o.w)
 
+    def __ne__(self, o: tuple) -> bool:
+        return not (self == o)
+
     def isPoint(self) -> bool:
         return isApproximatelyEqual(self.w, 1.0)
 

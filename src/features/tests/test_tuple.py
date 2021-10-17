@@ -26,6 +26,10 @@ def test_equals():
     a = tuple(1.0, 2.0, -3.0, 1.0)
     assert a == tuple(1.0, 2.0, -3.0, 1.0)
 
+def test_not_equals():
+    a = tuple(1.0, 2.0, -3.0, 1.0)
+    assert a != tuple(1.0, 3.0, -3.0, 1.0)
+
 
 def test_addition():
     a1 = tuple(3, -2, 5, 1)
