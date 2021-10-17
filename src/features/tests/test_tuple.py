@@ -36,3 +36,8 @@ def test_addition():
     a2 = tuple(-2, 3, 1, 0)
     a3 = a1 + a2
     assert a3 == tuple(1, 1, 6, 1)
+
+def test_negate_tuple():
+    a = tuple(1, -2, 3, -4)
+    b = a.negate()
+    assert b == tuple(-1, 2, -3, 4)

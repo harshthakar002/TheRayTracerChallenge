@@ -23,3 +23,6 @@ class tuple:
 
     def isVector(self) -> bool:
         return isApproximatelyEqual(self.w, 0.0)
+    
+    def negate(self) -> tuple:
+        return tuple(-self.x, -self.y, -self.z, -self.w)
