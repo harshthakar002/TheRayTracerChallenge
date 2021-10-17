@@ -24,11 +24,11 @@ def test_tuple_vector():
 
 def test_equals():
     a = tuple(1.0, 2.0, -3.0, 1.0)
-    assert a.equals(tuple(1.0, 2.0, -3.0, 1.0))
+    assert a == tuple(1.0, 2.0, -3.0, 1.0)
 
 
 def test_addition():
     a1 = tuple(3, -2, 5, 1)
     a2 = tuple(-2, 3, 1, 0)
     a3 = a1 + a2
-    assert a3.equals(tuple(1, 1, 6, 1))
+    assert a3 == tuple(1, 1, 6, 1)
