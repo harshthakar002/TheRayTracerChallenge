@@ -41,3 +41,8 @@ def test_normalize():
     v = vector(1, 2, 3)
     assert v.normalize() == vector(0.26726, 0.53452, 0.80178)
     assert v.normalize().magnitude() == 1
+
+def test_dot_product():
+    a = vector(1, 2, 3)
+    b = vector(2, 3, 4)
+    assert a.dotProduct(b) == 20

@@ -12,6 +12,9 @@ class vector(tuple):
     def normalize(self) -> vector:
         magnitude = self.magnitude()
         return vector(self.x / magnitude, self.y / magnitude, self.z / magnitude)
+    
+    def dotProduct(self, v: vector) -> float:
+        return (self.x * v.x) + (self.y * v.y) + (self.z * v.z)
 
 
 ZERO_VECTOR = vector(0, 0, 0)
