@@ -9,6 +9,9 @@ class tuple:
     def __add__(self, otherTuple: tuple) -> tuple:
         return tuple(self.x + otherTuple.x, self.y + otherTuple.y, self.z + otherTuple.z, self.w + otherTuple.w)
 
+    def __sub__(self, otherTuple: tuple) -> tuple:
+        return tuple(self.x - otherTuple.x, self.y - otherTuple.y, self.z - otherTuple.z, self.w - otherTuple.w)
+
     def isPoint(self) -> bool:
         return isApproximatelyEqual(self.w, 1.0)
 
