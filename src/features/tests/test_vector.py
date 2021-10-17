@@ -33,3 +33,11 @@ def test_magnitude():
     assert isApproximatelyEqual(v.magnitude(), math.sqrt(14))
     v = vector(-1, -2, -3)
     assert isApproximatelyEqual(v.magnitude(), math.sqrt(14))
+
+def test_normalize():
+    v = vector(4, 0, 0)
+    assert v.normalize() == vector(1, 0, 0)
+    assert v.normalize().magnitude() == 1
+    v = vector(1, 2, 3)
+    assert v.normalize() == vector(0.26726, 0.53452, 0.80178)
+    assert v.normalize().magnitude() == 1
