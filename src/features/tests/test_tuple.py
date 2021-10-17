@@ -18,3 +18,7 @@ def test_tuple_vector():
     assert isApproximatelyEqual(a.w, 0.0)
     assert not a.isPoint()
     assert a.isVector()
+
+def test_equals():
+    a = tuple(1.0, 2.0, -3.0, 1.0)
+    assert a.equals(tuple(1.0, 2.0, -3.0, 1.0))
