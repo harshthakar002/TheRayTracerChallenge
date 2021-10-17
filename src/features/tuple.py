@@ -5,6 +5,9 @@ class tuple:
 
     def __init__(self, x: float, y: float, z: float, w: float) -> None:
         self.x, self.y, self.z, self.w = x, y, z, w
+    
+    def __add__(self, otherTuple: tuple) -> tuple:
+        return tuple(self.x + otherTuple.x, self.y + otherTuple.y, self.z + otherTuple.z, self.w + otherTuple.w)
 
     def isPoint(self) -> bool:
         return isApproximatelyEqual(self.w, 1.0)
