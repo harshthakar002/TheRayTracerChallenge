@@ -42,3 +42,6 @@ class color(tuple):
 
     def __truediv__(self, o: float) -> color:
         return color(self.red / o, self.green / o, self.blue / o)
+
+    def multiply(self, c: color) -> color:
+        return color(self.red * c.red, self.green * c.green, self.blue * c.blue)

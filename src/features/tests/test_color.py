@@ -30,3 +30,9 @@ def test_color_scalar_division():
     c1 = color(0.4, 0.6, 0.8)
     c2 = c1 / 2
     assert c2 == color(0.2, 0.3, 0.4)
+
+def test_color_multiplication():
+    c1 = color(1, 0.2, 0.4)
+    c2 = color(0.9, 1, 0.1)
+    c3 = c1.multiply(c2)
+    assert c3 == color(0.9, 0.2, 0.04)
