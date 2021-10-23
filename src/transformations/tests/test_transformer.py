@@ -97,3 +97,23 @@ def test_shearing_zy():
     p = Point(2, 3, 4)
     transform = Transformer.shearing(0, 0, 0, 0, 0, 1)
     assert transform.multiply_matrix_and_tuple(p) == Point(2, 3, 7)
+
+def test_multiple_transformations_in_sequence():
+    p = Point(1, 0, 1)
+    A = Transformer.rotation_x(pi / 2)
+    B = Transformer.scaling(5, 5, 5)
+    C = Transformer.translation(10, 5, 7)
+    p2 = A.multiply_matrix_and_tuple(p)
+    assert p2 == Point(1, -1, 0)
+    p3 = B.multiply_matrix_and_tuple(p2)
+    assert p3 == Point(5, -5, 0)
+    p4 = C.multiply_matrix_and_tuple(p3)
+    assert p4 == Point(15, 0, 7)
+
+def test_chained_transformations():
+    p = Point(1, 0, 1)
+    A = Transformer.rotation_x(pi / 2)
+    B = Transformer.scaling(5, 5, 5)
+    C = Transformer.translation(10, 5, 7)
+    T = C.multiply_matrices(B).multiply_matrices(A)
+    assert T.multiply_matrix_and_tuple(p) == Point(15, 0, 7)
