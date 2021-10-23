@@ -48,3 +48,8 @@ def test_matrix_inequality():
     a = Matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
     b = Matrix.initialize_from_values([[2, 3, 4, 5], [6, 7, 8, 9], [8, 7, 6, 5], [4, 3, 2, 1]])
     assert a != b
+
+def test_identity_matrix_generation():
+    identity_matrix = Matrix.generate_identity_matrix(3)
+    m = Matrix.initialize_from_values([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    assert identity_matrix == m

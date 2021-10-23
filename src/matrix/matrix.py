@@ -17,6 +17,13 @@ class Matrix():
         mat = Matrix(len(values), len(values[0]))
         mat.data = values
         return mat
+
+    @staticmethod
+    def generate_identity_matrix(row_and_column_count: int) -> Matrix:
+        mat = Matrix(row_and_column_count, row_and_column_count)
+        for i in range(row_and_column_count):
+            mat.set(i, i, 1)
+        return mat
     
     def get(self, i: int, j: int) -> float:
         return self.data[i][j]
