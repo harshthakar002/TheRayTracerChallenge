@@ -1,4 +1,5 @@
 from matrix.matrix import Matrix
+from math import cos, sin
 
 class Transformer():
 
@@ -17,3 +18,12 @@ class Transformer():
         scaling_matrix.set(1, 1, y)
         scaling_matrix.set(2, 2, z)
         return scaling_matrix
+
+    @staticmethod
+    def rotation_x(angle: float) -> Matrix:
+        rotation_matrix = Matrix.generate_identity_matrix(4)
+        rotation_matrix.set(1, 1, cos(angle))
+        rotation_matrix.set(1, 2, -sin(angle))
+        rotation_matrix.set(2, 1, sin(angle))
+        rotation_matrix.set(2, 2, cos(angle))
+        return rotation_matrix

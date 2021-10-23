@@ -1,8 +1,8 @@
-from matrix.matrix import Matrix
 from transformations.transformer import Transformer
 from features.vector import Vector
 from features.point import Point
 from matrix.matrix_inverter import MatrixInverter
+from math import sqrt, pi
 
 def test_point_translation():
     transform = Transformer.translation(5, -3, 2)
@@ -40,3 +40,16 @@ def test_point_reflection():
     transform = Transformer.scaling(-1, 1, 1)
     p = Point(2, 3, 4)
     assert transform.multiply_matrix_and_tuple(p) == Point(-2, 3, 4)
+
+def test_rotation_x():
+    p = Point(0, 1, 0)
+    half_quarter = Transformer.rotation_x(pi / 4)
+    full_quarter = Transformer.rotation_x(pi / 2)
+    assert half_quarter.multiply_matrix_and_tuple(p) == Point(0, sqrt(2) / 2, sqrt(2) / 2)
+    assert full_quarter.multiply_matrix_and_tuple(p) == Point(0, 0, 1)
+
+def test_inverse_rotation_x():
+    p = Point(0, 1, 0)
+    half_quarter = Transformer.rotation_x(pi / 4)
+    inverse_transform = MatrixInverter.invert(half_quarter)
+    assert inverse_transform.multiply_matrix_and_tuple(p) == Point(0, sqrt(2) / 2, (-sqrt(2)) / 2)
