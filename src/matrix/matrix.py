@@ -12,8 +12,11 @@ class matrix():
             for j in range(column_count):
                 self.data[i].append(0.0)
     
-    def initialize(self, data: List[List[float]]) -> None:
-        self.data = data
+    @staticmethod
+    def initialize_from_values(values: List[List[float]]) -> matrix:
+        mat = matrix(len(values), len(values[0]))
+        mat.data = values
+        return mat
     
     def get(self, i: int, j: int) -> float:
         return self.data[i][j]
