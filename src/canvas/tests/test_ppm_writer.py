@@ -16,7 +16,6 @@ def test_ppm_pixel_data():
     c.write_pixel(2, 1, c2)
     c.write_pixel(4, 2, c3)
     ppm = ppm_writer.write_ppm_from_canvas(c)
-    #assert ppm == ['P3', '5 3', '255']
     assert ppm[3] == "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
     assert ppm[4] == "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0"
     assert ppm[5] == "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"
