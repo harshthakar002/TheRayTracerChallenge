@@ -30,3 +30,8 @@ def test_ppm_line_split():
     assert ppm[4] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
     assert ppm[5] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
     assert ppm[6] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
+
+def test_ppm_new_line_at_end():
+    c = canvas(5, 3)
+    ppm = ppm_writer.write_ppm_from_canvas(c)
+    assert ppm[len(ppm)-1] == ''

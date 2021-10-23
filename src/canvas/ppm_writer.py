@@ -9,7 +9,7 @@ class ppm_writer():
     
     @staticmethod
     def write_ppm_from_canvas(c: canvas) -> List:
-        return ppm_writer.write_ppm_header_data_from_canvas(c) + ppm_writer.write_ppm_pixel_data_from_canvas(c)
+        return ppm_writer.write_ppm_header_data_from_canvas(c) + ppm_writer.write_ppm_pixel_data_from_canvas(c) + ['']
     
     @staticmethod
     def write_ppm_header_data_from_canvas(c: canvas) -> List:
