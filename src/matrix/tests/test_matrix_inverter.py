@@ -21,3 +21,14 @@ def test_sub_matrix_of_4_x_4_matrix():
     assert sub_matrix.row_count == 3
     assert sub_matrix.column_count == 3
     assert sub_matrix == expected_result
+
+def test_minor_of_3_x_3_matrix():
+    m = Matrix.initialize_from_values([[3, 5, 0], [2, -1, -7], [6, -1, 5]])
+    assert is_approximately_equal(MatrixInverter.calculate_minor_for_3_x_3_matrix(m, 1, 0), 25)
+
+def test_cofactor_of_3_x_3_matrix():
+    m = Matrix.initialize_from_values([[3, 5, 0], [2, -1, -7], [6, -1, 5]])
+    assert is_approximately_equal(MatrixInverter.calculate_minor_for_3_x_3_matrix(m, 0, 0), -12)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor_for_3_x_3_matrix(m, 0, 0), -12)
+    assert is_approximately_equal(MatrixInverter.calculate_minor_for_3_x_3_matrix(m, 1, 0), 25)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor_for_3_x_3_matrix(m, 1, 0), -25)

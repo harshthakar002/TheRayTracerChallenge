@@ -14,3 +14,15 @@ class MatrixInverter():
                 continue
             sub_matrix_rows.append(m.data[i][:ignored_column] + m.data[i][ignored_column + 1:])
         return Matrix.initialize_from_values(sub_matrix_rows)
+    
+    @staticmethod
+    def calculate_minor_for_3_x_3_matrix(m: Matrix, row: int, column: int) -> float:
+        sub_matrix = MatrixInverter.create_sub_matrix(m, row, column)
+        return MatrixInverter.calculate_determinant_for_2_x_2_matrix(sub_matrix)
+    
+    @staticmethod
+    def calculate_cofactor_for_3_x_3_matrix(m: Matrix, row: int, column: int) -> float:
+        sign = 1
+        if row % 2 != column % 2:
+            sign = -1
+        return sign * MatrixInverter.calculate_minor_for_3_x_3_matrix(m, row, column)
