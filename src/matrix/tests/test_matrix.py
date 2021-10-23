@@ -62,3 +62,15 @@ def test_matrix_transpose():
 def test_identity_matrix_transpose():
     identity_matrix = Matrix.generate_identity_matrix(3)
     assert identity_matrix.transposed_matrix() == identity_matrix
+
+def test_multiply_with_scalar():
+    m = Matrix.initialize_from_values([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    m.multiply_with_scalar(2)
+    expected_result = Matrix.initialize_from_values([[2, 4, 6], [8, 10, 12], [14, 16, 18]])
+    assert m == expected_result
+
+def test_divide_by_scalar():
+    m = Matrix.initialize_from_values([[2, 4, 6], [8, 10, 12], [14, 16, 18]])
+    m.divide_by_scalar(2)
+    expected_result = Matrix.initialize_from_values([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    assert m == expected_result

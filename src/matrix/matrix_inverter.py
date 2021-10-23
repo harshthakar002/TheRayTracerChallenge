@@ -1,3 +1,5 @@
+from typing import Union
+from features.equality import is_approximately_equal
 from matrix.matrix import Matrix
 
 class MatrixInverter():
@@ -43,3 +45,20 @@ class MatrixInverter():
             determinant = determinant + (m.get(0, j) * MatrixInverter.calculate_cofactor(m, 0, j))
         return determinant
         
+    @staticmethod
+    def invert(m: Matrix) -> Union[Matrix, None]:
+        determinant = MatrixInverter.calculate_determinant(m)
+        if is_approximately_equal(determinant, 0):
+            return None
+        cofactor_m = MatrixInverter.generate_cofactor_matrix(m)
+        transpose_cofactor = cofactor_m.transposed_matrix()
+        transpose_cofactor.divide_by_scalar(determinant)
+        return transpose_cofactor
+    
+    @staticmethod
+    def generate_cofactor_matrix(m: Matrix):
+        cofactor_matrix = Matrix(m.row_count, m.column_count)
+        for i in range(cofactor_matrix.row_count):
+            for j in range(cofactor_matrix.column_count):
+                cofactor_matrix.set(i, j, MatrixInverter.calculate_cofactor(m, i, j))
+        return cofactor_matrix

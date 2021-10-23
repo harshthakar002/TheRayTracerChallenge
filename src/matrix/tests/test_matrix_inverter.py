@@ -47,3 +47,20 @@ def test_determinant_of_4_x_4_matrix():
     assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 2), 210)
     assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 3), 51)
     assert is_approximately_equal(MatrixInverter.calculate_determinant(m), -4071)
+
+def test_is_matrix_is_not_invertible():
+    m = Matrix.initialize_from_values([[-4, 2, -2, -3], [9, 6, 2, 6], [0, -5, 1, -5], [0, 0, 0, 0]])
+    assert MatrixInverter.invert(m) == None
+    assert MatrixInverter.calculate_determinant(m) == 0
+
+def test_invert_of_matrix():
+    m = Matrix.initialize_from_values([[-5, 2, 6, -8], [1, -5, 1, 8], [7, 7, -6, -7], [1, -3, 7, 4]])
+    inverse_m = MatrixInverter.invert(m)
+    assert is_approximately_equal(MatrixInverter.calculate_determinant(m), 532)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 2, 3), -160)
+    assert is_approximately_equal(inverse_m.get(3, 2), -160 / 532)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 3, 2), 105)
+    assert is_approximately_equal(inverse_m.get(2, 3), 105 / 532)
+    expected_result = Matrix.initialize_from_values([[0.21805, 0.45113, 0.24060, -0.04511], [-0.80827, -1.45677, -0.44361, 0.52068],
+    [-0.07895, -0.22368, -0.05263, 0.19737], [-0.52256, -0.81391, -0.30075, 0.30639]])
+    assert inverse_m == expected_result

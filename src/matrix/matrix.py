@@ -49,3 +49,13 @@ class Matrix():
             for j in range(self.column_count):
                 transposed_matrix.set(j, i, self.get(i, j))
         return transposed_matrix
+    
+    def multiply_with_scalar(self, scalar: float) -> None:
+        for i in range(self.row_count):
+            for j in range(self.column_count):
+                self.set(i, j, self.get(i, j) * scalar)
+    
+    def divide_by_scalar(self, scalar: float) -> None:
+        for i in range(self.row_count):
+            for j in range(self.column_count):
+                self.set(i, j, self.get(i, j) / scalar)
