@@ -1,6 +1,6 @@
 from features.color import color
 
-class canvas():
+class Canvas():
     def __init__(self, width: int, height: int) -> None:
         self.width = width
         self.height = height

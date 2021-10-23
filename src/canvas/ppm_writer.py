@@ -1,30 +1,30 @@
 from typing import List
-from canvas.canvas import canvas
+from canvas.canvas import Canvas
 from features.color import color
 
 PIXEL_ROW_LENGTH = 70
 COLOR_MAX_VALUE = 255
 
-class ppm_writer():
+class PPMWriter():
     
     @staticmethod
-    def write_ppm_from_canvas(c: canvas) -> List:
-        return ppm_writer.write_ppm_header_data_from_canvas(c) + ppm_writer.write_ppm_pixel_data_from_canvas(c) + ['']
+    def write_ppm_from_canvas(c: Canvas) -> List:
+        return PPMWriter.write_ppm_header_data_from_canvas(c) + PPMWriter.write_ppm_pixel_data_from_canvas(c) + ['']
     
     @staticmethod
-    def write_ppm_header_data_from_canvas(c: canvas) -> List:
+    def write_ppm_header_data_from_canvas(c: Canvas) -> List:
         ppm_header = ['P3']
         ppm_header.append(str(c.width) + ' ' + str(c.height))
         ppm_header.append(str(COLOR_MAX_VALUE))
         return ppm_header
     
     @staticmethod
-    def write_ppm_pixel_data_from_canvas(c: canvas) -> list[str]:
-        return ppm_writer.convert_pixels_to_ppm_lines(c.pixels)
+    def write_ppm_pixel_data_from_canvas(c: Canvas) -> list[str]:
+        return PPMWriter.convert_pixels_to_ppm_lines(c.pixels)
 
     @staticmethod
     def convert_color_to_ppm_string(col: color) -> str:
-        return ' '.join([str(ppm_writer.normalize_color_value(col.red)), str(ppm_writer.normalize_color_value(col.green)), str(ppm_writer.normalize_color_value(col.blue))])
+        return ' '.join([str(PPMWriter.normalize_color_value(col.red)), str(PPMWriter.normalize_color_value(col.green)), str(PPMWriter.normalize_color_value(col.blue))])
 
     @staticmethod
     def normalize_color_value(color_value: float) -> int:
@@ -41,7 +41,7 @@ class ppm_writer():
         pixel_strings = []
         for pixel_row in pixels:
             for pixel in pixel_row:
-                pixel_string = ppm_writer.convert_color_to_ppm_string(pixel)
+                pixel_string = PPMWriter.convert_color_to_ppm_string(pixel)
                 if current_row_length + len(pixel_string) > PIXEL_ROW_LENGTH:
                     ppm_lines.append(' '.join(pixel_strings))
                     pixel_strings = []

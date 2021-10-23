@@ -1,8 +1,8 @@
 from features.vector import vector
 from features.point import point
 from features.color import color
-from canvas.canvas import canvas
-from canvas.ppm_writer import ppm_writer
+from canvas.canvas import Canvas
+from canvas.ppm_writer import PPMWriter
 
 
 class environment:
@@ -25,7 +25,7 @@ def tick(env: environment, proj: projectile) -> projectile:
 
 p = projectile(point(0, 1, 0), vector(1, 1.8, 0).normalize() * 11.25)
 e = environment(vector(0, -0.1, 0), vector(-0.01, 0, 0))
-c = canvas(900, 550)
+c = Canvas(900, 550)
 
 c.write_pixel(round(p.position.x), round(p.position.y), p.color)
 while p.position.y > 0:
@@ -34,7 +34,7 @@ while p.position.y > 0:
 
 c.vertically_flip()
 
-ppm = ppm_writer.write_ppm_from_canvas(c)
+ppm = PPMWriter.write_ppm_from_canvas(c)
 
 with open('out/imgOut.ppm', 'w') as f:
     f.write('\n'.join(ppm))
