@@ -36,3 +36,13 @@ class Transformer():
         rotation_matrix.set(0, 2, sin(angle))
         rotation_matrix.set(2, 2, cos(angle))
         return rotation_matrix
+    
+    @staticmethod
+    def rotation_z(angle: float) -> Matrix:
+        rotation_matrix = Matrix.generate_identity_matrix(4)
+        rotation_matrix.set(0, 0, cos(angle))
+        rotation_matrix.set(0, 1, -sin(angle))
+        rotation_matrix.set(1, 0, sin(angle))
+        rotation_matrix.set(1, 1, cos(angle))
+        return rotation_matrix
+    

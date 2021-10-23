@@ -60,3 +60,10 @@ def test_rotation_y():
     full_quarter = Transformer.rotation_y(pi / 2)
     assert half_quarter.multiply_matrix_and_tuple(p) == Point(sqrt(2) / 2, 0, sqrt(2) / 2)
     assert full_quarter.multiply_matrix_and_tuple(p) == Point(1, 0, 0)
+    
+def test_rotation_z():
+    p = Point(0, 1, 0)
+    half_quarter = Transformer.rotation_z(pi / 4)
+    full_quarter = Transformer.rotation_z(pi / 2)
+    assert half_quarter.multiply_matrix_and_tuple(p) == Point((-sqrt(2)) / 2, sqrt(2) / 2, 0)
+    assert full_quarter.multiply_matrix_and_tuple(p) == Point(-1, 0, 0)
