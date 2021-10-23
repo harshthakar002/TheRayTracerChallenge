@@ -67,3 +67,33 @@ def test_rotation_z():
     full_quarter = Transformer.rotation_z(pi / 2)
     assert half_quarter.multiply_matrix_and_tuple(p) == Point((-sqrt(2)) / 2, sqrt(2) / 2, 0)
     assert full_quarter.multiply_matrix_and_tuple(p) == Point(-1, 0, 0)
+
+def test_shearing_xy():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(1, 0, 0, 0, 0, 0)
+    assert transform.multiply_matrix_and_tuple(p) == Point(5, 3, 4)
+
+def test_shearing_xz():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(0, 1, 0, 0, 0, 0)
+    assert transform.multiply_matrix_and_tuple(p) == Point(6, 3, 4)
+
+def test_shearing_yx():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(0, 0, 1, 0, 0, 0)
+    assert transform.multiply_matrix_and_tuple(p) == Point(2, 5, 4)
+
+def test_shearing_yz():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(0, 0, 0, 1, 0, 0)
+    assert transform.multiply_matrix_and_tuple(p) == Point(2, 7, 4)
+
+def test_shearing_zx():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(0, 0, 0, 0, 1, 0)
+    assert transform.multiply_matrix_and_tuple(p) == Point(2, 3, 6)
+
+def test_shearing_zy():
+    p = Point(2, 3, 4)
+    transform = Transformer.shearing(0, 0, 0, 0, 0, 1)
+    assert transform.multiply_matrix_and_tuple(p) == Point(2, 3, 7)

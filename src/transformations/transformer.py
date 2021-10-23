@@ -45,4 +45,15 @@ class Transformer():
         rotation_matrix.set(1, 0, sin(angle))
         rotation_matrix.set(1, 1, cos(angle))
         return rotation_matrix
+
+    @staticmethod
+    def shearing(xy: float, xz: float, yx: float, yz: float, zx: float, zy: float) -> Matrix:
+        shearing_matrix = Matrix.generate_identity_matrix(4)
+        shearing_matrix.set(0, 1, xy)
+        shearing_matrix.set(0, 2, xz)
+        shearing_matrix.set(1, 0, yx)
+        shearing_matrix.set(1, 2, yz)
+        shearing_matrix.set(2, 0, zx)
+        shearing_matrix.set(2, 1, zy)
+        return shearing_matrix
     
