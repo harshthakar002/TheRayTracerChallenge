@@ -1,5 +1,8 @@
 from features.vector import vector
 from features.point import point
+from features.color import color
+from canvas.canvas import canvas
+from canvas.ppm_writer import ppm_writer
 
 
 class environment:
@@ -12,27 +15,26 @@ class projectile:
     def __init__(self, position: point, velocity: vector) -> None:
         self.position = position
         self.velocity = velocity
+        self.color = color(1, 0, 0)
 
 
 def tick(env: environment, proj: projectile) -> projectile:
     position = proj.position + proj.velocity
     velocity = proj.velocity + env.gravity + env.wind
-    return projectile(position, velocity)
+    return projectile(position, velocity)   
 
+p = projectile(point(0, 1, 0), vector(1, 1.8, 0).normalize() * 11.25)
+e = environment(vector(0, -0.1, 0), vector(-0.01, 0, 0))
+c = canvas(900, 550)
 
-p = projectile(point(0, 1, 0), vector(1, 1, 0).normalize())
-e = environment(vector(0, -0.1, 0), vector(-0.01, -0.1, 0))
-
-
-def print_p(p: projectile) -> None:
-    print("Position: (" + str(p.position.x) + ", " + str(p.position.y) + ", " + str(p.position.z) +
-          ") Velocity: (" + str(p.velocity.x) + ", " + str(p.velocity.y) + ", " + str(p.velocity.z) + ")")
-
-
-print_p(p)
-count = 0
+c.write_pixel(round(p.position.x), round(p.position.y), p.color)
 while p.position.y > 0:
     p = tick(e, p)
-    print_p(p)
-    count += 1
-print(count)
+    c.write_pixel(round(p.position.x), round(p.position.y), p.color)
+
+c.vertically_flip()
+
+ppm = ppm_writer.write_ppm_from_canvas(c)
+
+with open('out/imgOut.ppm', 'w') as f:
+    f.write('\n'.join(ppm))
