@@ -35,3 +35,8 @@ def test_vector_inverse_scaling():
     inverse_transform = MatrixInverter.invert(transform)
     v = Vector(-4, 6, 8)
     assert inverse_transform.multiply_matrix_and_tuple(v) == Vector(-2, 2, 2)
+
+def test_point_reflection():
+    transform = Transformer.scaling(-1, 1, 1)
+    p = Point(2, 3, 4)
+    assert transform.multiply_matrix_and_tuple(p) == Point(-2, 3, 4)
