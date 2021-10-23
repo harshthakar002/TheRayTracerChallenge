@@ -32,3 +32,18 @@ def test_cofactor_of_3_x_3_matrix():
     assert is_approximately_equal(MatrixInverter.calculate_cofactor_for_3_x_3_matrix(m, 0, 0), -12)
     assert is_approximately_equal(MatrixInverter.calculate_minor_for_3_x_3_matrix(m, 1, 0), 25)
     assert is_approximately_equal(MatrixInverter.calculate_cofactor_for_3_x_3_matrix(m, 1, 0), -25)
+
+def test_determinant_of_3_x_3_matrix():
+    m = Matrix.initialize_from_values([[1, 2, 6], [-5, 8, -4], [2, 6, 4]])
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 0), 56)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 1), 12)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 2), -46)
+    assert is_approximately_equal(MatrixInverter.calculate_determinant(m), -196)
+
+def test_determinant_of_4_x_4_matrix():
+    m = Matrix.initialize_from_values([[-2, -8, 3, 5], [-3, 1, 7, 3], [1, 2, -9, 6], [-6, 7, 7, -9]])
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 0), 690)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 1), 447)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 2), 210)
+    assert is_approximately_equal(MatrixInverter.calculate_cofactor(m, 0, 3), 51)
+    assert is_approximately_equal(MatrixInverter.calculate_determinant(m), -4071)
