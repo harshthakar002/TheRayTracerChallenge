@@ -1,7 +1,7 @@
 from __future__ import annotations
-from features.tuple import tuple
+from features.tuple import Tuple
 
-class Color(tuple):
+class Color(Tuple):
 
     def __init__(self, x: float, y: float, z: float) -> None:
         super().__init__(x, y, z, 2.0)
