@@ -1,6 +1,6 @@
 from typing import List
 from canvas.canvas import Canvas
-from features.color import color
+from features.color import Color
 
 PIXEL_ROW_LENGTH = 70
 COLOR_MAX_VALUE = 255
@@ -23,7 +23,7 @@ class PPMWriter():
         return PPMWriter.convert_pixels_to_ppm_lines(c.pixels)
 
     @staticmethod
-    def convert_color_to_ppm_string(col: color) -> str:
+    def convert_color_to_ppm_string(col: Color) -> str:
         return ' '.join([str(PPMWriter.normalize_color_value(col.red)), str(PPMWriter.normalize_color_value(col.green)), str(PPMWriter.normalize_color_value(col.blue))])
 
     @staticmethod
@@ -35,7 +35,7 @@ class PPMWriter():
         return round(255 * color_value)
     
     @staticmethod
-    def convert_pixels_to_ppm_lines(pixels: list[list[color]]) -> list[str]:
+    def convert_pixels_to_ppm_lines(pixels: list[list[Color]]) -> list[str]:
         current_row_length = 0
         ppm_lines = []
         pixel_strings = []

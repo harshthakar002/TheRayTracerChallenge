@@ -1,7 +1,7 @@
 from __future__ import annotations
 from features.tuple import tuple
 
-class color(tuple):
+class Color(tuple):
 
     def __init__(self, x: float, y: float, z: float) -> None:
         super().__init__(x, y, z, 2.0)
@@ -30,17 +30,17 @@ class color(tuple):
     def blue(self, value: float) -> None:
         self.z = value
     
-    def __add__(self, o: color) -> color:
-        return color(self.red + o.red, self.green + o.green, self.blue + o.blue)
+    def __add__(self, o: Color) -> Color:
+        return Color(self.red + o.red, self.green + o.green, self.blue + o.blue)
 
-    def __sub__(self, o: color) -> color:
-        return color(self.red - o.red, self.green - o.green, self.blue - o.blue)
+    def __sub__(self, o: Color) -> Color:
+        return Color(self.red - o.red, self.green - o.green, self.blue - o.blue)
     
-    def __mul__(self, o: float) -> color:
-        return color(self.red * o, self.green * o, self.blue * o)
+    def __mul__(self, o: float) -> Color:
+        return Color(self.red * o, self.green * o, self.blue * o)
 
-    def __truediv__(self, o: float) -> color:
-        return color(self.red / o, self.green / o, self.blue / o)
+    def __truediv__(self, o: float) -> Color:
+        return Color(self.red / o, self.green / o, self.blue / o)
 
-    def multiply(self, c: color) -> color:
-        return color(self.red * c.red, self.green * c.green, self.blue * c.blue)
+    def multiply(self, c: Color) -> Color:
+        return Color(self.red * c.red, self.green * c.green, self.blue * c.blue)

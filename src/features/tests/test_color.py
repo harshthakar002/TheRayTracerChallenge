@@ -1,8 +1,8 @@
-from features.color import color
+from features.color import Color
 from features.equality import is_approximately_equal
 
 def test_color_creation():
-    c = color(-0.5, 0.4, 1.7)
+    c = Color(-0.5, 0.4, 1.7)
     assert is_approximately_equal(c.red, -0.5)
     assert is_approximately_equal(c.green, 0.4)
     assert is_approximately_equal(c.blue, 1.7)
@@ -10,29 +10,29 @@ def test_color_creation():
     assert is_approximately_equal(c.red, 0.1)
 
 def test_color_addition():
-    c1 = color(0.9, 0.6, 0.75)
-    c2 = color(0.7, 0.1, 0.25)
+    c1 = Color(0.9, 0.6, 0.75)
+    c2 = Color(0.7, 0.1, 0.25)
     c3 = c1 + c2
-    assert c3 == color(1.6, 0.7, 1.0)
+    assert c3 == Color(1.6, 0.7, 1.0)
 
 def test_color_subtraction():
-    c1 = color(0.9, 0.6, 0.75)
-    c2 = color(0.7, 0.1, 0.25)
+    c1 = Color(0.9, 0.6, 0.75)
+    c2 = Color(0.7, 0.1, 0.25)
     c3 = c1 - c2
-    assert c3 == color(0.2, 0.5, 0.5)
+    assert c3 == Color(0.2, 0.5, 0.5)
 
 def test_color_scalar_multiplication():
-    c1 = color(0.2, 0.3, 0.4)
+    c1 = Color(0.2, 0.3, 0.4)
     c2 = c1 * 2
-    assert c2 == color(0.4, 0.6, 0.8)
+    assert c2 == Color(0.4, 0.6, 0.8)
 
 def test_color_scalar_division():
-    c1 = color(0.4, 0.6, 0.8)
+    c1 = Color(0.4, 0.6, 0.8)
     c2 = c1 / 2
-    assert c2 == color(0.2, 0.3, 0.4)
+    assert c2 == Color(0.2, 0.3, 0.4)
 
 def test_color_multiplication():
-    c1 = color(1, 0.2, 0.4)
-    c2 = color(0.9, 1, 0.1)
+    c1 = Color(1, 0.2, 0.4)
+    c2 = Color(0.9, 1, 0.1)
     c3 = c1.multiply(c2)
-    assert c3 == color(0.9, 0.2, 0.04)
+    assert c3 == Color(0.9, 0.2, 0.04)

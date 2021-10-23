@@ -1,4 +1,4 @@
-from features.color import color
+from features.color import Color
 
 class Canvas():
     def __init__(self, width: int, height: int) -> None:
@@ -8,12 +8,12 @@ class Canvas():
         for i in range(height):
             self.pixels.append([])
             for j in range(width):
-                self.pixels[i].append(color(0, 0, 0))
+                self.pixels[i].append(Color(0, 0, 0))
     
-    def write_pixel(self, x: int, y: int, c: color) -> None:
+    def write_pixel(self, x: int, y: int, c: Color) -> None:
         self.pixels[y][x] = c
     
-    def pixel_at(self, x: int, y: int) -> color:
+    def pixel_at(self, x: int, y: int) -> Color:
         return self.pixels[y][x]
     
     def vertically_flip(self) -> None:

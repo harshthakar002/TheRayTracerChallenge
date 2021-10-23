@@ -1,6 +1,6 @@
 from canvas.canvas import Canvas
 from canvas.ppm_writer import PPMWriter
-from features.color import color
+from features.color import Color
 
 def test_ppm_header():
     c = Canvas(5, 3)
@@ -11,7 +11,7 @@ def test_ppm_header():
 
 def test_ppm_pixel_data():
     c = Canvas(5, 3)
-    c1, c2, c3 = color(1.5, 0, 0), color(0, 0.5, 0), color(-0.5, 0, 1)
+    c1, c2, c3 = Color(1.5, 0, 0), Color(0, 0.5, 0), Color(-0.5, 0, 1)
     c.write_pixel(0, 0, c1)
     c.write_pixel(2, 1, c2)
     c.write_pixel(4, 2, c3)
@@ -24,7 +24,7 @@ def test_ppm_line_split():
     c = Canvas(10, 2)
     for i in range(c.width):
         for j in range(c.height):
-            c.write_pixel(i, j, color(1, 0.8, 0.6))
+            c.write_pixel(i, j, Color(1, 0.8, 0.6))
     ppm = PPMWriter.write_ppm_from_canvas(c)
     assert ppm[3] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
     assert ppm[4] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"

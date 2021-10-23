@@ -1,6 +1,6 @@
 from features.vector import vector
 from features.point import point
-from features.color import color
+from features.color import Color
 from canvas.canvas import Canvas
 from canvas.ppm_writer import PPMWriter
 
@@ -15,7 +15,7 @@ class projectile:
     def __init__(self, position: point, velocity: vector) -> None:
         self.position = position
         self.velocity = velocity
-        self.color = color(1, 0, 0)
+        self.color = Color(1, 0, 0)
 
 
 def tick(env: environment, proj: projectile) -> projectile:
