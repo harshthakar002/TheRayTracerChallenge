@@ -42,3 +42,10 @@ class Matrix():
     
     def __ne__(self, mat: Matrix) -> bool:
         return not self == mat
+    
+    def transposed_matrix(self) -> Matrix:
+        transposed_matrix = Matrix(self.row_count, self.column_count)
+        for i in range(self.row_count):
+            for j in range(self.column_count):
+                transposed_matrix.set(j, i, self.get(i, j))
+        return transposed_matrix

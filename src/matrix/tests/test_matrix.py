@@ -53,3 +53,12 @@ def test_identity_matrix_generation():
     identity_matrix = Matrix.generate_identity_matrix(3)
     m = Matrix.initialize_from_values([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
     assert identity_matrix == m
+
+def test_matrix_transpose():
+    m = Matrix.initialize_from_values([[0, 9, 3, 0], [9, 8, 0, 8], [1, 8, 5, 3], [0, 0, 5, 8]])
+    transposed_m = Matrix.initialize_from_values([[0, 9, 1, 0], [9, 8, 8, 0], [3, 0, 5, 5], [0, 8, 3, 8]])
+    assert m.transposed_matrix() == transposed_m
+
+def test_identity_matrix_transpose():
+    identity_matrix = Matrix.generate_identity_matrix(3)
+    assert identity_matrix.transposed_matrix() == identity_matrix
