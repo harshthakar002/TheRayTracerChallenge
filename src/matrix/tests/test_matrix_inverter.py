@@ -92,3 +92,14 @@ def test_multiply_product_by_inverse():
     c = MatrixMultiplier.multiply_matrices(a, b)
     b_inverse = MatrixInverter.invert(b)
     assert MatrixMultiplier.multiply_matrices(c, b_inverse) == a
+
+def test_inverting_identity_matrix():
+    identity_matrix = Matrix.generate_identity_matrix(4)
+    identity_matrix_inverse = MatrixInverter.invert(identity_matrix)
+    assert identity_matrix == identity_matrix_inverse
+
+def test_multiply_matrix_by_inverse():
+    m = Matrix.initialize_from_values([[9, 3, 0, 9], [-5, -2, -6, -3], [-4, 9, 6, 4], [-7, 6, 6, 2]])
+    inverse_m = MatrixInverter.invert(m)
+    result = MatrixMultiplier.multiply_matrices(m, inverse_m)
+    assert result == Matrix.generate_identity_matrix(4)
