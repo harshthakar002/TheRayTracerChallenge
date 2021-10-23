@@ -43,3 +43,17 @@ def test_3_x_3_matrix_construction():
     assert is_approximately_equal(mat.get(0, 0), -3)
     assert is_approximately_equal(mat.get(1, 1), -2)
     assert is_approximately_equal(mat.get(2, 2), 1)
+
+def test_matrix_equality():
+    a = matrix(4, 4)
+    a.initialize([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    b = matrix(4, 4)
+    b.initialize([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    assert a == b
+
+def test_matrix_inequality():
+    a = matrix(4, 4)
+    a.initialize([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    b = matrix(4, 4)
+    b.initialize([[2, 3, 4, 5], [6, 7, 8, 9], [8, 7, 6, 5], [4, 3, 2, 1]])
+    assert a != b

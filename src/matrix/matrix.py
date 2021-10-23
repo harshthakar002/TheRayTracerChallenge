@@ -1,5 +1,6 @@
+from __future__ import annotations
 from typing import List
-
+from features.equality import is_approximately_equal
 
 class matrix():
     def __init__(self, row_count: int, column_count: int) -> None:
@@ -19,3 +20,15 @@ class matrix():
     
     def set(self, i: int, j: int, value: float) -> None:
         self.data[i][j] = value
+
+    def __eq__(self, mat: matrix) -> bool:
+        if self.row_count != mat.row_count or self.column_count != mat.column_count:
+            return False
+        for i in range(self.row_count):
+            for j in range(self.column_count):
+                if not is_approximately_equal(self.get(i, j), mat.get(i, j)):
+                    return False
+        return True
+    
+    def __ne__(self, mat: matrix) -> bool:
+        return not self == mat
