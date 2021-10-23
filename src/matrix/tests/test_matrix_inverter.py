@@ -1,5 +1,6 @@
 from matrix.matrix import Matrix
 from matrix.matrix_inverter import MatrixInverter
+from matrix.matrix_multiplier import MatrixMultiplier
 from features.equality import is_approximately_equal
 
 def test_determinant_for_2_x_2_matrix():
@@ -84,3 +85,10 @@ def test_invert_of_matrix_3():
     [-0.02901, -0.14630, -0.10926, 0.12963],
     [0.17778, 0.06667, -0.26667, 0.33333]])
     assert inverse_m == expected_result
+
+def test_multiply_product_by_inverse():
+    a = Matrix.initialize_from_values([[3, -9, 7, 3], [3, -8, 2, -9], [-4, 4, 4, 1], [-6, 5, -1, 1]])
+    b = Matrix.initialize_from_values([[8, 2, 2, 2], [3, -1, 7, 0], [7, 0, 5, 4], [6, -2, 0, 5]])
+    c = MatrixMultiplier.multiply_matrices(a, b)
+    b_inverse = MatrixInverter.invert(b)
+    assert MatrixMultiplier.multiply_matrices(c, b_inverse) == a
