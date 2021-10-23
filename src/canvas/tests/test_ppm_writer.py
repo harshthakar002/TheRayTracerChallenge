@@ -19,3 +19,14 @@ def test_ppm_pixel_data():
     assert ppm[3] == "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
     assert ppm[4] == "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0"
     assert ppm[5] == "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"
+
+def test_ppm_line_split():
+    c = canvas(10, 2)
+    for i in range(c.width):
+        for j in range(c.height):
+            c.write_pixel(i, j, color(1, 0.8, 0.6))
+    ppm = ppm_writer.write_ppm_from_canvas(c)
+    assert ppm[3] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
+    assert ppm[4] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
+    assert ppm[5] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
+    assert ppm[6] == "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
