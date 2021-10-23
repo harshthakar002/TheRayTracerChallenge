@@ -15,3 +15,12 @@ class canvas():
     
     def pixel_at(self, x: int, y: int) -> color:
         return self.pixels[y][x]
+    
+    def vertically_flip(self) -> None:
+        i, j = 0, len(self.pixels) - 1
+        while i < j:
+            temp = self.pixels[i]
+            self.pixels[i] = self.pixels[j]
+            self.pixels[j] = temp
+            i += 1
+            j -= 1
