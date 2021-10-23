@@ -1,14 +1,14 @@
-from matrix.matrix import matrix
+from matrix.matrix import Matrix
 from features.equality import is_approximately_equal
 
 def test_matrix_creation():
-    mat = matrix(4, 4)
+    mat = Matrix(4, 4)
     assert mat.row_count == 4
     assert mat.column_count == 4
     assert mat.data == [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
 def test_matrix_construction():
-    mat = matrix.initialize_from_values([[1, 2, 3, 4], [5.5, 6.5, 7.5, 8.5], [9, 10, 11, 12],[13.5, 14.5, 15.5, 16.5]])
+    mat = Matrix.initialize_from_values([[1, 2, 3, 4], [5.5, 6.5, 7.5, 8.5], [9, 10, 11, 12],[13.5, 14.5, 15.5, 16.5]])
     is_approximately_equal(mat.get(0, 0), 1)
     is_approximately_equal(mat.get(0, 1), 2)
     is_approximately_equal(mat.get(0, 2), 3)
@@ -27,24 +27,24 @@ def test_matrix_construction():
     is_approximately_equal(mat.get(3, 3), 16.5)
 
 def test_2_x_2_matrix_construction():
-    mat = matrix.initialize_from_values([[-3, 5], [1, -2]])
+    mat = Matrix.initialize_from_values([[-3, 5], [1, -2]])
     assert is_approximately_equal(mat.get(0, 0), -3)
     assert is_approximately_equal(mat.get(0, 1), 5)
     assert is_approximately_equal(mat.get(1, 0), 1)
     assert is_approximately_equal(mat.get(1, 1), -2)
 
 def test_3_x_3_matrix_construction():
-    mat = matrix.initialize_from_values([[-3, 5, 0], [1, -2, -7], [0, 1, 1]])
+    mat = Matrix.initialize_from_values([[-3, 5, 0], [1, -2, -7], [0, 1, 1]])
     assert is_approximately_equal(mat.get(0, 0), -3)
     assert is_approximately_equal(mat.get(1, 1), -2)
     assert is_approximately_equal(mat.get(2, 2), 1)
 
 def test_matrix_equality():
-    a = matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
-    b = matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    a = Matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    b = Matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
     assert a == b
 
 def test_matrix_inequality():
-    a = matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
-    b = matrix.initialize_from_values([[2, 3, 4, 5], [6, 7, 8, 9], [8, 7, 6, 5], [4, 3, 2, 1]])
+    a = Matrix.initialize_from_values([[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]])
+    b = Matrix.initialize_from_values([[2, 3, 4, 5], [6, 7, 8, 9], [8, 7, 6, 5], [4, 3, 2, 1]])
     assert a != b
