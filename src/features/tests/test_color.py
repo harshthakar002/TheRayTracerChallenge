@@ -1,13 +1,13 @@
 from features.color import color
-from features.equality import isApproximatelyEqual
+from features.equality import is_approximately_equal
 
 def test_color_creation():
     c = color(-0.5, 0.4, 1.7)
-    assert isApproximatelyEqual(c.red, -0.5)
-    assert isApproximatelyEqual(c.green, 0.4)
-    assert isApproximatelyEqual(c.blue, 1.7)
+    assert is_approximately_equal(c.red, -0.5)
+    assert is_approximately_equal(c.green, 0.4)
+    assert is_approximately_equal(c.blue, 1.7)
     c.x = 0.1
-    assert isApproximatelyEqual(c.red, 0.1)
+    assert is_approximately_equal(c.red, 0.1)
 
 def test_color_addition():
     c1 = color(0.9, 0.6, 0.75)

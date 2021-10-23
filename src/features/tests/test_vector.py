@@ -1,20 +1,20 @@
 from features.tuple import tuple
 from features.vector import vector, ZERO_VECTOR
-from features.equality import isApproximatelyEqual
+from features.equality import is_approximately_equal
 import math
 
 def test_vector_creation():
     v = vector(4.0, -4.0, 3.0)
     assert v == tuple(4.0, -4.0, 3.0, 0.0)
-    assert v.isVector()
-    assert not v.isPoint()
+    assert v.is_vector()
+    assert not v.is_point()
 
 def test_subtract_two_vectors():
     v1 = vector(3, 2, 1)
     v2 = vector(5, 6, 7)
     difference = v1 - v2
-    assert difference.isVector()
-    assert not difference.isPoint()
+    assert difference.is_vector()
+    assert not difference.is_point()
     assert difference == vector(-2, -4, -6)
 
 def test_subtract_from_zero():
@@ -24,15 +24,15 @@ def test_subtract_from_zero():
 
 def test_magnitude():
     v = vector(1, 0, 0)
-    assert isApproximatelyEqual(v.magnitude(), 1)
+    assert is_approximately_equal(v.magnitude(), 1)
     v = vector(0, 1, 0)
-    assert isApproximatelyEqual(v.magnitude(), 1)
+    assert is_approximately_equal(v.magnitude(), 1)
     v = vector(0, 0, 1)
-    assert isApproximatelyEqual(v.magnitude(), 1)
+    assert is_approximately_equal(v.magnitude(), 1)
     v = vector(1, 2, 3)
-    assert isApproximatelyEqual(v.magnitude(), math.sqrt(14))
+    assert is_approximately_equal(v.magnitude(), math.sqrt(14))
     v = vector(-1, -2, -3)
-    assert isApproximatelyEqual(v.magnitude(), math.sqrt(14))
+    assert is_approximately_equal(v.magnitude(), math.sqrt(14))
 
 def test_normalize():
     v = vector(4, 0, 0)

@@ -1,4 +1,4 @@
-from features.equality import isApproximatelyEqual
+from features.equality import is_approximately_equal
 
 
 class tuple:
@@ -19,16 +19,16 @@ class tuple:
         return tuple(self.x / o, self.y / o, self.z / o, self.w / o)
 
     def __eq__(self, o: tuple) -> bool:
-        return isApproximatelyEqual(self.x, o.x) and isApproximatelyEqual(self.y, o.y) and isApproximatelyEqual(self.z, o.z) and isApproximatelyEqual(self.w, o.w)
+        return is_approximately_equal(self.x, o.x) and is_approximately_equal(self.y, o.y) and is_approximately_equal(self.z, o.z) and is_approximately_equal(self.w, o.w)
 
     def __ne__(self, o: tuple) -> bool:
         return not (self == o)
 
-    def isPoint(self) -> bool:
-        return isApproximatelyEqual(self.w, 1.0)
+    def is_point(self) -> bool:
+        return is_approximately_equal(self.w, 1.0)
 
-    def isVector(self) -> bool:
-        return isApproximatelyEqual(self.w, 0.0)
+    def is_vector(self) -> bool:
+        return is_approximately_equal(self.w, 0.0)
     
     def negate(self) -> tuple:
         return tuple(-self.x, -self.y, -self.z, -self.w)

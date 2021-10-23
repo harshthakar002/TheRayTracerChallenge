@@ -1,6 +1,5 @@
 from __future__ import annotations
 from features.tuple import tuple
-from features.equality import isApproximatelyEqual
 
 class color(tuple):
 
