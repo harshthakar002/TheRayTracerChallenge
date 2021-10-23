@@ -53,3 +53,10 @@ def test_inverse_rotation_x():
     half_quarter = Transformer.rotation_x(pi / 4)
     inverse_transform = MatrixInverter.invert(half_quarter)
     assert inverse_transform.multiply_matrix_and_tuple(p) == Point(0, sqrt(2) / 2, (-sqrt(2)) / 2)
+
+def test_rotation_y():
+    p = Point(0, 0, 1)
+    half_quarter = Transformer.rotation_y(pi / 4)
+    full_quarter = Transformer.rotation_y(pi / 2)
+    assert half_quarter.multiply_matrix_and_tuple(p) == Point(sqrt(2) / 2, 0, sqrt(2) / 2)
+    assert full_quarter.multiply_matrix_and_tuple(p) == Point(1, 0, 0)
