@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import List
 from features.equality import is_approximately_equal
+from features.tuple import Tuple
 
 class Matrix():
     def __init__(self, row_count: int, column_count: int) -> None:
@@ -59,3 +60,20 @@ class Matrix():
         for i in range(self.row_count):
             for j in range(self.column_count):
                 self.set(i, j, self.get(i, j) / scalar)
+    
+    def multiply_matrices(self, m: Matrix) -> Matrix:
+        result = []
+        for i in range(self.row_count):
+            result.append([])
+            for k in range(m.column_count):
+                c = 0
+                for j in range(self.column_count):
+                    c += self.get(i, j) * m.get(j, k)
+                result[i].append(c)
+        return Matrix.initialize_from_values(result)
+    
+    def multiply_matrix_and_tuple(self, t: Tuple) -> Tuple:
+        return Tuple(self.get(0, 0) * t.x + self.get(0, 1) * t.y + self.get(0, 2) * t.z + self.get(0, 3) * t.w,
+        self.get(1, 0) * t.x + self.get(1, 1) * t.y + self.get(1, 2) * t.z + self.get(1, 3) * t.w,
+        self.get(2, 0) * t.x + self.get(2, 1) * t.y + self.get(2, 2) * t.z + self.get(2, 3) * t.w,
+        self.get(3, 0) * t.x + self.get(3, 1) * t.y + self.get(3, 2) * t.z + self.get(3, 3) * t.w)

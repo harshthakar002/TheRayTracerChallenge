@@ -1,6 +1,5 @@
 from matrix.matrix import Matrix
 from matrix.matrix_inverter import MatrixInverter
-from matrix.matrix_multiplier import MatrixMultiplier
 from features.equality import is_approximately_equal
 
 def test_determinant_for_2_x_2_matrix():
@@ -89,9 +88,9 @@ def test_invert_of_matrix_3():
 def test_multiply_product_by_inverse():
     a = Matrix.initialize_from_values([[3, -9, 7, 3], [3, -8, 2, -9], [-4, 4, 4, 1], [-6, 5, -1, 1]])
     b = Matrix.initialize_from_values([[8, 2, 2, 2], [3, -1, 7, 0], [7, 0, 5, 4], [6, -2, 0, 5]])
-    c = MatrixMultiplier.multiply_matrices(a, b)
+    c = a.multiply_matrices(b)
     b_inverse = MatrixInverter.invert(b)
-    assert MatrixMultiplier.multiply_matrices(c, b_inverse) == a
+    assert c.multiply_matrices(b_inverse) == a
 
 def test_inverting_identity_matrix():
     identity_matrix = Matrix.generate_identity_matrix(4)
@@ -101,5 +100,5 @@ def test_inverting_identity_matrix():
 def test_multiply_matrix_by_inverse():
     m = Matrix.initialize_from_values([[9, 3, 0, 9], [-5, -2, -6, -3], [-4, 9, 6, 4], [-7, 6, 6, 2]])
     inverse_m = MatrixInverter.invert(m)
-    result = MatrixMultiplier.multiply_matrices(m, inverse_m)
+    result = m.multiply_matrices(inverse_m)
     assert result == Matrix.generate_identity_matrix(4)
