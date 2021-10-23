@@ -13,3 +13,14 @@ def test_matrix_multiplication_with_tuple():
     t = Tuple(1, 2, 3, 1)
     expected_result = Tuple(18, 24, 33, 1)
     assert MatrixMultiplier.multiply_matrix_and_tuple(m, t) == expected_result
+
+def test_matrix_multiplication_with_identity_matrix():
+    m = Matrix.initialize_from_values([[0, 1, 2, 4], [1, 2, 4, 8], [2, 4, 6, 8], [4, 8, 12, 16]])
+    identity_matrix = Matrix.generate_identity_matrix(4)
+    assert MatrixMultiplier.multiply_matrices(m, identity_matrix) == m
+    assert MatrixMultiplier.multiply_matrices(identity_matrix, m) == m
+
+def test_tuple_multiplication_with_identity_matrix():
+    t = Tuple(1, 2, 3, 4)
+    identity_matrix = Matrix.generate_identity_matrix(4)
+    assert MatrixMultiplier.multiply_matrix_and_tuple(identity_matrix, t)
