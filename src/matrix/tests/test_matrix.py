@@ -28,3 +28,18 @@ def test_matrix_construction():
     is_approximately_equal(mat.get(3, 1), 14.5)
     is_approximately_equal(mat.get(3, 2), 15.5)
     is_approximately_equal(mat.get(3, 3), 16.5)
+
+def test_2_x_2_matrix_construction():
+    mat = matrix(2, 2)
+    mat.initialize([[-3, 5], [1, -2]])
+    assert is_approximately_equal(mat.get(0, 0), -3)
+    assert is_approximately_equal(mat.get(0, 1), 5)
+    assert is_approximately_equal(mat.get(1, 0), 1)
+    assert is_approximately_equal(mat.get(1, 1), -2)
+
+def test_3_x_3_matrix_construction():
+    mat = matrix(3, 3)
+    mat.initialize([[-3, 5, 0], [1, -2, -7], [0, 1, 1]])
+    assert is_approximately_equal(mat.get(0, 0), -3)
+    assert is_approximately_equal(mat.get(1, 1), -2)
+    assert is_approximately_equal(mat.get(2, 2), 1)
