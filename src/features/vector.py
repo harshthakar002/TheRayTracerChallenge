@@ -14,9 +14,6 @@ class Vector(Tuple):
         magnitude = self.magnitude()
         return Vector(self.x / magnitude, self.y / magnitude, self.z / magnitude)
 
-    def dotProduct(self, v: Vector) -> float:
-        return (self.x * v.x) + (self.y * v.y) + (self.z * v.z)
-
     def crossProduct(self, v: Vector) -> Vector:
         return Vector((self.y * v.z) - (self.z * v.y), (self.z * v.x) - (self.x * v.z), (self.x * v.y) - (self.y * v.x))
 

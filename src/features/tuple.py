@@ -33,3 +33,6 @@ class Tuple:
     
     def negate(self) -> Tuple:
         return Tuple(-self.x, -self.y, -self.z, -self.w)
+    
+    def dotProduct(self, t: Tuple) -> float:
+        return (self.x * t.x) + (self.y * t.y) + (self.z * t.z) + (self.w * t.w)
