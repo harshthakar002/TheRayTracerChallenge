@@ -25,3 +25,9 @@ class Sphere(Figure):
         t1 = (-b - sqrt(discriminant)) / (2 * a)
         t2 = (-b + sqrt(discriminant)) / (2 * a)
         return [t1, t2]
+    
+    def normal_at(self, point: Point) -> Vector:
+        object_point = self.ray_origin_transform.multiply_matrix_and_tuple(point)
+        object_normal = object_point - Point(0, 0, 0)
+        world_normal = self.ray_origin_transform.transposed_matrix().multiply_matrix_and_tuple(object_normal)
+        return Vector(world_normal.x, world_normal.y, world_normal.z).normalize()

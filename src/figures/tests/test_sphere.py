@@ -7,6 +7,7 @@ from features.equality import is_approximately_equal
 from matrix.matrix import Matrix
 from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
+from math import sqrt, pi
 
 def test_ray_intersects_sphere_at_two_points():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
@@ -77,3 +78,44 @@ def test_translated_sphere_ray_intersection():
     s.set_transform(origin_t, direction_t)
     xs = Intersection.find_intersections_of_ray_and_figure(r, s)
     assert len(xs) == 0
+
+def test_normal_on_x_axis():
+    s = Sphere()
+    n = s.normal_at(Point(1, 0, 0))
+    assert n == Vector(1, 0, 0)
+
+def test_normal_on_y_axis():
+    s = Sphere()
+    n = s.normal_at(Point(0, 1, 0))
+    assert n == Vector(0, 1, 0)
+
+def test_normal_on_z_axis():
+    s = Sphere()
+    n = s.normal_at(Point(0, 0, 1))
+    assert n == Vector(0, 0, 1)
+
+def test_normal_at_a_non_axial_point():
+    s = Sphere()
+    n = s.normal_at(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
+    assert n == Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3)
+
+def test_normal_is_a_normalized_vector():
+    s = Sphere()
+    n = s.normal_at(Point(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
+    assert n == n.normalize()
+
+def test_normal_on_translated_sphere():
+    s = Sphere()
+    object_t, direction_t = FigureTransformer.translation(0, 1, 0)
+    s.set_transform(object_t, direction_t)
+    n = s.normal_at(Point(0, 1.70711, -0.70711))
+    assert n == Vector(0, 0.70711, -0.70711)
+
+def test_normal_on_transformed_sphere():
+    s = Sphere()
+    object_t, direction_t = FigureTransformer.scaling(1, 0.5, 1)
+    s.set_transform(object_t, direction_t)
+    object_t, direction_t = FigureTransformer.rotation_z(pi / 5)
+    s.set_transform(object_t, direction_t)
+    n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
+    assert n == Vector(0, 0.97014, -0.24254)
