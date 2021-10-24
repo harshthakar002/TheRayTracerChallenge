@@ -20,3 +20,47 @@ def test_intersect_sets_object_on_intersection():
     assert is_approximately_equal(xs[0].t, 4.0)
     assert is_approximately_equal(xs[1].t, 6.0)
     assert xs[1].object == s
+
+def test_hit_all_positive_t():
+    s = Sphere()
+    i1 = Intersection(1, s)
+    i2 = Intersection(2, s)
+    xs = [i2, i1]
+    i = Intersection.calculate_hit(xs)
+    assert i == i1
+
+def test_hit_positive_negative_t():
+    s = Sphere()
+    i1 = Intersection(-1, s)
+    i2 = Intersection(1, s)
+    xs = [i2, i1]
+    i = Intersection.calculate_hit(xs)
+    assert i == i2
+
+def test_hit_all_negative_t():
+    s = Sphere()
+    i1 = Intersection(-1, s)
+    i2 = Intersection(-1, s)
+    xs = [i2, i1]
+    i = Intersection.calculate_hit(xs)
+    assert i == None
+
+def test_hit_is_lowest_nonnegative_intersection():
+    s = Sphere()
+    i1 = Intersection(5, s)
+    i2 = Intersection(7, s)
+    i3 = Intersection(-3, s)
+    i4 = Intersection(2, s)
+    xs = [i1, i2, i3, i4]
+    i = Intersection.calculate_hit(xs)
+    assert i == i4
+
+def test_hit_is_lowest_nonnegative_intersection2():
+    s = Sphere()
+    i1 = Intersection(5, s)
+    i2 = Intersection(0, s)
+    i3 = Intersection(-3, s)
+    i4 = Intersection(2, s)
+    xs = [i1, i2, i3, i4]
+    i = Intersection.calculate_hit(xs)
+    assert i == i2

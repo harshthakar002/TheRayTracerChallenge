@@ -16,3 +16,11 @@ class Intersection():
         for intersection_distance in intersection_distances:
             intersections.append(Intersection(intersection_distance, figure))
         return intersections
+    
+    @staticmethod
+    def calculate_hit(intersections: List[Intersection]) -> Intersection:
+        sorted_intersections = sorted(intersections, key=lambda student: student.t)
+        for intersection in sorted_intersections:
+            if intersection.t >= 0:
+                return intersection
+        return None
