@@ -20,6 +20,9 @@ class Vector(Tuple):
     def reflect(self, normal: Vector) -> Vector:
         reflection = self - (normal * 2 * self.dotProduct(normal))
         return Vector(reflection.x, reflection.y, reflection.z)
+    
+    def negate(self) -> Vector:
+        return Vector(-self.x, -self.y, -self.z)
 
 
 ZERO_VECTOR = Vector(0, 0, 0)

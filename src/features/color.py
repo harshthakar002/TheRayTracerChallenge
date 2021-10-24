@@ -44,3 +44,6 @@ class Color(Tuple):
 
     def multiply(self, c: Color) -> Color:
         return Color(self.red * c.red, self.green * c.green, self.blue * c.blue)
+
+BLACK_COLOR = Color(0, 0, 0)
+WHITE_COLOR = Color(1, 1, 1)
