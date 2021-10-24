@@ -5,6 +5,7 @@ from features.point import Point
 from features.vector import Vector
 from features.equality import is_approximately_equal
 from matrix.matrix import Matrix
+from physical.material import Material
 from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
 from math import sqrt, pi
@@ -119,3 +120,15 @@ def test_normal_on_transformed_sphere():
     s.set_transform(object_t, direction_t)
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     assert n == Vector(0, 0.97014, -0.24254)
+
+def test_sphere_has_default_material():
+    s = Sphere()
+    m = s.material
+    assert m == Material()
+
+def test_sphere_may_be_assigned_material():
+    s = Sphere()
+    m = Material()
+    m.ambient = 1
+    s.material = m
+    assert s.material == m

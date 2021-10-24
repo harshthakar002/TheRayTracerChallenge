@@ -5,6 +5,7 @@ from matrix.matrix import Matrix
 from matrix.matrix_inverter import MatrixInverter
 from features.point import Point
 from features.vector import Vector
+from physical.material import Material
 
 class Figure():
 
@@ -14,6 +15,7 @@ class Figure():
         self.ray_origin_transform = Matrix.generate_identity_matrix(4)
         self.direction_transform = Matrix.generate_identity_matrix(4)
         self.ray_direction_transform = Matrix.generate_identity_matrix(4)
+        self.material = Material()
     
     def ray_intersection_distance(self, ray: Ray) -> List[float]:
         raise NotImplementedError('Abstract method')
