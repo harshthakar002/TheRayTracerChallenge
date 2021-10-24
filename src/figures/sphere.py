@@ -14,9 +14,10 @@ class Sphere(Figure):
         super().__init__()
     
     def ray_intersection_distance(self, ray: Ray) -> List[float]:
-        sphere_to_ray = ray.origin - self.origin
-        a = ray.direction.dotProduct(ray.direction)
-        b = 2 * ray.direction.dotProduct(sphere_to_ray)
+        transformed_ray = ray.get_transformed_ray(self.ray_origin_transform, self.ray_direction_transform)
+        sphere_to_ray = transformed_ray.origin - self.origin
+        a = transformed_ray.direction.dotProduct(transformed_ray.direction)
+        b = 2 * transformed_ray.direction.dotProduct(sphere_to_ray)
         c = sphere_to_ray.dotProduct(sphere_to_ray) - 1
         discriminant = (b*b) - (4 * a * c)
         if discriminant < 0:

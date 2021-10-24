@@ -6,6 +6,7 @@ from features.vector import Vector
 from features.equality import is_approximately_equal
 from matrix.matrix import Matrix
 from transformations.figure_transformer import FigureTransformer
+from figures.intersection import Intersection
 
 def test_ray_intersects_sphere_at_two_points():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
@@ -58,3 +59,21 @@ def test_changing_sphere_transformation():
     assert s.direction_transform == Matrix.generate_identity_matrix(4)
     assert s.ray_origin_transform.multiply_matrices(origin_t) == Matrix.generate_identity_matrix(4)
     assert s.ray_direction_transform == Matrix.generate_identity_matrix(4)
+
+def test_scaled_sphere_ray_intersection():
+    s = Sphere()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    origin_t, direction_t = FigureTransformer.scaling(2, 2, 2)
+    s.set_transform(origin_t, direction_t)
+    xs = Intersection.find_intersections_of_ray_and_figure(r, s)
+    assert len(xs) == 2
+    assert is_approximately_equal(xs[0].t, 3)
+    assert is_approximately_equal(xs[1].t, 7)
+
+def test_translated_sphere_ray_intersection():
+    s = Sphere()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    origin_t, direction_t = FigureTransformer.translation(5, 0, 0)
+    s.set_transform(origin_t, direction_t)
+    xs = Intersection.find_intersections_of_ray_and_figure(r, s)
+    assert len(xs) == 0
