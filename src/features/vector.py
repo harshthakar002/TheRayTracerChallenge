@@ -16,6 +16,10 @@ class Vector(Tuple):
 
     def crossProduct(self, v: Vector) -> Vector:
         return Vector((self.y * v.z) - (self.z * v.y), (self.z * v.x) - (self.x * v.z), (self.x * v.y) - (self.y * v.x))
+    
+    def reflect(self, normal: Vector) -> Vector:
+        reflection = self - (normal * 2 * self.dotProduct(normal))
+        return Vector(reflection.x, reflection.y, reflection.z)
 
 
 ZERO_VECTOR = Vector(0, 0, 0)
