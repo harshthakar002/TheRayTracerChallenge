@@ -2,7 +2,7 @@ from typing import Tuple as Group
 from matrix.matrix import Matrix
 from transformations.transformer import Transformer
 
-class RayTransformer():
+class FigureTransformer():
 
     @staticmethod
     def translation(x: float, y: float, z: float) -> Group[Matrix, Matrix]:
