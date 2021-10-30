@@ -4,7 +4,7 @@ from canvas.canvas import Canvas
 from features.point import Point
 from features.vector import Vector
 from features.color import Color
-from physical.lighter import Lighter
+from physical.shader import Shader
 from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
 from canvas.ppm_writer import PPMWriter
@@ -37,7 +37,7 @@ for y in range(100):
         point = r.position(hit.t)
         normal = s.normal_at(point)
         eye = r.direction.negate()
-        color = Lighter.lighting(hit.object.material, light, point, eye, normal)
+        color = Shader.lighting(hit.object.material, light, point, eye, normal)
         c.write_pixel(x, y, color)
         
 ppm = PPMWriter.write_ppm_from_canvas(c)

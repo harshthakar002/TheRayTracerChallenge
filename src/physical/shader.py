@@ -5,7 +5,7 @@ from features.vector import Vector
 from features.color import Color, BLACK_COLOR
 from math import pow
 
-class Lighter():
+class Shader():
 
     @staticmethod
     def lighting(material: Material, light: Light, point: Point, eyev: Vector, normalv: Vector) -> Color:
