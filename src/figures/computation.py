@@ -9,5 +9,10 @@ class Computation():
         self.object = object
         self.point = point
         self.eyev = eyev
-        self.normalv = normalv
+        if normalv.dotProduct(eyev) < 0:
+            self.inside = True
+            self.normalv = normalv.negate()
+        else:
+            self.inside = False
+            self.normalv = normalv
     
