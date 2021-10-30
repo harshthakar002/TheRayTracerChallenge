@@ -79,10 +79,10 @@ def test_default_world_ray_intersection():
 def test_precomputing_state_of_intersection():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = Sphere()
-    i = Intersection.find_intersections_of_ray_and_figure(r, shape)
-    comp = Intersection.prepare_computation(i[0], r)
-    assert is_approximately_equal(comp.t, i[0].t)
-    assert comp.object == i[0].object
+    i = Intersection(4, shape)
+    comp = Intersection.prepare_computation(i, r)
+    assert is_approximately_equal(comp.t, i.t)
+    assert comp.object == i.object
     assert comp.point == Point(0, 0, -1)
     assert comp.eyev == Vector(0, 0, -1)
     assert comp.normalv == Vector(0, 0, -1)
