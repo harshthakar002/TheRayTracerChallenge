@@ -18,7 +18,6 @@ class DefaultWorld(World):
         s2 = Sphere()
         origin_scaling, direction_scaling = FigureTransformer.scaling(0.5, 0.5, 0.5)
         s2.set_transform(origin_scaling, direction_scaling)
-        self.light_sources.append(light)
+        self.light = light
         self.objects.append(s1)
         self.objects.append(s2)
-        

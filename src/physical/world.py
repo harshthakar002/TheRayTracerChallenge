@@ -5,5 +5,5 @@ from figures.figure import Figure
 class World():
 
     def __init__(self) -> None:
-        self.light_sources: List[Light] = []
+        self.light: Light = None
         self.objects: List[Figure] = [] 
