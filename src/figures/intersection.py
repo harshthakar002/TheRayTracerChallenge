@@ -28,6 +28,13 @@ class Intersection():
         return None
     
     @staticmethod
+    def calculate_hit_from_sorted_intersections(sorted_intersections: List[Intersection]) -> Intersection:
+        for intersection in sorted_intersections:
+            if intersection.t >= 0:
+                return intersection
+        return None
+    
+    @staticmethod
     def find_intersections_of_ray_and_world(ray: Ray, world: World) -> List[Intersection]:
         intersections = []
         for object in world.objects:

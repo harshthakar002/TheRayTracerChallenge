@@ -1,3 +1,5 @@
+from figures.intersection import Intersection
+from figures.ray import Ray
 from physical.material import Material
 from physical.point_light import Light
 from features.point import Point
@@ -35,3 +37,12 @@ class Shader():
     @staticmethod
     def shade_hit(world: World, comp: Computation) -> Color:
         return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv)
+
+    @staticmethod
+    def color_at(world: World, ray: Ray) -> Color:
+        intersections = Intersection.find_intersections_of_ray_and_world(ray, world)
+        hit = Intersection.calculate_hit_from_sorted_intersections(intersections)
+        if hit == None:
+            return BLACK_COLOR
+        comps = hit.prepare_computation(ray)
+        return Shader.shade_hit(world, comps)

@@ -72,3 +72,25 @@ def test_shading_an_intersection_from_inside():
     comps = i.prepare_computation(r)
     c = Shader.shade_hit(w, comps)
     assert c == Color(0.90498, 0.90498, 0.90498)
+
+def test_color_when_ray_misses():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 1, 0))
+    c = Shader.color_at(w, r)
+    assert c == Color(0, 0, 0)
+
+def test_color_when_ray_hits():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    c = Shader.color_at(w, r)
+    assert c == Color(0.38066, 0.47583, 0.2855)
+
+def test_color_when_intersection_behind_ray():
+    w = DefaultWorld()
+    outer = w.objects[0]
+    outer.material.ambient = 1
+    inner = w.objects[1]
+    inner.material.ambient = 1
+    r = Ray(Point(0, 0, 0.75), Vector(0, 0, -1))
+    c = Shader.color_at(w, r)
+    assert c == inner.material.color
