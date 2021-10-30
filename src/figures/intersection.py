@@ -34,7 +34,6 @@ class Intersection():
             intersections = intersections + Intersection.find_intersections_of_ray_and_figure(ray, object)
         return sorted(intersections, key=lambda intersection: intersection.t)
 
-    @staticmethod
-    def prepare_computation(intersection: Intersection, ray: Ray) -> Computation:
-        point = ray.position(intersection.t)
-        return Computation(intersection.t, intersection.object, point, ray.direction.negate(), intersection.object.normal_at(point))
+    def prepare_computation(self, ray: Ray) -> Computation:
+        point = ray.position(self.t)
+        return Computation(self.t, self.object, point, ray.direction.negate(), self.object.normal_at(point))

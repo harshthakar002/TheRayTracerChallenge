@@ -80,7 +80,7 @@ def test_precomputing_state_of_intersection():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(4, shape)
-    comp = Intersection.prepare_computation(i, r)
+    comp = i.prepare_computation(r)
     assert is_approximately_equal(comp.t, i.t)
     assert comp.object == i.object
     assert comp.point == Point(0, 0, -1)
@@ -91,14 +91,14 @@ def test_intersection_occurs_on_outside():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(4, shape)
-    comps = Intersection.prepare_computation(i, r)
+    comps = i.prepare_computation(r)
     assert not comps.inside
 
 def test_intersection_occurs_on_inside():
     r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(1, shape)
-    comps = Intersection.prepare_computation(i, r)
+    comps = i.prepare_computation(r)
     assert comps.point == Point(0, 0, 1)
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.inside
