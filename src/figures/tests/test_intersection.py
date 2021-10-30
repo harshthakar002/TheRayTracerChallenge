@@ -4,6 +4,7 @@ from features.equality import is_approximately_equal
 from figures.ray import Ray
 from features.point import Point
 from features.vector import Vector
+from physical.default_world import DefaultWorld
 
 def test_intersection_creation():
     s = Sphere()
@@ -64,3 +65,13 @@ def test_hit_is_lowest_nonnegative_intersection2():
     xs = [i1, i2, i3, i4]
     i = Intersection.calculate_hit(xs)
     assert i == i2
+
+def test_default_world_ray_intersection():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    xs = Intersection.find_intersections_of_ray_and_world(r, w)
+    assert len(xs) == 4
+    assert is_approximately_equal(xs[0].t, 4)
+    assert is_approximately_equal(xs[1].t, 4.5)
+    assert is_approximately_equal(xs[2].t, 5.5)
+    assert is_approximately_equal(xs[3].t, 6)

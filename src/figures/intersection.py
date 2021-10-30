@@ -1,6 +1,7 @@
 from __future__ import annotations
 from figures.ray import Ray
 from figures.figure import Figure
+from physical.world import World
 from typing import List
 
 class Intersection():
@@ -24,3 +25,10 @@ class Intersection():
             if intersection.t >= 0:
                 return intersection
         return None
+    
+    @staticmethod
+    def find_intersections_of_ray_and_world(ray: Ray, world: World) -> List[Intersection]:
+        intersections = []
+        for object in world.objects:
+            intersections = intersections + Intersection.find_intersections_of_ray_and_figure(ray, object)
+        return sorted(intersections, key=lambda intersection: intersection.t)
