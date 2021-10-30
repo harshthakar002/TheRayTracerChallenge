@@ -6,7 +6,7 @@ from matrix.matrix import Matrix
 def test_camera_creation():
     c = Camera(160, 120, pi / 2)
     assert is_approximately_equal(c.hsize, 160)
-    assert is_approximately_equal(c.vside, 120)
+    assert is_approximately_equal(c.vsize, 120)
     assert is_approximately_equal(c.field_of_view, pi / 2)
     assert c.transform == Matrix.generate_identity_matrix(4)
 
