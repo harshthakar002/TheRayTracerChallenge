@@ -24,5 +24,10 @@ class Vector(Tuple):
     def negate(self) -> Vector:
         return Vector(-self.x, -self.y, -self.z)
 
+    @staticmethod
+    def fromtuple(t: Tuple) -> Vector:
+        if not t.is_vector():
+            raise TypeError('Cannot convert non-vector tuple to vector')
+        return Vector(t.x, t.y, t.z)
 
 ZERO_VECTOR = Vector(0, 0, 0)
