@@ -2,6 +2,7 @@ from __future__ import annotations
 from figures.ray import Ray
 from figures.figure import Figure
 from physical.world import World
+from figures.computation import Computation
 from typing import List
 
 class Intersection():
@@ -32,3 +33,8 @@ class Intersection():
         for object in world.objects:
             intersections = intersections + Intersection.find_intersections_of_ray_and_figure(ray, object)
         return sorted(intersections, key=lambda intersection: intersection.t)
+
+    @staticmethod
+    def prepare_computation(intersection: Intersection, ray: Ray) -> Computation:
+        point = ray.position(intersection.t)
+        return Computation(intersection.t, intersection.object, point, ray.direction.negate(), intersection.object.normal_at(point))
