@@ -3,6 +3,8 @@ from physical.point_light import Light
 from features.point import Point
 from features.vector import Vector
 from features.color import Color, BLACK_COLOR
+from physical.world import World
+from figures.computation import Computation
 from math import pow
 
 class Shader():
@@ -29,3 +31,7 @@ class Shader():
             specular = light.intensity * (material.specular * factor)
         
         return ambient + diffuse + specular
+
+    @staticmethod
+    def shade_hit(world: World, comp: Computation) -> Color:
+        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv)

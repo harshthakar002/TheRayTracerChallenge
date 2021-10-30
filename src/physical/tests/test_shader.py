@@ -4,6 +4,9 @@ from physical.material import Material
 from features.point import Point
 from physical.point_light import PointLight
 from features.vector import Vector
+from physical.default_world import DefaultWorld
+from figures.ray import Ray
+from figures.intersection import Intersection
 from math import sqrt
 
 def test_lighting_with_eye_between_light_and_surface():
@@ -50,3 +53,22 @@ def test_lighting_with_light_behind_surface():
     light = PointLight(Color(1, 1, 1), Point(0, 0, 10))
     result = Shader.lighting(m, light, position, eyev, normalv)
     assert result == Color(0.1, 0.1, 0.1)
+
+def test_shading_an_intersection():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = w.objects[0]
+    i = Intersection(4, shape)
+    comps = i.prepare_computation(r)
+    c = Shader.shade_hit(w, comps)
+    assert c == Color(0.38066, 0.47583, 0.2855)
+
+def test_shading_an_intersection_from_inside():
+    w = DefaultWorld()
+    w.light = PointLight(Color(1, 1, 1), Point(0, 0.25, 0))
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = w.objects[1]
+    i = Intersection(0.5, shape)
+    comps = i.prepare_computation(r)
+    c = Shader.shade_hit(w, comps)
+    assert c == Color(0.90498, 0.90498, 0.90498)
