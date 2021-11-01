@@ -49,3 +49,13 @@ class Shader():
             return BLACK_COLOR
         comps = hit.prepare_computation(ray)
         return Shader.shade_hit(world, comps)
+    
+    @staticmethod
+    def is_shadowed(world: World, point: Point) -> bool:
+        v = Vector.fromtuple(world.light.position - point)
+        distance = v.magnitude()
+        direction = v.normalize()
+        r = Ray(point, direction)
+        intersections = Intersection.find_intersections_of_ray_and_world(r, world)
+        h = Intersection.calculate_hit(intersections)
+        return h != None and h.t < distance

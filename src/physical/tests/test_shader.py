@@ -104,3 +104,23 @@ def test_lighting_with_surface_in_shadow():
     in_shadow = True
     result = Shader.lighting(m, light, position, eyev, normalv, in_shadow)
     assert result == Color(0.1, 0.1, 0.1)
+
+def test_no_shadow_when_nothing_is_collinear_with_point_and_light():
+    w = DefaultWorld()
+    p = Point(0, 10, 0)
+    assert not Shader.is_shadowed(w, p)
+
+def test_shadow_when_object_between_point_and_light():
+    w = DefaultWorld()
+    p = Point(10, -10, 10)
+    assert Shader.is_shadowed(w, p)
+
+def test_no_shadow_when_object_behind_light():
+    w = DefaultWorld()
+    p = Point(-20, 20,-20)
+    assert not Shader.is_shadowed(w, p)
+
+def test_no_shadow_when_object_behind_point():
+    w = DefaultWorld()
+    p = Point(-2, 2, -2)
+    assert not Shader.is_shadowed(w, p)
