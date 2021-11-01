@@ -7,7 +7,7 @@ class Matrix():
     def __init__(self, row_count: int, column_count: int) -> None:
         self.row_count = row_count
         self.column_count = column_count
-        self.data = []
+        self.data: List[List[float]] = []
         for i in range(row_count):
             self.data.append([])
             for j in range(column_count):
