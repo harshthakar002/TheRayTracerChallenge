@@ -37,7 +37,7 @@ for y in range(100):
         point = r.position(hit.t)
         normal = s.normal_at(point)
         eye = r.direction.negate()
-        color = Shader.lighting(hit.object.material, light, point, eye, normal)
+        color = Shader.lighting(hit.object.material, light, point, eye, normal, False)
         c.write_pixel(x, y, color)
         
 ppm = PPMWriter.write_ppm_from_canvas(c)

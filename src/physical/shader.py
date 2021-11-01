@@ -12,10 +12,13 @@ from math import pow
 class Shader():
 
     @staticmethod
-    def lighting(material: Material, light: Light, point: Point, eyev: Vector, normalv: Vector) -> Color:
+    def lighting(material: Material, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
         effective_color = Color(material.color.red * light.intensity.red, material.color.green * light.intensity.green, material.color.blue * light.intensity.blue)
         light_vector = Vector(light.position.x - point.x, light.position.y - point.y, light.position.z - point.z).normalize()
         ambient = effective_color * material.ambient
+
+        if in_shadow:
+            return ambient
         light_dot_normal = light_vector.dotProduct(normalv)
         if light_dot_normal < 0:
             diffuse = BLACK_COLOR
@@ -31,12 +34,12 @@ class Shader():
         else:
             factor = pow(reflect_dot_eye, material.shininess)
             specular = light.intensity * (material.specular * factor)
-        
+
         return ambient + diffuse + specular
 
     @staticmethod
     def shade_hit(world: World, comp: Computation) -> Color:
-        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv)
+        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv, False)
 
     @staticmethod
     def color_at(world: World, ray: Ray) -> Color:
