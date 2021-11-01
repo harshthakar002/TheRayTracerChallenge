@@ -13,11 +13,10 @@ class Sphere(Figure):
         self.radius = 1
         super().__init__()
     
-    def ray_intersection_distance(self, ray: Ray) -> List[float]:
-        transformed_ray = ray.get_transformed_ray(self.ray_origin_transform, self.ray_direction_transform)
-        sphere_to_ray = transformed_ray.origin - self.origin
-        a = transformed_ray.direction.dotProduct(transformed_ray.direction)
-        b = 2 * transformed_ray.direction.dotProduct(sphere_to_ray)
+    def local_intersection_distance(self, ray: Ray) -> List[float]:
+        sphere_to_ray = ray.origin - self.origin
+        a = ray.direction.dotProduct(ray.direction)
+        b = 2 * ray.direction.dotProduct(sphere_to_ray)
         c = sphere_to_ray.dotProduct(sphere_to_ray) - 1
         discriminant = (b*b) - (4 * a * c)
         if discriminant < 0:
@@ -26,8 +25,5 @@ class Sphere(Figure):
         t2 = (-b + sqrt(discriminant)) / (2 * a)
         return [t1, t2]
     
-    def normal_at(self, point: Point) -> Vector:
-        object_point = self.ray_origin_transform.multiply_matrix_and_tuple(point)
-        object_normal = object_point - Point(0, 0, 0)
-        world_normal = self.ray_origin_transform.transposed_matrix().multiply_matrix_and_tuple(object_normal)
-        return Vector(world_normal.x, world_normal.y, world_normal.z).normalize()
+    def local_normal_at(self, point: Point) -> Vector:
+        return Vector.fromtuple(point - Point(0, 0, 0))
