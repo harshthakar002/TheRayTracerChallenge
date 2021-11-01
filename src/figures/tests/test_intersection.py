@@ -1,9 +1,10 @@
 from figures.intersection import Intersection
 from figures.sphere import Sphere
-from features.equality import is_approximately_equal
+from features.equality import EPSILON, is_approximately_equal
 from figures.ray import Ray
 from features.point import Point
 from features.vector import Vector
+from transformations.figure_transformer import FigureTransformer
 from physical.default_world import DefaultWorld
 
 def test_intersection_creation():
@@ -103,4 +104,14 @@ def test_intersection_occurs_on_inside():
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.inside
     assert comps.normalv == Vector(0, 0, -1)
+
+def test_hit_should_offset_the_point():
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 0, 1)
+    shape.set_transform(origin_transform, direction_transform)
+    i = Intersection(5, shape)
+    comps = Intersection.prepare_computation(i, r)
+    assert comps.over_point.z < -EPSILON / 2
+    assert comps.point.z > comps.over_point.z
 

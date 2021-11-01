@@ -1,6 +1,7 @@
 from figures.figure import Figure
 from features.point import Point
 from features.vector import Vector
+from features.equality import EPSILON
 
 class Computation():
 
@@ -15,4 +16,5 @@ class Computation():
         else:
             self.inside = False
             self.normalv = normalv
+        self.over_point = Point.fromTuple(self.point + (self.normalv * EPSILON))
     

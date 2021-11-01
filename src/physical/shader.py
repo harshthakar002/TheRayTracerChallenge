@@ -39,7 +39,8 @@ class Shader():
 
     @staticmethod
     def shade_hit(world: World, comp: Computation) -> Color:
-        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv, False)
+        is_shadowed = Shader.is_shadowed(world, comp.over_point)
+        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed)
 
     @staticmethod
     def color_at(world: World, ray: Ray) -> Color:

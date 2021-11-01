@@ -5,8 +5,11 @@ from features.point import Point
 from physical.point_light import PointLight
 from features.vector import Vector
 from physical.default_world import DefaultWorld
+from physical.world import World
 from figures.ray import Ray
 from figures.intersection import Intersection
+from figures.sphere import Sphere
+from transformations.figure_transformer import FigureTransformer
 from math import sqrt
 
 def test_lighting_with_eye_between_light_and_surface():
@@ -124,3 +127,17 @@ def test_no_shadow_when_object_behind_point():
     w = DefaultWorld()
     p = Point(-2, 2, -2)
     assert not Shader.is_shadowed(w, p)
+
+def test_shade_hit_is_given_an_intersection_in_shadow():
+    w = World()
+    w.light = PointLight(Color(1, 1, 1), Point(0, 0, -10))
+    s1 = Sphere()
+    s2 = Sphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 0, 10)
+    s2.set_transform(origin_transform, direction_transform)
+    w.objects += [s1, s2]
+    r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
+    i = Intersection(4, s2)
+    comps = Intersection.prepare_computation(i, r)
+    c = Shader.shade_hit(w, comps)
+    assert c == Color(0.1, 0.1, 0.1)

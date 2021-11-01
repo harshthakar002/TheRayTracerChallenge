@@ -12,6 +12,8 @@ class Vector(Tuple):
 
     def normalize(self) -> Vector:
         magnitude = self.magnitude()
+        if (magnitude == 0):
+            return self
         return Vector(self.x / magnitude, self.y / magnitude, self.z / magnitude)
 
     def crossProduct(self, v: Vector) -> Vector:
