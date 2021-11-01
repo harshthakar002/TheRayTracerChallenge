@@ -70,7 +70,7 @@ world.objects = [floor, left_wall, right_wall, middle, left, right]
 world.light = light
 
 transform = ViewTransformer.view_transform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0))
-camera = Camera(100, 50, pi / 3, transform)
+camera = Camera(1000, 500, pi / 3, transform)
 canvas = Renderer.render(camera, world)
 
 ppm = PPMWriter.write_ppm_from_canvas(canvas)
