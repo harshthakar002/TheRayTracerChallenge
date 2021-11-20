@@ -17,6 +17,7 @@ from patterns.gradient_pattern import GradientPattern
 from patterns.ring_pattern import RingPattern
 from patterns.checker_pattern import CheckerPattern
 from patterns.solid_pattern import SolidPattern
+from patterns.blended_pattern import BlendedPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
@@ -49,7 +50,10 @@ middle = Sphere()
 origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0.5)
 middle.set_transform(origin_transform, direction_transform)
 middle.material.color = Color(0, 0, 1)
-middle.material.pattern = CheckerPattern(SolidPattern(Color(0, 0, 1)), SolidPattern(Color(1, 1, 1)))
+pattern1 = CheckerPattern(SolidPattern(Color(0, 0, 1)), SolidPattern(Color(1, 1, 1)))
+pattern2 = CheckerPattern(SolidPattern(Color(1, 0, 0)), SolidPattern(Color(0, 0, 0)))
+pattern2.set_transform(Transformer.scaling(0.3, 0.3, 0.3))
+middle.material.pattern = BlendedPattern(pattern1, pattern2)
 middle.material.pattern.set_transform(Transformer.scaling(0.5, 0.5, 0.5))
 middle.material.diffuse = 1
 middle.material.specular = 1
