@@ -8,13 +8,14 @@ from features.color import Color, BLACK_COLOR
 from physical.world import World
 from figures.computation import Computation
 from math import pow
+from figures.figure import Figure
 
 class Shader():
 
     @staticmethod
-    def lighting(material: Material, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
+    def lighting(material: Material, object: Figure, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
         if material.pattern != None:
-            color = material.pattern.color_at(point)
+            color = material.pattern.color_at_object_point(object, point)
         else:
             color = material.color
         effective_color = Color(color.red * light.intensity.red, color.green * light.intensity.green, color.blue * light.intensity.blue)
@@ -44,7 +45,7 @@ class Shader():
     @staticmethod
     def shade_hit(world: World, comp: Computation) -> Color:
         is_shadowed = Shader.is_shadowed(world, comp.over_point)
-        return Shader.lighting(comp.object.material, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed)
+        return Shader.lighting(comp.object.material, comp.object, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed)
 
     @staticmethod
     def color_at(world: World, ray: Ray) -> Color:

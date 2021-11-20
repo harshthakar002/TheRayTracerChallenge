@@ -15,47 +15,52 @@ from patterns.stripe_pattern import StripePattern
 
 def test_lighting_with_eye_between_light_and_surface():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 0, -10))
-    result = Shader.lighting(m, light, position, eyev, normalv, False)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, False)
     assert result == Color(1.9, 1.9, 1.9)
 
 def test_lighting_with_eye_between_light_and_surface_at_45():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, sqrt(2) / 2, -sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 0, -10))
-    result = Shader.lighting(m, light, position, eyev, normalv, False)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, False)
     assert result == Color(1.0, 1.0, 1.0)
 
 def test_lighting_with_eye_opposite_surface_at_45():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 10, -10))
-    result = Shader.lighting(m, light, position, eyev, normalv, False)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, False)
     assert result == Color(0.7364, 0.7364, 0.7364)
 
 def test_lighting_with_eye_in_path_of_reflection():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, -sqrt(2) / 2, -sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 10, -10))
-    result = Shader.lighting(m, light, position, eyev, normalv, False)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, False)
     assert result == Color(1.6364, 1.6364, 1.6364)
 
 def test_lighting_with_light_behind_surface():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 0, 10))
-    result = Shader.lighting(m, light, position, eyev, normalv, False)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, False)
     assert result == Color(0.1, 0.1, 0.1)
 
 def test_shading_an_intersection():
@@ -101,12 +106,13 @@ def test_color_when_intersection_behind_ray():
 
 def test_lighting_with_surface_in_shadow():
     m = Material()
+    s = Sphere()
     position = Point(0, 0, 0)
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Color(1, 1, 1), Point(0, 0, -10))
     in_shadow = True
-    result = Shader.lighting(m, light, position, eyev, normalv, in_shadow)
+    result = Shader.lighting(m, s, light, position, eyev, normalv, in_shadow)
     assert result == Color(0.1, 0.1, 0.1)
 
 def test_no_shadow_when_nothing_is_collinear_with_point_and_light():
@@ -145,6 +151,7 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
 
 def test_lighting_with_pattern_applied():
     m = Material()
+    s = Sphere()
     m.pattern = StripePattern(WHITE_COLOR, BLACK_COLOR)
     m.ambient = 1
     m.diffuse = 0
@@ -152,7 +159,7 @@ def test_lighting_with_pattern_applied():
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(WHITE_COLOR, Point(0, 0, -10))
-    c1 = Shader.lighting(m, light, Point(0.9, 0, 0), eyev, normalv, False)
-    c2 = Shader.lighting(m, light, Point(1.1, 0, 0), eyev, normalv, False)
+    c1 = Shader.lighting(m, s, light, Point(0.9, 0, 0), eyev, normalv, False)
+    c2 = Shader.lighting(m, s, light, Point(1.1, 0, 0), eyev, normalv, False)
     assert c1 == WHITE_COLOR
     assert c2 == BLACK_COLOR

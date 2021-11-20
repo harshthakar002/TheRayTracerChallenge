@@ -12,6 +12,7 @@ from transformations.view_transformer import ViewTransformer
 from physical.renderer import Renderer
 from canvas.ppm_writer import PPMWriter
 from patterns.stripe_pattern import StripePattern
+from transformations.transformer import Transformer
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
@@ -41,6 +42,7 @@ origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0
 middle.set_transform(origin_transform, direction_transform)
 middle.material.color = Color(0, 0, 1)
 middle.material.pattern = StripePattern(Color(0, 0, 1), Color(1, 1, 1))
+middle.material.pattern.set_transform(Transformer.scaling(0.5, 0.5, 0.5))
 middle.material.diffuse = 1
 middle.material.specular = 1
 
@@ -61,6 +63,8 @@ origin_transform, direction_transform = FigureTransformer.scaling(0.33, 0.33, 0.
 left.set_transform(origin_transform, direction_transform)
 left.material.color = Color(1, 0, 0)
 left.material.pattern = StripePattern(Color(1, 0 , 0), Color(1, 1, 1))
+left.material.pattern.set_transform(Transformer.scaling(0.1, 0.1, 0.1))
+left.material.pattern.set_transform(Transformer.rotation_z(pi / 2))
 left.material.diffuse = 1
 left.material.specular = 1
 

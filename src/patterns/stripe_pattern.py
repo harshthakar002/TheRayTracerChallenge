@@ -8,6 +8,7 @@ class StripePattern(Pattern):
     def __init__(self, color1: Color, color2: Color) -> None:
         self.color1 = color1
         self.color2 = color2
+        super().__init__()
     
     def color_at(self, point: Point) -> Color:
         if floor(point.x) % 2:
