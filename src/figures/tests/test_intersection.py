@@ -147,3 +147,14 @@ def test_refractive_index_calculations_in_computations():
     comps = xs[5].prepare_computation(r, xs)
     assert is_approximately_equal(comps.n1, 1.5)
     assert is_approximately_equal(comps.n2, 1.0)
+
+def test_under_point_is_offset_below_the_surface():
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = GlassSphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 0, 1)
+    shape.set_transform(origin_transform, direction_transform)
+    i = Intersection(5, shape)
+    xs = [i]
+    comps = i.prepare_computation(r, xs)
+    assert comps.under_point.z > EPSILON / 2
+    assert comps.point.z < comps.under_point.z

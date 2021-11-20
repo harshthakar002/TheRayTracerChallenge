@@ -17,6 +17,7 @@ class Computation():
             self.inside = False
             self.normalv = normalv
         self.over_point = Point.fromTuple(self.point + (self.normalv * EPSILON))
+        self.under_point = Point.fromTuple(self.point - (self.normalv * EPSILON))
         self.n1 = n1
         self.n2 = n2
     
