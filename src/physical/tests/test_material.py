@@ -9,4 +9,6 @@ def test_default_material():
     assert is_approximately_equal(m.diffuse, 0.9)
     assert is_approximately_equal(m.specular, 0.9)
     assert is_approximately_equal(m.shininess, 200.0)
+    assert is_approximately_equal(m.transparency, 0.0)
+    assert is_approximately_equal(m.refractive_index, 1.0)
     assert m.pattern == None
