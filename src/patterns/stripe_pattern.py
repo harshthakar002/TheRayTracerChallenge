@@ -1,0 +1,15 @@
+from patterns.pattern import Pattern
+from features.point import Point
+from features.color import Color
+from math import floor
+
+class StripePattern(Pattern):
+
+    def __init__(self, color1: Color, color2: Color) -> None:
+        self.color1 = color1
+        self.color2 = color2
+    
+    def color_at(self, point: Point) -> Color:
+        if floor(point.x) % 2:
+            return self.color2
+        return self.color1
