@@ -15,10 +15,11 @@ from patterns.stripe_pattern import StripePattern
 from transformations.transformer import Transformer
 from patterns.gradient_pattern import GradientPattern
 from patterns.ring_pattern import RingPattern
+from patterns.checker_pattern import CheckerPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
-floor.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+floor.material.pattern = CheckerPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
 floor.material.specular = 1
 
 left_wall = Plane()
@@ -47,7 +48,7 @@ middle = Sphere()
 origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0.5)
 middle.set_transform(origin_transform, direction_transform)
 middle.material.color = Color(0, 0, 1)
-middle.material.pattern = StripePattern(Color(0, 0, 1), Color(1, 1, 1))
+middle.material.pattern = CheckerPattern(Color(0, 0, 1), Color(1, 1, 1))
 middle.material.pattern.set_transform(Transformer.scaling(0.5, 0.5, 0.5))
 middle.material.diffuse = 1
 middle.material.specular = 1
@@ -81,7 +82,7 @@ world.objects = [floor, left_wall, right_wall, middle, left, right]
 world.light = light
 
 transform = ViewTransformer.view_transform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0))
-camera = Camera(250, 125, pi / 3, transform)
+camera = Camera(500, 250, pi / 3, transform)
 canvas = Renderer.render(camera, world)
 
 ppm = PPMWriter.write_ppm_from_canvas(canvas)
