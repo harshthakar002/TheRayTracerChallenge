@@ -27,3 +27,10 @@ class Sphere(Figure):
     
     def local_normal_at(self, point: Point) -> Vector:
         return Vector.fromtuple(point - Point(0, 0, 0))
+
+class GlassSphere(Sphere):
+
+    def __init__(self):
+        super().__init__()
+        self.material.transparency = 1.0
+        self.material.refractive_index = 1.5

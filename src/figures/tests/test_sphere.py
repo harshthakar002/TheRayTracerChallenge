@@ -1,6 +1,6 @@
 from features.vector import Vector
 from figures.ray import Ray
-from figures.sphere import Sphere
+from figures.sphere import Sphere, GlassSphere
 from features.point import Point
 from features.vector import Vector
 from features.equality import is_approximately_equal
@@ -132,3 +132,10 @@ def test_sphere_may_be_assigned_material():
     m.ambient = 1
     s.material = m
     assert s.material == m
+
+def test_glass_sphere():
+    s = GlassSphere()
+    assert s.origin_transform == Matrix.generate_identity_matrix(4)
+    assert s.direction_transform == Matrix.generate_identity_matrix(4)
+    assert is_approximately_equal(s.material.transparency, 1.0)
+    assert is_approximately_equal(s.material.refractive_index, 1.5)
