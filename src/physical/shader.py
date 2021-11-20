@@ -53,7 +53,7 @@ class Shader():
         hit = Intersection.calculate_hit_from_sorted_intersections(intersections)
         if hit == None:
             return BLACK_COLOR
-        comps = hit.prepare_computation(ray)
+        comps = hit.prepare_computation(ray, intersections)
         return Shader.shade_hit(world, comps)
     
     @staticmethod

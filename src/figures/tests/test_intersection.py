@@ -1,5 +1,5 @@
 from figures.intersection import Intersection
-from figures.sphere import Sphere
+from figures.sphere import GlassSphere, Sphere
 from features.equality import EPSILON, is_approximately_equal
 from figures.ray import Ray
 from features.point import Point
@@ -81,7 +81,7 @@ def test_precomputing_state_of_intersection():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(4, shape)
-    comp = i.prepare_computation(r)
+    comp = i.prepare_computation(r, [i])
     assert is_approximately_equal(comp.t, i.t)
     assert comp.object == i.object
     assert comp.point == Point(0, 0, -1)
@@ -92,14 +92,14 @@ def test_intersection_occurs_on_outside():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(4, shape)
-    comps = i.prepare_computation(r)
+    comps = i.prepare_computation(r, [i])
     assert not comps.inside
 
 def test_intersection_occurs_on_inside():
     r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
     shape = Sphere()
     i = Intersection(1, shape)
-    comps = i.prepare_computation(r)
+    comps = i.prepare_computation(r, [i])
     assert comps.point == Point(0, 0, 1)
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.inside
@@ -111,7 +111,39 @@ def test_hit_should_offset_the_point():
     origin_transform, direction_transform = FigureTransformer.translation(0, 0, 1)
     shape.set_transform(origin_transform, direction_transform)
     i = Intersection(5, shape)
-    comps = Intersection.prepare_computation(i, r)
+    comps = i.prepare_computation(r, [i])
     assert comps.over_point.z < -EPSILON / 2
     assert comps.point.z > comps.over_point.z
 
+def test_refractive_index_calculations_in_computations():
+    a = GlassSphere()
+    origin_transform, direction_transform = FigureTransformer.scaling(2, 2, 2)
+    a.set_transform(origin_transform, direction_transform)
+    a.material.refractive_index = 1.5
+    b = GlassSphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 0, -0.25)
+    b.set_transform(origin_transform, direction_transform)
+    b.material.refractive_index = 2.0
+    c = GlassSphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 0, 0.25)
+    c.material.refractive_index = 2.5
+    r = Ray(Point(0, 0, -4), Vector(0, 0, 1))
+    xs = [Intersection(2, a), Intersection(2.75, b), Intersection(3.25, c), Intersection(4.75, b), Intersection(5.25, c), Intersection(6, a)]
+    comps = xs[0].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 1.0)
+    assert is_approximately_equal(comps.n2, 1.5)
+    comps = xs[1].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 1.5)
+    assert is_approximately_equal(comps.n2, 2.0)
+    comps = xs[2].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 2.0)
+    assert is_approximately_equal(comps.n2, 2.5)
+    comps = xs[3].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 2.5)
+    assert is_approximately_equal(comps.n2, 2.5)
+    comps = xs[4].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 2.5)
+    assert is_approximately_equal(comps.n2, 1.5)
+    comps = xs[5].prepare_computation(r, xs)
+    assert is_approximately_equal(comps.n1, 1.5)
+    assert is_approximately_equal(comps.n2, 1.0)

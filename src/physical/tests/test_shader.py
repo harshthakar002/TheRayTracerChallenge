@@ -69,7 +69,7 @@ def test_shading_an_intersection():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     shape = w.objects[0]
     i = Intersection(4, shape)
-    comps = i.prepare_computation(r)
+    comps = i.prepare_computation(r, [i])
     c = Shader.shade_hit(w, comps)
     assert c == Color(0.38066, 0.47583, 0.2855)
 
@@ -79,7 +79,7 @@ def test_shading_an_intersection_from_inside():
     r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
     shape = w.objects[1]
     i = Intersection(0.5, shape)
-    comps = i.prepare_computation(r)
+    comps = i.prepare_computation(r, [i])
     c = Shader.shade_hit(w, comps)
     assert c == Color(0.90498, 0.90498, 0.90498)
 
@@ -146,7 +146,7 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
     w.objects += [s1, s2]
     r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
     i = Intersection(4, s2)
-    comps = Intersection.prepare_computation(i, r)
+    comps = i.prepare_computation(r, [i])
     c = Shader.shade_hit(w, comps)
     assert c == Color(0.1, 0.1, 0.1)
 

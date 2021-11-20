@@ -5,7 +5,7 @@ from features.equality import EPSILON
 
 class Computation():
 
-    def __init__(self, t: float, object: Figure, point: Point, eyev: Vector, normalv: Vector) -> None:
+    def __init__(self, t: float, object: Figure, point: Point, eyev: Vector, normalv: Vector, n1: float, n2: float) -> None:
         self.t = t
         self.object = object
         self.point = point
@@ -17,4 +17,6 @@ class Computation():
             self.inside = False
             self.normalv = normalv
         self.over_point = Point.fromTuple(self.point + (self.normalv * EPSILON))
+        self.n1 = n1
+        self.n2 = n2
     

@@ -41,6 +41,23 @@ class Intersection():
             intersections = intersections + Intersection.find_intersections_of_ray_and_figure(ray, object)
         return sorted(intersections, key=lambda intersection: intersection.t)
 
-    def prepare_computation(self, ray: Ray) -> Computation:
+    def prepare_computation(self, ray: Ray, xs: List[Intersection]) -> Computation:
         point = ray.position(self.t)
-        return Computation(self.t, self.object, point, ray.direction.negate(), self.object.normal_at(point))
+        containers: List[Figure] = []
+        for intersection in xs:
+            if intersection == self:
+                if len(containers) == 0:
+                    n1 = 1.0
+                else:
+                    n1 = containers[-1].material.refractive_index
+            if intersection.object in containers:
+                containers.remove(intersection.object)
+            else:
+                containers.append(intersection.object)
+            
+            if intersection == self:
+                if len(containers) == 0:
+                    n2 = 1.0
+                else:
+                    n2 = containers[-1].material.refractive_index
+        return Computation(self.t, self.object, point, ray.direction.negate(), self.object.normal_at(point), n1, n2)
