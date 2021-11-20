@@ -1,4 +1,4 @@
-from features.color import Color
+from features.color import Color, WHITE_COLOR, BLACK_COLOR
 from physical.shader import Shader
 from physical.material import Material
 from features.point import Point
@@ -11,6 +11,7 @@ from figures.intersection import Intersection
 from figures.sphere import Sphere
 from transformations.figure_transformer import FigureTransformer
 from math import sqrt
+from patterns.stripe_pattern import StripePattern
 
 def test_lighting_with_eye_between_light_and_surface():
     m = Material()
@@ -141,3 +142,17 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
     comps = Intersection.prepare_computation(i, r)
     c = Shader.shade_hit(w, comps)
     assert c == Color(0.1, 0.1, 0.1)
+
+def test_lighting_with_pattern_applied():
+    m = Material()
+    m.pattern = StripePattern(WHITE_COLOR, BLACK_COLOR)
+    m.ambient = 1
+    m.diffuse = 0
+    m.specular = 0
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(WHITE_COLOR, Point(0, 0, -10))
+    c1 = Shader.lighting(m, light, Point(0.9, 0, 0), eyev, normalv, False)
+    c2 = Shader.lighting(m, light, Point(1.1, 0, 0), eyev, normalv, False)
+    assert c1 == WHITE_COLOR
+    assert c2 == BLACK_COLOR

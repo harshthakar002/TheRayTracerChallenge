@@ -13,7 +13,11 @@ class Shader():
 
     @staticmethod
     def lighting(material: Material, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
-        effective_color = Color(material.color.red * light.intensity.red, material.color.green * light.intensity.green, material.color.blue * light.intensity.blue)
+        if material.pattern != None:
+            color = material.pattern.color_at(point)
+        else:
+            color = material.color
+        effective_color = Color(color.red * light.intensity.red, color.green * light.intensity.green, color.blue * light.intensity.blue)
         light_vector = Vector(light.position.x - point.x, light.position.y - point.y, light.position.z - point.z).normalize()
         ambient = effective_color * material.ambient
 
