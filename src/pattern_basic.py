@@ -13,6 +13,7 @@ from physical.renderer import Renderer
 from canvas.ppm_writer import PPMWriter
 from patterns.stripe_pattern import StripePattern
 from transformations.transformer import Transformer
+from patterns.gradient_pattern import GradientPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
@@ -52,7 +53,8 @@ right.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.scaling(0.5, 0.5, 0.5)
 right.set_transform(origin_transform, direction_transform)
 right.material.color = Color(0.0, 1, 0.0)
-right.material.pattern = StripePattern(Color(0, 1, 0), Color(1, 1, 1))
+right.material.pattern = GradientPattern(Color(0, 1, 0), Color(0, 0, 1))
+right.material.pattern.set_transform(Transformer.scaling(0.4, 0.4, 0.4))
 right.material.diffuse = 1
 right.material.specular = 1
 
