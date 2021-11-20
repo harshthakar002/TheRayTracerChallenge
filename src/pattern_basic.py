@@ -14,10 +14,11 @@ from canvas.ppm_writer import PPMWriter
 from patterns.stripe_pattern import StripePattern
 from transformations.transformer import Transformer
 from patterns.gradient_pattern import GradientPattern
+from patterns.ring_pattern import RingPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
-floor.material.pattern = StripePattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+floor.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
 floor.material.specular = 1
 
 left_wall = Plane()
@@ -27,7 +28,9 @@ origin_transform, direction_transform = FigureTransformer.rotation_y(-pi / 4)
 left_wall.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
 left_wall.set_transform(origin_transform, direction_transform)
-left_wall.material = floor.material
+left_wall.material.color = Color(1, 0.9, 0.9)
+left_wall.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+left_wall.material.specular = 1
 
 right_wall = Plane()
 origin_transform, direction_transform = FigureTransformer.translation(0, 0, 5)
@@ -36,7 +39,9 @@ origin_transform, direction_transform = FigureTransformer.rotation_y(pi / 4)
 right_wall.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
 right_wall.set_transform(origin_transform, direction_transform)
-right_wall.material = floor.material
+right_wall.material.color = Color(1, 0.9, 0.9)
+right_wall.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+right_wall.material.specular = 1
 
 middle = Sphere()
 origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0.5)
