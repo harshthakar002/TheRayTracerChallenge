@@ -5,6 +5,7 @@ from figures.sphere import Sphere
 from transformations.figure_transformer import FigureTransformer
 from transformations.transformer import Transformer
 from patterns.solid_pattern import SolidPattern
+from figures.sphere import Sphere
 
 def test_create_a_stripe_pattern():
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
@@ -13,24 +14,27 @@ def test_create_a_stripe_pattern():
 
 def test_stripe_pattern_is_constant_in_y():
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
-    assert pattern.color_at(Point(0, 0, 0)) == WHITE_COLOR
-    assert pattern.color_at(Point(0, 1, 0)) == WHITE_COLOR
-    assert pattern.color_at(Point(0, 2, 0)) == WHITE_COLOR
+    s = Sphere()
+    assert pattern.color_at_object_point(s, Point(0, 0, 0)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(0, 1, 0)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(0, 2, 0)) == WHITE_COLOR
 
 def test_stripe_pattern_is_constant_in_z():
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
-    assert pattern.color_at(Point(0, 0, 0)) == WHITE_COLOR
-    assert pattern.color_at(Point(0, 0, 1)) == WHITE_COLOR
-    assert pattern.color_at(Point(0, 0, 2)) == WHITE_COLOR
+    s = Sphere()
+    assert pattern.color_at_object_point(s, Point(0, 0, 0)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(0, 0, 1)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(0, 0, 2)) == WHITE_COLOR
 
 def test_stripe_pattern_alternates_in_x():
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
-    assert pattern.color_at(Point(0, 0, 0)) == WHITE_COLOR
-    assert pattern.color_at(Point(0.9, 0, 1)) == WHITE_COLOR
-    assert pattern.color_at(Point(1, 0, 0)) == BLACK_COLOR
-    assert pattern.color_at(Point(-0.1, 0, 0)) == BLACK_COLOR
-    assert pattern.color_at(Point(-1, 0, 0)) == BLACK_COLOR
-    assert pattern.color_at(Point(-1.1, 0, 0)) == WHITE_COLOR
+    s = Sphere()
+    assert pattern.color_at_object_point(s, Point(0, 0, 0)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(0.9, 0, 1)) == WHITE_COLOR
+    assert pattern.color_at_object_point(s, Point(1, 0, 0)) == BLACK_COLOR
+    assert pattern.color_at_object_point(s, Point(-0.1, 0, 0)) == BLACK_COLOR
+    assert pattern.color_at_object_point(s, Point(-1, 0, 0)) == BLACK_COLOR
+    assert pattern.color_at_object_point(s, Point(-1.1, 0, 0)) == WHITE_COLOR
 
 def test_stripes_with_object_transformation():
     object = Sphere()

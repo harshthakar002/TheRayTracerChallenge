@@ -21,7 +21,11 @@ from patterns.blended_pattern import BlendedPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
-floor.material.pattern = CheckerPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1)))
+pattern1 = CheckerPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1)))
+pattern1.set_transform(Transformer.scaling(0.1, 0.1, 0.1))
+pattern2 = CheckerPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(1, 0.1, 0.1)))
+pattern2.set_transform(Transformer.scaling(0.1, 0.1, 0.1))
+floor.material.pattern = CheckerPattern(pattern1, pattern2)
 floor.material.specular = 1
 
 left_wall = Plane()
