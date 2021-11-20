@@ -12,6 +12,7 @@ from figures.sphere import Sphere
 from transformations.figure_transformer import FigureTransformer
 from math import sqrt
 from patterns.stripe_pattern import StripePattern
+from patterns.solid_pattern import SolidPattern
 
 def test_lighting_with_eye_between_light_and_surface():
     m = Material()
@@ -152,7 +153,7 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
 def test_lighting_with_pattern_applied():
     m = Material()
     s = Sphere()
-    m.pattern = StripePattern(WHITE_COLOR, BLACK_COLOR)
+    m.pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
     m.ambient = 1
     m.diffuse = 0
     m.specular = 0

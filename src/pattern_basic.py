@@ -16,10 +16,11 @@ from transformations.transformer import Transformer
 from patterns.gradient_pattern import GradientPattern
 from patterns.ring_pattern import RingPattern
 from patterns.checker_pattern import CheckerPattern
+from patterns.solid_pattern import SolidPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)
-floor.material.pattern = CheckerPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+floor.material.pattern = CheckerPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1)))
 floor.material.specular = 1
 
 left_wall = Plane()
@@ -30,7 +31,7 @@ left_wall.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
 left_wall.set_transform(origin_transform, direction_transform)
 left_wall.material.color = Color(1, 0.9, 0.9)
-left_wall.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+left_wall.material.pattern = CheckerPattern(RingPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1))), CheckerPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1))))
 left_wall.material.specular = 1
 
 right_wall = Plane()
@@ -41,14 +42,14 @@ right_wall.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
 right_wall.set_transform(origin_transform, direction_transform)
 right_wall.material.color = Color(1, 0.9, 0.9)
-right_wall.material.pattern = RingPattern(Color(1, 0.9, 0.9), Color(0, 0.1, 0.1))
+right_wall.material.pattern = RingPattern(SolidPattern(Color(1, 0.9, 0.9)), SolidPattern(Color(0, 0.1, 0.1)))
 right_wall.material.specular = 1
 
 middle = Sphere()
 origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0.5)
 middle.set_transform(origin_transform, direction_transform)
 middle.material.color = Color(0, 0, 1)
-middle.material.pattern = CheckerPattern(Color(0, 0, 1), Color(1, 1, 1))
+middle.material.pattern = CheckerPattern(SolidPattern(Color(0, 0, 1)), SolidPattern(Color(1, 1, 1)))
 middle.material.pattern.set_transform(Transformer.scaling(0.5, 0.5, 0.5))
 middle.material.diffuse = 1
 middle.material.specular = 1
@@ -59,7 +60,7 @@ right.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.scaling(0.5, 0.5, 0.5)
 right.set_transform(origin_transform, direction_transform)
 right.material.color = Color(0.0, 1, 0.0)
-right.material.pattern = GradientPattern(Color(0, 1, 0), Color(0, 0, 1))
+right.material.pattern = GradientPattern(SolidPattern(Color(0, 1, 0)), SolidPattern(Color(0, 0, 1)))
 right.material.pattern.set_transform(Transformer.scaling(0.4, 0.4, 0.4))
 right.material.diffuse = 1
 right.material.specular = 1
@@ -70,7 +71,7 @@ left.set_transform(origin_transform, direction_transform)
 origin_transform, direction_transform = FigureTransformer.scaling(0.33, 0.33, 0.33)
 left.set_transform(origin_transform, direction_transform)
 left.material.color = Color(1, 0, 0)
-left.material.pattern = StripePattern(Color(1, 0 , 0), Color(1, 1, 1))
+left.material.pattern = StripePattern(SolidPattern(Color(1, 0, 0)), SolidPattern(Color(1, 1, 1)))
 left.material.pattern.set_transform(Transformer.scaling(0.1, 0.1, 0.1))
 left.material.pattern.set_transform(Transformer.rotation_z(pi / 2))
 left.material.diffuse = 1
