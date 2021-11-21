@@ -7,7 +7,7 @@ from features.vector import Vector
 from features.color import WHITE_COLOR, Color, BLACK_COLOR
 from physical.world import World
 from figures.computation import Computation
-from math import pow
+from math import pow, sqrt
 from figures.figure import Figure
 from features.equality import is_approximately_equal
 
@@ -44,18 +44,19 @@ class Shader():
         return ambient + diffuse + specular
 
     @staticmethod
-    def shade_hit(world: World, comp: Computation) -> Color:
+    def shade_hit(world: World, comp: Computation, remaining: int) -> Color:
         is_shadowed = Shader.is_shadowed(world, comp.over_point)
-        return Shader.lighting(comp.object.material, comp.object, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed)
+        refracted_color = Shader.refracted_color(world, comp, remaining)
+        return Shader.lighting(comp.object.material, comp.object, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed) + refracted_color
 
     @staticmethod
-    def color_at(world: World, ray: Ray) -> Color:
+    def color_at(world: World, ray: Ray, remaining: int) -> Color:
         intersections = Intersection.find_intersections_of_ray_and_world(ray, world)
         hit = Intersection.calculate_hit_from_sorted_intersections(intersections)
         if hit == None:
             return BLACK_COLOR
         comps = hit.prepare_computation(ray, intersections)
-        return Shader.shade_hit(world, comps)
+        return Shader.shade_hit(world, comps, remaining)
     
     @staticmethod
     def is_shadowed(world: World, point: Point) -> bool:
@@ -76,4 +77,8 @@ class Shader():
         sin2_t = (n_ratio * n_ratio) * (1 - (cos_i * cos_i))
         if sin2_t > 1:
             return BLACK_COLOR
-        return WHITE_COLOR
+        cos_t = sqrt(1.0 - sin2_t)
+        direction = Vector.fromtuple((comps.normalv * ((n_ratio * cos_i) - cos_t)) - (comps.eyev * n_ratio))
+        refract_ray = Ray(comps.under_point, direction)
+        color_values = Shader.color_at(world, refract_ray, remaining - 1) * comps.object.material.transparency
+        return Color(color_values.x, color_values.y, color_values.z)

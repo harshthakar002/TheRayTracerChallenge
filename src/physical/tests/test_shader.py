@@ -13,6 +13,7 @@ from transformations.figure_transformer import FigureTransformer
 from math import sqrt
 from patterns.stripe_pattern import StripePattern
 from patterns.solid_pattern import SolidPattern
+from patterns.test_pattern import TestPattern
 
 def test_lighting_with_eye_between_light_and_surface():
     m = Material()
@@ -195,3 +196,17 @@ def test_refracted_color_under_total_internal_reflection():
     comps = xs[1].prepare_computation(r, xs)
     c = Shader.refracted_color(w, comps, 5)
     assert c == BLACK_COLOR
+
+def test_refracted_color_with_refracted_ray():
+    w = DefaultWorld()
+    A = w.objects[0]
+    A.material.ambient = 1.0
+    A.material.pattern = TestPattern()
+    B = w.objects[1]
+    B.material.transparency = 1.0
+    B.material.refractive_index = 1.5
+    r = Ray(Point(0, 0, 0.1), Vector(0, 1, 0))
+    xs = [Intersection(-0.9899, A), Intersection(-0.4899, B), Intersection(0.4899, B), Intersection(0.9899, A)]
+    comps = xs[2].prepare_computation(r, xs)
+    c = Shader.refracted_color(w, comps, 5)
+    assert c == Color(0, 0.99888, 0.04725)
