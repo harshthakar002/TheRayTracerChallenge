@@ -69,6 +69,6 @@ class Shader():
     
     @staticmethod
     def refracted_color(world: World, comps: Computation, remaining: int) -> Color:
-        if is_approximately_equal(comps.object.material.transparency, 0):
+        if is_approximately_equal(comps.object.material.transparency, 0) or remaining == 0:
             return BLACK_COLOR
         return WHITE_COLOR
