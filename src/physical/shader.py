@@ -4,11 +4,12 @@ from physical.material import Material
 from physical.point_light import Light
 from features.point import Point
 from features.vector import Vector
-from features.color import Color, BLACK_COLOR
+from features.color import WHITE_COLOR, Color, BLACK_COLOR
 from physical.world import World
 from figures.computation import Computation
 from math import pow
 from figures.figure import Figure
+from features.equality import is_approximately_equal
 
 class Shader():
 
@@ -65,3 +66,9 @@ class Shader():
         intersections = Intersection.find_intersections_of_ray_and_world(r, world)
         h = Intersection.calculate_hit(intersections)
         return h != None and h.t < distance
+    
+    @staticmethod
+    def refracted_color(world: World, comps: Computation, remaining: int) -> Color:
+        if is_approximately_equal(comps.object.material.transparency, 0):
+            return BLACK_COLOR
+        return WHITE_COLOR
