@@ -71,4 +71,9 @@ class Shader():
     def refracted_color(world: World, comps: Computation, remaining: int) -> Color:
         if is_approximately_equal(comps.object.material.transparency, 0) or remaining == 0:
             return BLACK_COLOR
+        n_ratio = comps.n1 / comps.n2
+        cos_i = comps.eyev.dotProduct(comps.normalv)
+        sin2_t = (n_ratio * n_ratio) * (1 - (cos_i * cos_i))
+        if sin2_t > 1:
+            return BLACK_COLOR
         return WHITE_COLOR

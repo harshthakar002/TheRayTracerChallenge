@@ -184,3 +184,14 @@ def test_refracted_color_at_maximum_recursive_depth():
     comps = xs[0].prepare_computation(r, xs)
     c = Shader.refracted_color(w, comps, 0)
     assert c == BLACK_COLOR
+
+def test_refracted_color_under_total_internal_reflection():
+    w = DefaultWorld()
+    shape = w.objects[0]
+    shape.material.transparency = 1.0
+    shape.material.refractive_index = 1.5
+    r = Ray(Point(0, 0, sqrt(2) / 2), Vector(0, 1, 0))
+    xs = [Intersection(-sqrt(2) / 2, shape), Intersection(sqrt(2) / 2, shape)]
+    comps = xs[1].prepare_computation(r, xs)
+    c = Shader.refracted_color(w, comps, 5)
+    assert c == BLACK_COLOR
