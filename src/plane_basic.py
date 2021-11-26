@@ -4,7 +4,6 @@ from features.point import Point
 from features.vector import Vector
 from figures.plane import Plane
 from figures.sphere import Sphere
-from transformations.figure_transformer import FigureTransformer
 from physical.point_light import PointLight
 from physical.world import World
 from physical.camera import Camera

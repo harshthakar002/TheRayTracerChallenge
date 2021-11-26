@@ -2,7 +2,6 @@ from patterns.stripe_pattern import StripePattern
 from features.color import WHITE_COLOR, BLACK_COLOR
 from features.point import Point
 from figures.sphere import Sphere
-from transformations.figure_transformer import FigureTransformer
 from transformations.transformer import Transformer
 from patterns.solid_pattern import SolidPattern
 from figures.sphere import Sphere

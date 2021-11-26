@@ -6,7 +6,6 @@ from features.vector import Vector
 from features.equality import is_approximately_equal
 from matrix.matrix import Matrix
 from physical.material import Material
-from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
 from math import sqrt, pi
 from transformations.transformer import Transformer

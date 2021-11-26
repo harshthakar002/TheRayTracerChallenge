@@ -4,7 +4,6 @@ from physical.point_light import PointLight
 from figures.sphere import Sphere
 from features.color import Color
 from features.point import Point
-from transformations.figure_transformer import FigureTransformer
 
 class DefaultWorld(World):
 

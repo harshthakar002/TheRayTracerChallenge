@@ -4,20 +4,12 @@ from features.point import Point
 from features.vector import Vector
 from figures.plane import Plane
 from figures.sphere import Sphere
-from transformations.figure_transformer import FigureTransformer
 from physical.point_light import PointLight
 from physical.world import World
 from physical.camera import Camera
 from transformations.view_transformer import ViewTransformer
 from physical.renderer import Renderer
 from canvas.ppm_writer import PPMWriter
-from patterns.stripe_pattern import StripePattern
-from transformations.transformer import Transformer
-from patterns.gradient_pattern import GradientPattern
-from patterns.ring_pattern import RingPattern
-from patterns.checker_pattern import CheckerPattern
-from patterns.solid_pattern import SolidPattern
-from patterns.blended_pattern import BlendedPattern
 
 floor = Plane()
 floor.material.color = Color(1, 0.9, 0.9)

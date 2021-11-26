@@ -4,7 +4,6 @@ from features.equality import EPSILON, is_approximately_equal
 from figures.ray import Ray
 from features.point import Point
 from features.vector import Vector
-from transformations.figure_transformer import FigureTransformer
 from physical.default_world import DefaultWorld
 from figures.plane import Plane
 from math import sqrt

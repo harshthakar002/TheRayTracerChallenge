@@ -9,7 +9,6 @@ from physical.world import World
 from figures.ray import Ray
 from figures.intersection import Intersection
 from figures.sphere import Sphere
-from transformations.figure_transformer import FigureTransformer
 from math import sqrt
 from patterns.stripe_pattern import StripePattern
 from patterns.solid_pattern import SolidPattern

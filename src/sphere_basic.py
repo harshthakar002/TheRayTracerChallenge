@@ -5,7 +5,6 @@ from features.point import Point
 from features.vector import Vector
 from features.color import Color
 from physical.shader import Shader
-from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
 from canvas.ppm_writer import PPMWriter
 from physical.point_light import PointLight
