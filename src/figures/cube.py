@@ -15,6 +15,9 @@ class Cube(Shape):
         ztmin, ztmax = Cube.check_axis(ray.origin.z, ray.direction.z)
         tmin = max(xtmin, ytmin, ztmin)
         tmax = min(xtmax, ytmax, ztmax)
+        if tmin > tmax:
+            return []
+        
         return [tmin, tmax]
 
     @staticmethod
