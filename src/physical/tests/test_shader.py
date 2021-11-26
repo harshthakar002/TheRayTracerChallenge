@@ -296,3 +296,24 @@ def test_shade_hit_with_a_transparent_material():
     comps = xs[0].prepare_computation(r, xs)
     color = Shader.shade_hit(w, comps, 5)
     assert color == Color(0.93642, 0.68642, 0.68642)
+
+def test_shade_hit_with_reflective_transparent_material():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    floor = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    floor.set_transform(origin_transform, direction_transform)
+    floor.material.reflective = 0.5
+    floor.material.transparency = 0.5
+    floor.material.refractive_index = 1.5
+    w.objects.append(floor)
+    ball = Sphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -3.5, -0.5)
+    ball.set_transform(origin_transform, direction_transform)
+    ball.material.color = Color(1, 0 , 0)
+    ball.material.ambient = 0.5
+    w.objects.append(ball)
+    xs = [Intersection(sqrt(2), floor)]
+    comps = xs[0].prepare_computation(r, xs)
+    color = Shader.shade_hit(w, comps, 5)
+    assert color == Color(0.93391, 0.69643, 0.69243)

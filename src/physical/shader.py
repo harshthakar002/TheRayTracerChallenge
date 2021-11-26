@@ -46,9 +46,14 @@ class Shader():
     @staticmethod
     def shade_hit(world: World, comp: Computation, remaining: int) -> Color:
         is_shadowed = Shader.is_shadowed(world, comp.over_point)
+        surface = Shader.lighting(comp.object.material, comp.object, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed)
         reflected_color = Shader.reflected_color(world, comp, remaining)
         refracted_color = Shader.refracted_color(world, comp, remaining)
-        return Shader.lighting(comp.object.material, comp.object, world.light, comp.point, comp.eyev, comp.normalv, is_shadowed) + reflected_color + refracted_color
+        material = comp.object.material
+        if material.reflective > 0 and material.transparency > 0:
+            reflectance = comp.schlick()
+            return surface + (reflected_color * reflectance) + (refracted_color * (1 - reflectance))
+        return surface + reflected_color + refracted_color
 
     @staticmethod
     def color_at(world: World, ray: Ray, remaining: int) -> Color:
