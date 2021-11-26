@@ -51,3 +51,26 @@ def test_default_minimum_and_maximun_for_a_cylinder():
     cyl = Cylinder()
     cyl.minimum = -inf
     cyl.maximum = inf
+
+def test_intersecting_a_constrained_cylinder():
+    cyl = Cylinder()
+    cyl.minimum = 1
+    cyl.maximum = 2
+    r = Ray(Point(0, 1.5, 0), Vector(0.1, 1, 0).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 0
+    r = Ray(Point(0, 3, -5), Vector(0, 0, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 0
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 0
+    r = Ray(Point(0, 2, -5), Vector(0, 0, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 0
+    r = Ray(Point(0, 1, -5), Vector(0, 0, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 0
+    r = Ray(Point(0, 1.5, -2), Vector(0, 0, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
