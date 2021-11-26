@@ -143,8 +143,7 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
     w.light = PointLight(Color(1, 1, 1), Point(0, 0, -10))
     s1 = Sphere()
     s2 = Sphere()
-    origin_transform, direction_transform = FigureTransformer.translation(0, 0, 10)
-    s2.set_transform(origin_transform, direction_transform)
+    s2.translation(0, 0, 10)
     w.objects += [s1, s2]
     r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
     i = Intersection(4, s2)
@@ -225,8 +224,7 @@ def test_reflected_color_for_non_reflective_material():
 def test_reflected_color_for_a_reflective_material():
     w = DefaultWorld()
     shape = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    shape.set_transform(origin_transform, direction_transform)
+    shape.translation(0, -1, 0)
     shape.material.reflective = 0.5
     w.objects.append(shape)
     r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
@@ -238,8 +236,7 @@ def test_reflected_color_for_a_reflective_material():
 def test_shade_hit_with_reflective_material():
     w = DefaultWorld()
     shape = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    shape.set_transform(origin_transform, direction_transform)
+    shape.translation(0, -1, 0)
     shape.material.reflective = 0.5
     w.objects.append(shape)
     r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
@@ -253,12 +250,10 @@ def test_mutually_reflective_surfaces():
     w = World()
     w.light = PointLight(WHITE_COLOR, Point(0, 0, 0))
     lower = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    lower.set_transform(origin_transform, direction_transform)
+    lower.translation(0, -1, 0)
     lower.material.reflective = 1
     upper = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, 1, 0)
-    upper.set_transform(origin_transform, direction_transform)
+    upper.translation(0, 1, 0)
     upper.material.reflective = 1
     w.objects = [lower, upper]
     r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
@@ -267,8 +262,7 @@ def test_mutually_reflective_surfaces():
 def test_reflective_color_at_maximum_depth():
     w = DefaultWorld()
     shape = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    shape.set_transform(origin_transform, direction_transform)
+    shape.translation(0, -1, 0)
     shape.material.reflective = 0.5
     w.objects.append(shape)
     r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
@@ -280,14 +274,12 @@ def test_reflective_color_at_maximum_depth():
 def test_shade_hit_with_a_transparent_material():
     w = DefaultWorld()
     floor = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    floor.set_transform(origin_transform, direction_transform)
+    floor.translation(0, -1, 0)
     floor.material.transparency = 0.5
     floor.material.refractive_index = 1.5
     w.objects.append(floor)
     ball = Sphere()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -3.5, -0.5)
-    ball.set_transform(origin_transform, direction_transform)
+    ball.translation(0, -3.5, -0.5)
     ball.material.color = Color(1, 0, 0)
     ball.material.ambient = 0.5
     w.objects.append(ball)
@@ -301,15 +293,13 @@ def test_shade_hit_with_reflective_transparent_material():
     w = DefaultWorld()
     r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
     floor = Plane()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
-    floor.set_transform(origin_transform, direction_transform)
+    floor.translation(0, -1, 0)
     floor.material.reflective = 0.5
     floor.material.transparency = 0.5
     floor.material.refractive_index = 1.5
     w.objects.append(floor)
     ball = Sphere()
-    origin_transform, direction_transform = FigureTransformer.translation(0, -3.5, -0.5)
-    ball.set_transform(origin_transform, direction_transform)
+    ball.translation(0, -3.5, -0.5)
     ball.material.color = Color(1, 0 , 0)
     ball.material.ambient = 0.5
     w.objects.append(ball)

@@ -38,8 +38,7 @@ def test_stripe_pattern_alternates_in_x():
 
 def test_stripes_with_object_transformation():
     object = Sphere()
-    object_transform, direction_transform = FigureTransformer.scaling(2, 2, 2)
-    object.set_transform(object_transform, direction_transform)
+    object.scaling(2, 2, 2)
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
     c = pattern.color_at_object_point(object, Point(1.5, 0, 0))
     assert c == WHITE_COLOR
@@ -55,9 +54,7 @@ def test_stripes_with_pattern_transformation():
 def test_stripes_with_both_object_and_pattern_transformation():
     object = Sphere()
     pattern = StripePattern(SolidPattern(WHITE_COLOR), SolidPattern(BLACK_COLOR))
-    object_transform, direction_transform = FigureTransformer.scaling(2, 2, 2)
-    object.set_transform(object_transform, direction_transform)
-    pattern_object_transform = Transformer.translation(0.5, 0, 0)
-    pattern.set_transform(pattern_object_transform)
+    object.scaling(2, 2, 2)
+    pattern.translation(0.5, 0, 0)
     c = pattern.color_at_object_point(object, Point(2.5, 0, 0))
     assert c == WHITE_COLOR

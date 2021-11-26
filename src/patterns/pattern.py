@@ -3,8 +3,9 @@ from features.point import Point
 from figures.figure import Figure
 from matrix.matrix import Matrix
 from matrix.matrix_inverter import MatrixInverter
+from transformations.transformable import Transformable
 
-class Pattern():
+class Pattern(Transformable):
 
     def __init__(self) -> None:
         self.transform = Matrix.generate_identity_matrix(4)
@@ -18,6 +19,6 @@ class Pattern():
         self.transform = MatrixInverter.invert(self.point_transform)
 
     def color_at_object_point(self, object: Figure, point: Point):
-        object_point = object.ray_origin_transform.multiply_matrix_and_tuple(point)
+        object_point = object.ray_transform.multiply_matrix_and_tuple(point)
         pattern_point = self.transform.multiply_matrix_and_tuple(object_point)
         return self.color_at(pattern_point)

@@ -16,8 +16,7 @@ class DefaultWorld(World):
         s1.material.diffuse = 0.7
         s1.material.specular = 0.2
         s2 = Sphere()
-        origin_scaling, direction_scaling = FigureTransformer.scaling(0.5, 0.5, 0.5)
-        s2.set_transform(origin_scaling, direction_scaling)
+        s2.scaling(0.5, 0.5, 0.5)
         self.light = light
         self.objects.append(s1)
         self.objects.append(s2)

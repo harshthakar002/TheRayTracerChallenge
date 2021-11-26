@@ -9,6 +9,7 @@ from physical.material import Material
 from transformations.figure_transformer import FigureTransformer
 from figures.intersection import Intersection
 from math import sqrt, pi
+from transformations.transformer import Transformer
 
 def test_ray_intersects_sphere_at_two_points():
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
@@ -50,23 +51,20 @@ def test_sphere_is_behind_ray():
 
 def test_spehere_default_transformation():
     s = Sphere()
-    assert s.origin_transform == Matrix.generate_identity_matrix(4)
-    assert s.direction_transform == Matrix.generate_identity_matrix(4)
+    assert s.transform == Matrix.generate_identity_matrix(4)
+    assert s.ray_transform == Matrix.generate_identity_matrix(4)
 
 def test_changing_sphere_transformation():
     s = Sphere()
-    origin_t, direction_t = FigureTransformer.translation(2, 3, 4)
-    s.set_transform(origin_t, direction_t)
-    assert s.origin_transform == origin_t
-    assert s.direction_transform == Matrix.generate_identity_matrix(4)
-    assert s.ray_origin_transform.multiply_matrices(origin_t) == Matrix.generate_identity_matrix(4)
-    assert s.ray_direction_transform == Matrix.generate_identity_matrix(4)
+    transform = Transformer.translation(2, 3, 4)
+    s.set_transform(transform)
+    assert s.transform == transform
+    assert s.ray_transform.multiply_matrices(transform) == Matrix.generate_identity_matrix(4)
 
 def test_scaled_sphere_ray_intersection():
     s = Sphere()
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
-    origin_t, direction_t = FigureTransformer.scaling(2, 2, 2)
-    s.set_transform(origin_t, direction_t)
+    s.scaling(2, 2, 2)
     xs = Intersection.find_intersections_of_ray_and_figure(r, s)
     assert len(xs) == 2
     assert is_approximately_equal(xs[0].t, 3)
@@ -75,8 +73,7 @@ def test_scaled_sphere_ray_intersection():
 def test_translated_sphere_ray_intersection():
     s = Sphere()
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
-    origin_t, direction_t = FigureTransformer.translation(5, 0, 0)
-    s.set_transform(origin_t, direction_t)
+    s.translation(5, 0, 0)
     xs = Intersection.find_intersections_of_ray_and_figure(r, s)
     assert len(xs) == 0
 
@@ -107,17 +104,13 @@ def test_normal_is_a_normalized_vector():
 
 def test_normal_on_translated_sphere():
     s = Sphere()
-    object_t, direction_t = FigureTransformer.translation(0, 1, 0)
-    s.set_transform(object_t, direction_t)
+    s.translation(0, 1, 0)
     n = s.normal_at(Point(0, 1.70711, -0.70711))
     assert n == Vector(0, 0.70711, -0.70711)
 
 def test_normal_on_transformed_sphere():
     s = Sphere()
-    object_t, direction_t = FigureTransformer.scaling(1, 0.5, 1)
-    s.set_transform(object_t, direction_t)
-    object_t, direction_t = FigureTransformer.rotation_z(pi / 5)
-    s.set_transform(object_t, direction_t)
+    s.scaling(1, 0.5, 1).rotation_z(pi / 5)
     n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2))
     assert n == Vector(0, 0.97014, -0.24254)
 
@@ -135,7 +128,7 @@ def test_sphere_may_be_assigned_material():
 
 def test_glass_sphere():
     s = GlassSphere()
-    assert s.origin_transform == Matrix.generate_identity_matrix(4)
-    assert s.direction_transform == Matrix.generate_identity_matrix(4)
+    assert s.transform == Matrix.generate_identity_matrix(4)
+    assert s.ray_transform == Matrix.generate_identity_matrix(4)
     assert is_approximately_equal(s.material.transparency, 1.0)
     assert is_approximately_equal(s.material.refractive_index, 1.5)
