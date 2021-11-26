@@ -4,11 +4,13 @@ from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
 from features.equality import is_approximately_equal
-from math import sqrt
+from math import sqrt, inf
 
 class Cylinder(Shape):
 
     def __init__(self):
+        self.minimum = -inf
+        self.maximum = inf
         super().__init__()
     
     def local_intersection_distance(self, ray: Ray) -> List[float]:

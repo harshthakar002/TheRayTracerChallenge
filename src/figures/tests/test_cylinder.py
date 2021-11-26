@@ -4,6 +4,7 @@ from figures.cylinder import Cylinder
 from figures.ray import Ray
 from figures.intersection import Intersection
 from features.equality import is_approximately_equal
+from math import inf
 
 def test_ray_misses_cylinder():
     cyl = Cylinder()
@@ -45,3 +46,8 @@ def test_normal_on_cylinder():
     assert n == Vector(0, 0, 1)
     n = cyl.local_normal_at(Point(-1, 1, 0))
     assert n == Vector(-1, 0, 0)
+
+def test_default_minimum_and_maximun_for_a_cylinder():
+    cyl = Cylinder()
+    cyl.minimum = -inf
+    cyl.maximum = inf
