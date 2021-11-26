@@ -26,29 +26,18 @@ floor.material.reflective = 0.8
 floor.material.shininess = 300
 
 left_wall = Plane()
-origin_transform, direction_transform = FigureTransformer.translation(0, 0, 5)
-left_wall.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.rotation_y(-pi / 4)
-left_wall.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
-left_wall.set_transform(origin_transform, direction_transform)
+left_wall.translation(0, 0, 5).rotation_y(-pi / 4).rotation_x(pi / 2)
 left_wall.material.color = Color(1, 0.9, 0.9)
 left_wall.material.specular = 1
 
 right_wall = Plane()
-origin_transform, direction_transform = FigureTransformer.translation(0, 0, 5)
-right_wall.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.rotation_y(pi / 4)
-right_wall.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.rotation_x(pi / 2)
-right_wall.set_transform(origin_transform, direction_transform)
+right_wall.translation(0, 0, 5).rotation_y(pi / 4).rotation_x(pi / 2)
 right_wall.material.color = Color(1, 0.9, 0.9)
 right_wall.material.specular = 1
 right_wall.material.transparency = 0.7
 
 middle = Sphere()
-origin_transform, direction_transform = FigureTransformer.translation(-0.5, 1, 0.5)
-middle.set_transform(origin_transform, direction_transform)
+middle.translation(-0.5, 1, 0.5)
 middle.material.color = Color(0, 0, 1)
 middle.material.diffuse = 1
 middle.material.specular = 1
@@ -57,19 +46,13 @@ middle.material.transparency = 0.8
 middle.material.reflective = 0.6
 
 right = Sphere()
-origin_transform, direction_transform = FigureTransformer.translation(1.5, 0.5, -0.5)
-right.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.scaling(0.5, 0.5, 0.5)
-right.set_transform(origin_transform, direction_transform)
+right.translation(1.5, 0.5, -0.5).scaling(0.5, 0.5, 0.5)
 right.material.color = Color(0.0, 1, 0.0)
 right.material.diffuse = 1
 right.material.specular = 1
 
 left = Sphere()
-origin_transform, direction_transform = FigureTransformer.translation(-1.5, 0.33, -0.75)
-left.set_transform(origin_transform, direction_transform)
-origin_transform, direction_transform = FigureTransformer.scaling(0.33, 0.33, 0.33)
-left.set_transform(origin_transform, direction_transform)
+left.translation(-1.5, 0.33, -0.75).scaling(0.33, 0.33, 0.33)
 left.material.color = Color(1, 0, 0)
 left.material.diffuse = 1
 left.material.specular = 1
