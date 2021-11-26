@@ -8,9 +8,9 @@ from math import sqrt, inf
 
 class Cylinder(Shape):
 
-    def __init__(self):
-        self.minimum = -inf
-        self.maximum = inf
+    def __init__(self, minimum: float = -inf, maximum: float = inf):
+        self.minimum = minimum
+        self.maximum = maximum
         super().__init__()
     
     def local_intersection_distance(self, ray: Ray) -> List[float]:
