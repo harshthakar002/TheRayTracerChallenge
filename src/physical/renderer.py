@@ -7,11 +7,11 @@ from figures.ray import Ray
 class Renderer():
 
     @staticmethod
-    def render(camera: Camera, world: World) -> Canvas:
+    def render(camera: Camera, world: World, depth: int = 1) -> Canvas:
         image = Canvas(camera.hsize, camera.vsize)
         for y in range(camera.vsize):
             for x in range(camera.hsize):
                 ray = Ray.ray_for_pixel(camera, x, y)
-                color = Shader.color_at(world, ray, 1)
+                color = Shader.color_at(world, ray, depth)
                 image.write_pixel(x, y, color)
         return image
