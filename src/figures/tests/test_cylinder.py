@@ -49,8 +49,8 @@ def test_normal_on_cylinder():
 
 def test_default_minimum_and_maximun_for_a_cylinder():
     cyl = Cylinder()
-    cyl.minimum = -inf
-    cyl.maximum = inf
+    assert cyl.minimum == -inf
+    assert cyl.maximum == inf
 
 def test_intersecting_a_constrained_cylinder():
     cyl = Cylinder()
