@@ -3,7 +3,7 @@ from features.point import Point
 from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
-from features.equality import is_approximately_equal
+from features.equality import EPSILON, is_approximately_equal
 from math import sqrt, inf
 
 class Cylinder(Shape):
@@ -57,4 +57,10 @@ class Cylinder(Shape):
         return ts
         
     def local_normal_at(self, point: Point) -> Vector:
+        dist = (point.x * point.x) + (point.z * point.z)
+        if dist < 1 and point.y >= (self.maximum - EPSILON):
+            return Vector(0, 1, 0)
+        elif dist < 1 and point.y <= (self.minimum + EPSILON):
+            return Vector(0, -1, 0)
+            
         return Vector(point.x, 0, point.z)

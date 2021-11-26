@@ -94,3 +94,18 @@ def test_intersecting_caps_of_a_closed_cylinder():
     r = Ray(Point(0, -1, -2), Vector(0, 1, 1).normalize())
     xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
     assert len(xs) == 2
+
+def test_normal_vector_on_cylinder_end_caps():
+    cyl = Cylinder(1, 2, True)
+    n = cyl.local_normal_at(Point(0, 1, 0))
+    assert n == Vector(0, -1, 0)
+    n = cyl.local_normal_at(Point(0.5, 1, 0))
+    assert n == Vector(0, -1, 0)
+    n = cyl.local_normal_at(Point(0, 1, 0.5))
+    assert n == Vector(0, -1, 0)
+    n = cyl.local_normal_at(Point(0, 2, 0))
+    assert n == Vector(0, 1, 0)
+    n = cyl.local_normal_at(Point(0.5, 2, 0))
+    assert n == Vector(0, 1, 0)
+    n = cyl.local_normal_at(Point(0, 2, 0.5))
+    assert n == Vector(0, 1, 0)
