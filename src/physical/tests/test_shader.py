@@ -210,3 +210,13 @@ def test_refracted_color_with_refracted_ray():
     comps = xs[2].prepare_computation(r, xs)
     c = Shader.refracted_color(w, comps, 5)
     assert c == Color(0, 0.99888, 0.04725)
+
+def test_reflected_color_for_non_reflective_material():
+    w = DefaultWorld()
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = w.objects[1]
+    shape.material.ambient = 1
+    i = Intersection(1, shape)
+    comps = i.prepare_computation(r, [i])
+    color = Shader.reflected_color(w, comps)
+    assert color == BLACK_COLOR

@@ -82,3 +82,9 @@ class Shader():
         refract_ray = Ray(comps.under_point, direction)
         color_values = Shader.color_at(world, refract_ray, remaining - 1) * comps.object.material.transparency
         return Color(color_values.x, color_values.y, color_values.z)
+    
+    @staticmethod
+    def reflected_color(world: World, comps: Computation) -> Color:
+        if is_approximately_equal(comps.object.material.reflective, 0):
+            return BLACK_COLOR
+        return WHITE_COLOR
