@@ -277,3 +277,22 @@ def test_reflective_color_at_maximum_depth():
     color = Shader.reflected_color(w, comps, 0)
     assert color == BLACK_COLOR
 
+def test_shade_hit_with_a_transparent_material():
+    w = DefaultWorld()
+    floor = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    floor.set_transform(origin_transform, direction_transform)
+    floor.material.transparency = 0.5
+    floor.material.refractive_index = 1.5
+    w.objects.append(floor)
+    ball = Sphere()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -3.5, -0.5)
+    ball.set_transform(origin_transform, direction_transform)
+    ball.material.color = Color(1, 0, 0)
+    ball.material.ambient = 0.5
+    w.objects.append(ball)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    xs = [Intersection(sqrt(2), floor)]
+    comps = xs[0].prepare_computation(r, xs)
+    color = Shader.shade_hit(w, comps, 5)
+    assert color == Color(0.93642, 0.68642, 0.68642)
