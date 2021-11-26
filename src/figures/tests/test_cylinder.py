@@ -76,3 +76,21 @@ def test_intersecting_a_constrained_cylinder():
 def test_default_closed_value_for_cylinder():
     cyl = Cylinder()
     assert not cyl.closed
+
+def test_intersecting_caps_of_a_closed_cylinder():
+    cyl = Cylinder(1, 2, True)
+    r = Ray(Point(0, 3, 0), Vector(0, -1, 0).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
+    r = Ray(Point(0, 3, -2), Vector(0, -1, 2).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
+    r = Ray(Point(0, 4, -2), Vector(0, -1, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
+    r = Ray(Point(0, 0, -2), Vector(0, 1, 2).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
+    r = Ray(Point(0, -1, -2), Vector(0, 1, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
+    assert len(xs) == 2
