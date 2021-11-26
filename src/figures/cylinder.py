@@ -2,6 +2,7 @@ from typing import List
 from figures.ray import Ray
 from figures.shape import Shape
 from features.equality import is_approximately_equal
+from math import sqrt
 
 class Cylinder(Shape):
 
@@ -18,4 +19,6 @@ class Cylinder(Shape):
         if disc < 0:
             return []
         
-        return [1]
+        t0 = (-b - sqrt(disc)) / (2 * a)
+        t1 = (-b + sqrt(disc)) / (2 * a)
+        return [t0, t1]
