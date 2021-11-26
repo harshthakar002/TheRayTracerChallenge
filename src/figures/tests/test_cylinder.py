@@ -72,3 +72,7 @@ def test_intersecting_a_constrained_cylinder():
     r = Ray(Point(0, 1.5, -2), Vector(0, 0, 1).normalize())
     xs = Intersection.find_intersections_of_ray_and_figure(r, cyl)
     assert len(xs) == 2
+
+def test_default_closed_value_for_cylinder():
+    cyl = Cylinder()
+    assert not cyl.closed
