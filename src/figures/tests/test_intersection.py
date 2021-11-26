@@ -175,3 +175,19 @@ def test_schlick_approximation_under_total_internal_reflection():
     comps = xs[1].prepare_computation(r, xs)
     reflectance = comps.schlick()
     assert is_approximately_equal(reflectance, 1.0)
+
+def test_schlick_approximation_with_a_perpendicular_viewing_angle():
+    shape = GlassSphere()
+    r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
+    xs = [Intersection(-1, shape), Intersection(1, shape)]
+    comps = xs[1].prepare_computation(r, xs)
+    reflectance = comps.schlick()
+    assert is_approximately_equal(reflectance, 0.04)
+
+def test_schlick_approximation_with_small_angle_and_n2_greather_than_n1():
+    shape = GlassSphere()
+    r = Ray(Point(0, 0.99, -2), Vector(0, 0, 1))
+    xs = [Intersection(1.8589, shape)]
+    comps = xs[0].prepare_computation(r, xs)
+    reflectance = comps.schlick()
+    assert is_approximately_equal(reflectance, 0.48873)
