@@ -60,4 +60,4 @@ class Intersection():
                     n2 = 1.0
                 else:
                     n2 = containers[-1].material.refractive_index
-        return Computation(self.t, self.object, point, ray.direction.negate(), self.object.normal_at(point), n1, n2)
+        return Computation(self.t, self.object, point, ray.direction.negate(), self.object.normal_at(point), ray.direction, n1, n2)

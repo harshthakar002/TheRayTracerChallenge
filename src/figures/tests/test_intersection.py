@@ -6,6 +6,8 @@ from features.point import Point
 from features.vector import Vector
 from transformations.figure_transformer import FigureTransformer
 from physical.default_world import DefaultWorld
+from figures.plane import Plane
+from math import sqrt
 
 def test_intersection_creation():
     s = Sphere()
@@ -158,3 +160,10 @@ def test_under_point_is_offset_below_the_surface():
     comps = i.prepare_computation(r, xs)
     assert comps.under_point.z > EPSILON / 2
     assert comps.point.z < comps.under_point.z
+
+def test_precompute_reflection_vector():
+    shape = Plane()
+    r = Ray(Point(0, 1, -1), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    comps = i.prepare_computation(r, [i])
+    assert comps.reflectv == Vector(0, sqrt(2) / 2, sqrt(2) / 2)
