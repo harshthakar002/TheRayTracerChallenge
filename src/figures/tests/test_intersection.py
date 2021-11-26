@@ -167,3 +167,11 @@ def test_precompute_reflection_vector():
     i = Intersection(sqrt(2), shape)
     comps = i.prepare_computation(r, [i])
     assert comps.reflectv == Vector(0, sqrt(2) / 2, sqrt(2) / 2)
+
+def test_schlick_approximation_under_total_internal_reflection():
+    shape = GlassSphere()
+    r = Ray(Point(0, 0, sqrt(2) / 2), Vector(0, 1, 0))
+    xs = [Intersection(-sqrt(2) / 2, shape), Intersection(sqrt(2) / 2, shape)]
+    comps = xs[1].prepare_computation(r, xs)
+    reflectance = comps.schlick()
+    assert is_approximately_equal(reflectance, 1.0)

@@ -22,3 +22,11 @@ class Computation():
         self.n1 = n1
         self.n2 = n2
     
+    def schlick(self) -> float:
+        cos = self.eyev.dotProduct(self.normalv)
+        if self.n1 > self.n2:
+            n = self.n1 / self.n2
+            sin2_t = (n*n) * (1.0 - (cos * cos))
+            if sin2_t > 1.0:
+                return 1.0
+        return 0.0
