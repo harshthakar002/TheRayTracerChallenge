@@ -34,3 +34,14 @@ def test_ray_strikes_cylinder():
     assert len(xs) == 2
     assert is_approximately_equal(xs[0].t, 6.80798)
     assert is_approximately_equal(xs[1].t, 7.08872)
+
+def test_normal_on_cylinder():
+    cyl = Cylinder()
+    n = cyl.local_normal_at(Point(1, 0, 0))
+    assert n == Vector(1, 0, 0)
+    n = cyl.local_normal_at(Point(0, 5, -1))
+    assert n == Vector(0, 0, -1)
+    n = cyl.local_normal_at(Point(0, -2, 1))
+    assert n == Vector(0, 0, 1)
+    n = cyl.local_normal_at(Point(-1, 1, 0))
+    assert n == Vector(-1, 0, 0)

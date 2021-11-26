@@ -1,4 +1,6 @@
 from typing import List
+from features.point import Point
+from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
 from features.equality import is_approximately_equal
@@ -22,3 +24,6 @@ class Cylinder(Shape):
         t0 = (-b - sqrt(disc)) / (2 * a)
         t1 = (-b + sqrt(disc)) / (2 * a)
         return [t0, t1]
+
+    def local_normal_at(self, point: Point) -> Vector:
+        return Vector(point.x, 0, point.z)
