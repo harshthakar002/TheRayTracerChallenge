@@ -72,7 +72,7 @@ def test_shading_an_intersection():
     shape = w.objects[0]
     i = Intersection(4, shape)
     comps = i.prepare_computation(r, [i])
-    c = Shader.shade_hit(w, comps)
+    c = Shader.shade_hit(w, comps, 1)
     assert c == Color(0.38066, 0.47583, 0.2855)
 
 def test_shading_an_intersection_from_inside():
@@ -82,19 +82,19 @@ def test_shading_an_intersection_from_inside():
     shape = w.objects[1]
     i = Intersection(0.5, shape)
     comps = i.prepare_computation(r, [i])
-    c = Shader.shade_hit(w, comps)
+    c = Shader.shade_hit(w, comps, 1)
     assert c == Color(0.90498, 0.90498, 0.90498)
 
 def test_color_when_ray_misses():
     w = DefaultWorld()
     r = Ray(Point(0, 0, -5), Vector(0, 1, 0))
-    c = Shader.color_at(w, r)
+    c = Shader.color_at(w, r, 1)
     assert c == Color(0, 0, 0)
 
 def test_color_when_ray_hits():
     w = DefaultWorld()
     r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
-    c = Shader.color_at(w, r)
+    c = Shader.color_at(w, r, 1)
     assert c == Color(0.38066, 0.47583, 0.2855)
 
 def test_color_when_intersection_behind_ray():
@@ -104,7 +104,7 @@ def test_color_when_intersection_behind_ray():
     inner = w.objects[1]
     inner.material.ambient = 1
     r = Ray(Point(0, 0, 0.75), Vector(0, 0, -1))
-    c = Shader.color_at(w, r)
+    c = Shader.color_at(w, r, 1)
     assert c == inner.material.color
 
 def test_lighting_with_surface_in_shadow():
@@ -149,7 +149,7 @@ def test_shade_hit_is_given_an_intersection_in_shadow():
     r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
     i = Intersection(4, s2)
     comps = i.prepare_computation(r, [i])
-    c = Shader.shade_hit(w, comps)
+    c = Shader.shade_hit(w, comps, 1)
     assert c == Color(0.1, 0.1, 0.1)
 
 def test_lighting_with_pattern_applied():
@@ -210,7 +210,7 @@ def test_refracted_color_with_refracted_ray():
     xs = [Intersection(-0.9899, A), Intersection(-0.4899, B), Intersection(0.4899, B), Intersection(0.9899, A)]
     comps = xs[2].prepare_computation(r, xs)
     c = Shader.refracted_color(w, comps, 5)
-    assert c == Color(0, 0.99888, 0.04725)
+    assert c == Color(0, 0.99888, 0.04722)
 
 def test_reflected_color_for_non_reflective_material():
     w = DefaultWorld()

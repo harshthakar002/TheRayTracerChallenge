@@ -12,6 +12,6 @@ class Renderer():
         for y in range(camera.vsize):
             for x in range(camera.hsize):
                 ray = Ray.ray_for_pixel(camera, x, y)
-                color = Shader.color_at(world, ray)
+                color = Shader.color_at(world, ray, 1)
                 image.write_pixel(x, y, color)
         return image

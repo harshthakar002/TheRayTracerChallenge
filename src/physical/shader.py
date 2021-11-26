@@ -71,7 +71,7 @@ class Shader():
     
     @staticmethod
     def refracted_color(world: World, comps: Computation, remaining: int) -> Color:
-        if is_approximately_equal(comps.object.material.transparency, 0) or remaining == 0:
+        if is_approximately_equal(comps.object.material.transparency, 0) or remaining <= 0:
             return BLACK_COLOR
         n_ratio = comps.n1 / comps.n2
         cos_i = comps.eyev.dotProduct(comps.normalv)
@@ -81,8 +81,7 @@ class Shader():
         cos_t = sqrt(1.0 - sin2_t)
         direction = Vector.fromtuple((comps.normalv * ((n_ratio * cos_i) - cos_t)) - (comps.eyev * n_ratio))
         refract_ray = Ray(comps.under_point, direction)
-        color_values = Shader.color_at(world, refract_ray, remaining - 1) * comps.object.material.transparency
-        return Color(color_values.x, color_values.y, color_values.z)
+        return Shader.color_at(world, refract_ray, remaining - 1) * comps.object.material.transparency
     
     @staticmethod
     def reflected_color(world: World, comps: Computation, remaining: int) -> Color:
