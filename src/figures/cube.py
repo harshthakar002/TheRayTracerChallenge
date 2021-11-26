@@ -1,4 +1,6 @@
 from typing import List, Tuple
+from features.point import Point
+from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
 from features.equality import EPSILON
@@ -34,3 +36,11 @@ class Cube(Shape):
         if tmin > tmax:
             tmin, tmax = tmax, tmin
         return tmin, tmax
+    
+    def local_normal_at(self, point: Point) -> Vector:
+        maxc = max(abs(point.x), abs(point.y), abs(point.z))
+        if maxc == abs(point.x):
+            return Vector(point.x, 0, 0)
+        elif maxc == abs(point.y):
+            return Vector(0, point.y, 0)
+        return Vector(0, 0, point.z)
