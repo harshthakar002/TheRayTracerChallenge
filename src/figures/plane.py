@@ -2,10 +2,10 @@ from typing import List
 from features.equality import EPSILON
 from features.point import Point
 from features.vector import Vector
-from figures.figure import Figure
+from figures.shape import Shape
 from figures.ray import Ray
 
-class Plane(Figure):
+class Plane(Shape):
 
     def __init__(self):
         super().__init__()

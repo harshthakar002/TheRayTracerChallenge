@@ -8,13 +8,13 @@ from features.color import WHITE_COLOR, Color, BLACK_COLOR
 from physical.world import World
 from figures.computation import Computation
 from math import pow, sqrt
-from figures.figure import Figure
+from figures.shape import Shape
 from features.equality import is_approximately_equal
 
 class Shader():
 
     @staticmethod
-    def lighting(material: Material, object: Figure, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
+    def lighting(material: Material, object: Shape, light: Light, point: Point, eyev: Vector, normalv: Vector, in_shadow: bool) -> Color:
         if material.pattern != None:
             color = material.pattern.color_at_object_point(object, point)
         else:

@@ -1,9 +1,9 @@
 from typing import List
 from physical.light import Light
-from figures.figure import Figure
+from figures.shape import Shape
 
 class World():
 
     def __init__(self) -> None:
         self.light: Light = None
-        self.objects: List[Figure] = [] 
+        self.objects: List[Shape] = [] 

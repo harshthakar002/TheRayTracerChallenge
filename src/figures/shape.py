@@ -9,7 +9,7 @@ from features.vector import Vector
 from physical.material import Material
 from transformations.transformable import Transformable
 
-class Figure(Transformable):
+class Shape(Transformable):
 
     def __init__(self):
         self.id = uuid4().int

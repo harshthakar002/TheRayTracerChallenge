@@ -1,22 +1,22 @@
 from __future__ import annotations
 from figures.ray import Ray
-from figures.figure import Figure
+from figures.shape import Shape
 from physical.world import World
 from figures.computation import Computation
 from typing import List
 
 class Intersection():
 
-    def __init__(self, t: float, object: Figure) -> None:
+    def __init__(self, t: float, object: Shape) -> None:
         self.t = t
         self.object = object
     
     @staticmethod
-    def find_intersections_of_ray_and_figure(ray: Ray, figure: Figure) -> List[Intersection]:
-        intersection_distances = figure.ray_intersection_distance(ray)
+    def find_intersections_of_ray_and_figure(ray: Ray, shape: Shape) -> List[Intersection]:
+        intersection_distances = shape.ray_intersection_distance(ray)
         intersections = []
         for intersection_distance in intersection_distances:
-            intersections.append(Intersection(intersection_distance, figure))
+            intersections.append(Intersection(intersection_distance, shape))
         return intersections
     
     @staticmethod
@@ -43,7 +43,7 @@ class Intersection():
 
     def prepare_computation(self, ray: Ray, xs: List[Intersection]) -> Computation:
         point = ray.position(self.t)
-        containers: List[Figure] = []
+        containers: List[Shape] = []
         for intersection in xs:
             if intersection == self:
                 if len(containers) == 0:

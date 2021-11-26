@@ -1,12 +1,12 @@
 from typing import List
 from features.point import Point
 from features.vector import Vector
-from figures.figure import Figure
+from figures.shape import Shape
 from figures.ray import Ray 
 from features.equality import is_approximately_equal
 from math import sqrt
 
-class Sphere(Figure):
+class Sphere(Shape):
 
     def __init__(self):
         self.origin = Point(0, 0, 0)

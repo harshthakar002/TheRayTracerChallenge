@@ -1,4 +1,4 @@
-from figures.figure import Figure
+from figures.shape import Shape
 from features.point import Point
 from features.vector import Vector
 from features.equality import EPSILON
@@ -6,7 +6,7 @@ from math import sqrt
 
 class Computation():
 
-    def __init__(self, t: float, object: Figure, point: Point, eyev: Vector, normalv: Vector, ray_to_be_reflected: Vector, n1: float, n2: float) -> None:
+    def __init__(self, t: float, object: Shape, point: Point, eyev: Vector, normalv: Vector, ray_to_be_reflected: Vector, n1: float, n2: float) -> None:
         self.t = t
         self.object = object
         self.point = point
