@@ -14,6 +14,7 @@ from math import sqrt
 from patterns.stripe_pattern import StripePattern
 from patterns.solid_pattern import SolidPattern
 from patterns.test_pattern import TestPattern
+from figures.plane import Plane
 
 def test_lighting_with_eye_between_light_and_surface():
     m = Material()
@@ -218,5 +219,61 @@ def test_reflected_color_for_non_reflective_material():
     shape.material.ambient = 1
     i = Intersection(1, shape)
     comps = i.prepare_computation(r, [i])
-    color = Shader.reflected_color(w, comps)
+    color = Shader.reflected_color(w, comps, 1)
     assert color == BLACK_COLOR
+
+def test_reflected_color_for_a_reflective_material():
+    w = DefaultWorld()
+    shape = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    shape.set_transform(origin_transform, direction_transform)
+    shape.material.reflective = 0.5
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    comps = i.prepare_computation(r, [i])
+    color = Shader.reflected_color(w, comps, 1)
+    assert color == Color(0.19033, 0.23791, 0.14274)
+
+def test_shade_hit_with_reflective_material():
+    w = DefaultWorld()
+    shape = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    shape.set_transform(origin_transform, direction_transform)
+    shape.material.reflective = 0.5
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    comps = i.prepare_computation(r, [i])
+    color = Shader.shade_hit(w, comps, 1)
+    assert color == Color(0.87676, 0.92434, 0.82917)
+
+
+def test_mutually_reflective_surfaces():
+    w = World()
+    w.light = PointLight(WHITE_COLOR, Point(0, 0, 0))
+    lower = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    lower.set_transform(origin_transform, direction_transform)
+    lower.material.reflective = 1
+    upper = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, 1, 0)
+    upper.set_transform(origin_transform, direction_transform)
+    upper.material.reflective = 1
+    w.objects = [lower, upper]
+    r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
+    Shader.color_at(w, r, 4)
+
+def test_reflective_color_at_maximum_depth():
+    w = DefaultWorld()
+    shape = Plane()
+    origin_transform, direction_transform = FigureTransformer.translation(0, -1, 0)
+    shape.set_transform(origin_transform, direction_transform)
+    shape.material.reflective = 0.5
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    comps = i.prepare_computation(r, [i])
+    color = Shader.reflected_color(w, comps, 0)
+    assert color == BLACK_COLOR
+
