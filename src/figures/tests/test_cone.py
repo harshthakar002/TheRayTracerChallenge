@@ -4,6 +4,7 @@ from features.point import Point
 from features.vector import Vector
 from features.equality import is_approximately_equal
 from figures.intersection import Intersection
+from math import sqrt
 
 def test_intersecting_cone_with_ray():
     shape = Cone()
@@ -41,3 +42,12 @@ def test_intersecting_cone_end_caps():
     r = Ray(Point(0, 0, -0.25), Vector(0, 1, 0).normalize())
     xs = Intersection.find_intersections_of_ray_and_figure(r, shape)
     assert len(xs) == 4
+
+def test_computer_normal_vector_on_cone():
+    shape = Cone()
+    n = shape.local_normal_at(Point(0, 0, 0))
+    assert n == Vector(0, 0, 0)
+    n = shape.local_normal_at(Point(1, 1, 1))
+    assert n == Vector(1, -sqrt(2), 1)
+    n = shape.local_normal_at(Point(-1, -1, 0))
+    assert n == Vector(-1, 1, 0)

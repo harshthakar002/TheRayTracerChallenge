@@ -1,8 +1,10 @@
 from typing import List
+from features.point import Point
+from features.vector import Vector
 from figures.shape import Shape
 from figures.ray import Ray
 from math import sqrt, inf
-from features.equality import is_approximately_equal
+from features.equality import EPSILON, is_approximately_equal
 
 class Cone(Shape):
 
@@ -56,3 +58,15 @@ class Cone(Shape):
         if Cone.check_cap(ray, t, self.maximum):
             ts.append(t)
         return ts
+    
+    def local_normal_at(self, point: Point) -> Vector:
+        dist = (point.x * point.x) + (point.z * point.z)
+        if dist < 1 and point.y >= (self.maximum - EPSILON):
+            return Vector(0, 1, 0)
+        elif dist < 1 and point.y <= (self.minimum + EPSILON):
+            return Vector(0, -1, 0)
+        
+        y = sqrt(dist)
+        if point.y > 0:
+            y = -y
+        return Vector(point.x, y, point.z)
