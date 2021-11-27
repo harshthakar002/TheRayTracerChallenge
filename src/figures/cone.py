@@ -40,19 +40,19 @@ class Cone(Shape):
         return self.intersect_caps(ray, ts)
     
     @staticmethod
-    def check_cap(ray: Ray, t: float):
+    def check_cap(ray: Ray, t: float, radius: float):
         x = ray.origin.x + (t * ray.direction.x)
         z = ray.origin.z + (t * ray.direction.z)
-        return ((x * x) + (z * z)) <= 1
+        return ((x * x) + (z * z)) <= (radius * radius)
     
     def intersect_caps(self, ray: Ray, ts: List[float]) -> List[float]:
         if not self.closed or is_approximately_equal(ray.direction.y, 0):
             return ts
         t = (self.minimum - ray.origin.y) / ray.direction.y
-        if Cone.check_cap(ray, t):
+        if Cone.check_cap(ray, t, self.minimum):
             ts.append(t)
         
         t = (self.maximum - ray.origin.y) / ray.direction.y
-        if Cone.check_cap(ray, t):
+        if Cone.check_cap(ray, t, self.maximum):
             ts.append(t)
         return ts

@@ -29,3 +29,15 @@ def test_intersecting_cone_with_ray_parallel_to_one_of_the_halves():
     xs = Intersection.find_intersections_of_ray_and_figure(r, shape)
     assert len(xs) == 1
     assert is_approximately_equal(xs[0].t, 0.35355)
+
+def test_intersecting_cone_end_caps():
+    shape = Cone(-0.5, 0.5, True)
+    r = Ray(Point(0, 0, -5), Vector(0, 1, 0).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, shape)
+    assert len(xs) == 0
+    r = Ray(Point(0, 0, -0.25), Vector(0, 1, 1).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, shape)
+    assert len(xs) == 2
+    r = Ray(Point(0, 0, -0.25), Vector(0, 1, 0).normalize())
+    xs = Intersection.find_intersections_of_ray_and_figure(r, shape)
+    assert len(xs) == 4
