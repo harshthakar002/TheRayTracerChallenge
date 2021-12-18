@@ -1,3 +1,5 @@
+from typing import List
+from figures.ray import Ray
 from figures.shape import Shape
 
 class Group(Shape):
@@ -15,3 +17,9 @@ class Group(Shape):
     def add_child(self, shape: Shape) -> None:
         self.shapes.append(shape)
         shape.parent = self
+    
+    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+        intersection_distances_and_shapes = []
+        for shape in self.shapes:
+            intersection_distances_and_shapes += shape.local_intersect(ray)
+        return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])
