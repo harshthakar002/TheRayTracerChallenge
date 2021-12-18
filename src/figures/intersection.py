@@ -13,9 +13,9 @@ class Intersection():
     
     @staticmethod
     def find_intersections_of_ray_and_figure(ray: Ray, shape: Shape) -> List[Intersection]:
-        intersection_distances = shape.ray_intersection_distance(ray)
+        intersection_distances_with_shapes = shape.local_intersect(ray)
         intersections = []
-        for intersection_distance in intersection_distances:
+        for intersection_distance, shape in intersection_distances_with_shapes:
             intersections.append(Intersection(intersection_distance, shape))
         return intersections
     

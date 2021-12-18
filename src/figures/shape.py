@@ -37,3 +37,10 @@ class Shape(Transformable):
 
     def local_normal_at(self, point: Point) -> Vector:
         raise NotImplementedError('Abstract Method')
+
+    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+        intersection_distances = self.ray_intersection_distance(ray)
+        intersections = []
+        for intersection_distance in intersection_distances:
+            intersections.append((intersection_distance, self))
+        return intersections
