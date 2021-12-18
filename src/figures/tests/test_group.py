@@ -43,3 +43,13 @@ def test_intersecting_ray_with_non_empty_group():
     assert xs[1].object == s2
     assert xs[2].object == s1
     assert xs[3].object == s1
+
+def test_intersecting_a_transformed_group():
+    g = Group()
+    g.scaling(2, 2, 2)
+    s = Sphere()
+    s.translation(5, 0, 0)
+    g.add_child(s)
+    r = Ray(Point(10, 0, -10), Vector(0, 0, 1))
+    xs = Intersection.find_intersections_of_ray_and_figure(r, g)
+    assert len(xs) == 2
