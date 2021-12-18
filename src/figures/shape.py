@@ -41,3 +41,9 @@ class Shape(Transformable):
         for intersection_distance in intersection_distances:
             intersections.append((intersection_distance, self))
         return intersections
+
+    def world_to_object(self, point: Point) -> Point:
+        if self.parent != None:
+            point = self.parent.world_to_object(point)
+        
+        return Point.fromTuple(MatrixInverter.invert(self.transform).multiply_matrix_and_tuple(point))

@@ -6,6 +6,7 @@ from figures.ray import Ray
 from figures.shape import Shape
 from figures.sphere import Sphere
 from matrix.matrix import Matrix
+from math import pi
 
 def test_create_new_group():
     g = Group()
@@ -53,3 +54,15 @@ def test_intersecting_a_transformed_group():
     r = Ray(Point(10, 0, -10), Vector(0, 0, 1))
     xs = Intersection.find_intersections_of_ray_and_figure(r, g)
     assert len(xs) == 2
+
+def test_convert_a_point_from_world_to_object_space():
+    g1 = Group()
+    g1.rotation_y(pi / 2)
+    g2 = Group()
+    g2.scaling(2, 2, 2)
+    g1.add_child(g2)
+    s = Sphere()
+    s.translation(5, 0 ,0)
+    g2.add_child(s)
+    p = s.world_to_object(Point(-2, 0, -10))
+    assert p == Point(0, 0, -1)
