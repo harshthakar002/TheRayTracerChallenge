@@ -19,7 +19,8 @@ class Group(Shape):
         shape.parent = self
     
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+        transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances_and_shapes = []
         for shape in self.shapes:
-            intersection_distances_and_shapes += shape.local_intersect(ray)
+            intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
         return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])

@@ -18,10 +18,6 @@ class Shape(Transformable):
         self.material = Material()
         self.parent = None
     
-    def ray_intersection_distance(self, ray: Ray) -> List[float]:
-        transformed_ray = ray.get_transformed_ray(self.ray_transform)
-        return self.local_intersection_distance(transformed_ray)
-    
     def normal_at(self, point: Point) -> Vector:
        object_point = self.ray_transform.multiply_matrix_and_tuple(point)
        object_normal = self.local_normal_at(object_point)
@@ -39,7 +35,8 @@ class Shape(Transformable):
         raise NotImplementedError('Abstract Method')
 
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
-        intersection_distances = self.ray_intersection_distance(ray)
+        transformed_ray = ray.get_transformed_ray(self.ray_transform)
+        intersection_distances = self.local_intersection_distance(transformed_ray)
         intersections = []
         for intersection_distance in intersection_distances:
             intersections.append((intersection_distance, self))
