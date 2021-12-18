@@ -16,6 +16,7 @@ class Shape(Transformable):
         self.transform = Matrix.generate_identity_matrix(4)
         self.ray_transform = Matrix.generate_identity_matrix(4)
         self.material = Material()
+        self.parent = None
     
     def ray_intersection_distance(self, ray: Ray) -> List[float]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)

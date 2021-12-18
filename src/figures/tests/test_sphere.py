@@ -1,5 +1,6 @@
 from features.vector import Vector
 from figures.ray import Ray
+from figures.shape import Shape
 from figures.sphere import Sphere, GlassSphere
 from features.point import Point
 from features.vector import Vector
@@ -131,3 +132,7 @@ def test_glass_sphere():
     assert s.ray_transform == Matrix.generate_identity_matrix(4)
     assert is_approximately_equal(s.material.transparency, 1.0)
     assert is_approximately_equal(s.material.refractive_index, 1.5)
+
+def test_shape_has_parent():
+    s = Shape()
+    assert s.parent == None
