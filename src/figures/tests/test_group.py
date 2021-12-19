@@ -6,7 +6,7 @@ from figures.ray import Ray
 from figures.shape import Shape
 from figures.sphere import Sphere
 from matrix.matrix import Matrix
-from math import pi
+from math import pi, sqrt
 
 def test_create_new_group():
     g = Group()
@@ -66,3 +66,15 @@ def test_convert_a_point_from_world_to_object_space():
     g2.add_child(s)
     p = s.world_to_object(Point(-2, 0, -10))
     assert p == Point(0, 0, -1)
+
+def test_convert_normal_from_object_space_to_world_space():
+    g1 = Group()
+    g1.rotation_y(pi / 2)
+    g2 = Group()
+    g2.scaling(1, 2, 3)
+    g1.add_child(g2)
+    s = Sphere()
+    s.translation(5, 0, 0)
+    g2.add_child(s)
+    n = s.normal_to_world(Vector(sqrt(3) / 3, sqrt(3) / 3, sqrt(3) / 3))
+    assert n == Vector(0.28571, 0.42857, -0.85714)

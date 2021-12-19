@@ -47,3 +47,13 @@ class Shape(Transformable):
             point = self.parent.world_to_object(point)
         
         return Point.fromTuple(MatrixInverter.invert(self.transform).multiply_matrix_and_tuple(point))
+    
+    def normal_to_world(self, normal: Vector) -> Vector:
+        normal = MatrixInverter.invert(self.transform).transposed_matrix().multiply_matrix_and_tuple(normal)
+        normal.w = 0
+        normal = Vector.fromtuple(normal).normalize()
+
+        if self.parent != None:
+            normal = self.parent.normal_to_world(normal)
+        
+        return normal
