@@ -1,4 +1,5 @@
 from typing import List
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.shape import Shape
@@ -70,3 +71,6 @@ class Cone(Shape):
         if point.y > 0:
             y = -y
         return Vector(point.x, y, point.z)
+    
+    def bounds(self) -> Bounds:
+        return Bounds(-1, self.minimum, -1, 1, self.maximum, 1)

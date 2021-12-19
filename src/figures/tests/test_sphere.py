@@ -1,3 +1,4 @@
+from features.bounds import Bounds
 from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
@@ -136,3 +137,7 @@ def test_glass_sphere():
 def test_shape_has_parent():
     s = Shape()
     assert s.parent == None
+
+def test_bounds():
+    s = Sphere()
+    assert s.bounds() == Bounds(-1, -1, -1, 1, 1, 1)

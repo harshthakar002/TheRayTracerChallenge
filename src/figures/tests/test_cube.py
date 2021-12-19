@@ -1,3 +1,4 @@
+from features.bounds import Bounds
 from figures.cube import Cube
 from figures.ray import Ray
 from features.point import Point
@@ -90,3 +91,7 @@ def test_normal_on_surface_of_the_cube():
     p = Point(-1, -1, -1)
     normal = c.local_normal_at(p)
     assert normal == Vector(-1, 0, 0)
+
+def test_bounds():
+    c = Cube()
+    assert c.bounds() == Bounds(-1, -1, -1, 1, 1, 1)

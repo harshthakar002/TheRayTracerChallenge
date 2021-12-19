@@ -1,4 +1,5 @@
 from typing import List
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.ray import Ray
@@ -64,3 +65,6 @@ class Cylinder(Shape):
             return Vector(0, -1, 0)
             
         return Vector(point.x, 0, point.z)
+
+    def bounds(self) -> Bounds:
+        return Bounds(-1, self.minimum, -1, 1, self.maximum, 1)

@@ -4,6 +4,7 @@ from figures.ray import Ray
 from typing import List
 from matrix.matrix import Matrix
 from matrix.matrix_inverter import MatrixInverter
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from physical.material import Material
@@ -56,3 +57,6 @@ class Shape(Transformable):
             normal = self.parent.normal_to_world(normal)
         
         return normal
+    
+    def bounds(self) -> Bounds:
+        return Bounds(-1, -1, -1, 1, 1, 1)

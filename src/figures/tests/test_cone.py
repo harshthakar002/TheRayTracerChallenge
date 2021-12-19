@@ -1,10 +1,11 @@
+from features.bounds import Bounds
 from figures.cone import Cone
 from figures.ray import Ray
 from features.point import Point
 from features.vector import Vector
 from features.equality import is_approximately_equal
 from figures.intersection import Intersection
-from math import sqrt
+from math import inf, sqrt
 
 def test_intersecting_cone_with_ray():
     shape = Cone()
@@ -51,3 +52,11 @@ def test_computer_normal_vector_on_cone():
     assert n == Vector(1, -sqrt(2), 1)
     n = shape.local_normal_at(Point(-1, -1, 0))
     assert n == Vector(-1, 1, 0)
+
+def test_bounds_for_infinite_cone():
+    cone = Cone()
+    assert cone.bounds() == Bounds(-1, -inf, -1, 1, inf, 1)
+
+def test_bounds_for_finite_cone():
+    cone = Cone(1, 2)
+    assert cone.bounds() == Bounds(-1, 1, -1, 1, 2, 1)

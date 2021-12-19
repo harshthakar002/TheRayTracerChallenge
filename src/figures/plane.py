@@ -1,9 +1,11 @@
 from typing import List
+from features.bounds import Bounds
 from features.equality import EPSILON
 from features.point import Point
 from features.vector import Vector
 from figures.shape import Shape
 from figures.ray import Ray
+from math import inf
 
 class Plane(Shape):
 
@@ -17,3 +19,6 @@ class Plane(Shape):
         if abs(ray.direction.y) < EPSILON:
             return []
         return [-ray.origin.y / ray.direction.y]
+    
+    def bounds(self) -> Bounds:
+        return Bounds(-inf, 0, -inf, inf, 0, inf)

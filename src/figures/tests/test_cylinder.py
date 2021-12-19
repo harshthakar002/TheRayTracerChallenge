@@ -1,3 +1,4 @@
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.cylinder import Cylinder
@@ -109,3 +110,11 @@ def test_normal_vector_on_cylinder_end_caps():
     assert n == Vector(0, 1, 0)
     n = cyl.local_normal_at(Point(0, 2, 0.5))
     assert n == Vector(0, 1, 0)
+
+def test_bounds_on_infinte_cylinder():
+    cyl = Cylinder()
+    assert cyl.bounds() == Bounds(-1, -inf, -1, 1, inf, 1)
+
+def test_bounds_on_closed_cylinder():
+    cyl = Cylinder(1, 2, True)
+    assert cyl.bounds() == Bounds(-1, 1, -1, 1, 2, 1)

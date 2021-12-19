@@ -1,8 +1,10 @@
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.intersection import Intersection
 from figures.plane import Plane
 from figures.ray import Ray
+from math import inf
 
 def test_normal_of_plane_is_constant_everywhere():
     p = Plane()
@@ -40,3 +42,7 @@ def test_intersect_plane_from_below():
     assert len(xs) == 1
     assert xs[0].t == 1
     assert xs[0].object == p
+
+def test_bounds():
+    p = Plane()
+    assert p.bounds() == Bounds(-inf, 0, -inf, inf, 0, inf)
