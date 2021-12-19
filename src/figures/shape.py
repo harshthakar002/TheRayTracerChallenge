@@ -16,7 +16,7 @@ class Shape(Transformable):
         self.transform = Matrix.generate_identity_matrix(4)
         self.ray_transform = Matrix.generate_identity_matrix(4)
         self.material = Material()
-        self.parent = None
+        self.parent: Shape = None
     
     def normal_at(self, point: Point) -> Vector:
        object_point = self.ray_transform.multiply_matrix_and_tuple(point)
@@ -37,7 +37,7 @@ class Shape(Transformable):
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances = self.local_intersection_distance(transformed_ray)
-        intersections = []
+        intersections: List[tuple[float, Shape]] = []
         for intersection_distance in intersection_distances:
             intersections.append((intersection_distance, self))
         return intersections

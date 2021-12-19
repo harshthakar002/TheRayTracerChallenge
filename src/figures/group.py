@@ -6,7 +6,7 @@ class Group(Shape):
 
     def __init__(self) -> None:
         super().__init__()
-        self.shapes = []
+        self.shapes: List[Shape] = []
 
     def is_empty(self) -> bool:
         return len(self.shapes) == 0
@@ -20,7 +20,7 @@ class Group(Shape):
     
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
-        intersection_distances_and_shapes = []
+        intersection_distances_and_shapes: List[tuple[float, Shape]] = []
         for shape in self.shapes:
             intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
         return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])
