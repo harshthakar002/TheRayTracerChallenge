@@ -1,4 +1,6 @@
 from typing import List
+from features.point import Point
+from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
 
@@ -24,3 +26,6 @@ class Group(Shape):
         for shape in self.shapes:
             intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
         return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])
+    
+    def normal_at(self, point: Point) -> Vector:
+        raise NotImplementedError('This method should not be called for groups')
