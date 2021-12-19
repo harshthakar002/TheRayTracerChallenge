@@ -19,10 +19,9 @@ class Shape(Transformable):
         self.parent: Shape = None
     
     def normal_at(self, point: Point) -> Vector:
-       object_point = self.ray_transform.multiply_matrix_and_tuple(point)
+       object_point = self.world_to_object(point)
        object_normal = self.local_normal_at(object_point)
-       world_normal = self.ray_transform.transposed_matrix().multiply_matrix_and_tuple(object_normal)
-       return Vector(world_normal.x, world_normal.y, world_normal.z).normalize() 
+       return self.normal_to_world(object_normal)
     
     def set_transform(self, transform: Matrix) -> None:
         self.transform = self.transform.multiply_matrices(transform)
