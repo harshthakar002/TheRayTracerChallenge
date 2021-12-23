@@ -27,6 +27,8 @@ class Shape(Transformable):
     def set_transform(self, transform: Matrix) -> None:
         self.transform = self.transform.multiply_matrices(transform)
         self.ray_transform = MatrixInverter.invert(self.transform)
+        if self.parent != None:
+            self.parent.memoize_bounds()
     
     def local_intersection_distance(self, ray: Ray) -> List[float]:
         raise NotImplementedError('Abstract method')
@@ -60,3 +62,6 @@ class Shape(Transformable):
     
     def bounds(self) -> Bounds:
         return Bounds(-1, -1, -1, 1, 1, 1)
+    
+    def memoize_bounds(self) -> None:
+        return

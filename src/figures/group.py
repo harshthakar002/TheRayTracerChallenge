@@ -12,6 +12,7 @@ class Group(Shape):
     def __init__(self) -> None:
         super().__init__()
         self.shapes: List[Shape] = []
+        self.memoized_bounds = Bounds(0, 0, 0, 0, 0, 0)
 
     def is_empty(self) -> bool:
         return len(self.shapes) == 0
@@ -22,6 +23,9 @@ class Group(Shape):
     def add_child(self, shape: Shape) -> None:
         self.shapes.append(shape)
         shape.parent = self
+        self.memoized_bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
+        if self.parent != None:
+            self.parent.memoize_bounds()
     
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
@@ -37,7 +41,7 @@ class Group(Shape):
         raise NotImplementedError('This method should not be called for groups')
     
     def bounds(self) -> Bounds:
-        return Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
+        return self.memoized_bounds
         
     def get_bounds_for_shapes(self) -> List[Bounds]:
         bounds_list : List[Bounds] = []
@@ -54,7 +58,6 @@ class Group(Shape):
         tmax = min(xtmax, ytmax, ztmax)
         return tmin > tmax
 
-
     @staticmethod
     def check_axis(min_value: float, max_value: float, origin: float, direction:float) -> Tuple[float, float]:
         tmin_numerator = min_value - origin
@@ -69,3 +72,6 @@ class Group(Shape):
         if tmin > tmax:
             tmin, tmax = tmax, tmin
         return tmin, tmax
+    
+    def memoize_bounds(self) -> None:
+        self.memoized_bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
