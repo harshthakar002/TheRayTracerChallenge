@@ -12,3 +12,6 @@ class Triangle(Shape):
         self.e1 = Vector.fromtuple(self.p2 - self.p1)
         self.e2 = Vector.fromtuple(self.p3 - self.p1)
         self.normal = self.e2.crossProduct(self.e1).normalize()
+    
+    def local_normal_at(self, point: Point) -> Vector:
+        return self.normal
