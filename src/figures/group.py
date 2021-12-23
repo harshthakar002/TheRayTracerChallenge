@@ -24,10 +24,10 @@ class Group(Shape):
         shape.parent = self
     
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
-        if self.is_out_of_bounds(ray):
+        transformed_ray = ray.get_transformed_ray(self.ray_transform)
+        if self.is_out_of_bounds(transformed_ray):
             return []
         
-        transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances_and_shapes: List[tuple[float, Shape]] = []
         for shape in self.shapes:
             intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
@@ -37,12 +37,7 @@ class Group(Shape):
         raise NotImplementedError('This method should not be called for groups')
     
     def bounds(self) -> Bounds:
-        bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
-        if self.parent != None:
-            return bounds
-        
-        transformed_bounds = bounds.transform(self.transform)
-        return transformed_bounds
+        return Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
         
     def get_bounds_for_shapes(self) -> List[Bounds]:
         bounds_list : List[Bounds] = []

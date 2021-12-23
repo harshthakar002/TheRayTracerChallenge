@@ -101,7 +101,7 @@ def test_finding_bounds_of_a_transformed_object():
     s.translation(2, 0, 0)
     g1.add_child(g2)
     g2.add_child(s)
-    assert g1.bounds() == Bounds(0, -2, -2.82842, 2.82842, 2, 0)
+    assert g1.bounds() == Bounds(1, -2, -1, 3, 2, 1)
 
 def test_ray_out_of_bounds():
     g1 = Group()
