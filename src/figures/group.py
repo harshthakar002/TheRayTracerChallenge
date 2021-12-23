@@ -1,4 +1,5 @@
 from typing import List
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.ray import Ray
@@ -29,3 +30,17 @@ class Group(Shape):
     
     def normal_at(self, point: Point) -> Vector:
         raise NotImplementedError('This method should not be called for groups')
+    
+    def bounds(self) -> Bounds:
+        bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
+        if self.parent != None:
+            return bounds
+        
+        transformed_bounds = bounds.transform(self.transform)
+        return transformed_bounds
+        
+    def get_bounds_for_shapes(self) -> List[Bounds]:
+        bounds_list : List[Bounds] = []
+        for shape in self.shapes:
+            bounds_list.append(shape.bounds().transform(shape.transform))
+        return bounds_list

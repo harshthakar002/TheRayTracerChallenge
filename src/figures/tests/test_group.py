@@ -1,3 +1,4 @@
+from features.bounds import Bounds
 from features.point import Point
 from features.vector import Vector
 from figures.group import Group
@@ -90,3 +91,14 @@ def test_finding_normal_on_a_child_object():
     g2.add_child(s)
     n = s.normal_at(Point(1.7321, 1.1547, -5.5774))
     assert n == Vector(0.28570, 0.42854, -0.85716)
+
+def test_finding_bounds_of_a_transformed_object():
+    g1 = Group()
+    g1.rotation_y(pi / 4)
+    g2 = Group()
+    g2. scaling(1, 2, 1)
+    s = Sphere()
+    s.translation(2, 0, 0)
+    g1.add_child(g2)
+    g2.add_child(s)
+    assert g1.bounds() == Bounds(0, -2, -2.82842, 2.82842, 2, 0)
