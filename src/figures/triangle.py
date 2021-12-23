@@ -20,9 +20,13 @@ class Triangle(Shape):
         return self.normal
 
     def local_intersection_distance(self, ray: Ray) -> List[float]:
-        div_cross_e2 = Vector.fromtuple(ray.direction).crossProduct(self.e2)
-        det = self.e1.dotProduct(div_cross_e2)
+        dir_cross_e2 = Vector.fromtuple(ray.direction).crossProduct(self.e2)
+        det = self.e1.dotProduct(dir_cross_e2)
         if abs(det) < EPSILON:
             return []
-        
+        f = 1.0 / det
+        p1_to_origin = ray.origin - self.p1
+        u = f * p1_to_origin.dotProduct(dir_cross_e2)
+        if u < 0 or u > 1:
+            return []
         return [1]
