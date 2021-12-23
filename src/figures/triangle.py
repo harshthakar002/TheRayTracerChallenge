@@ -29,4 +29,8 @@ class Triangle(Shape):
         u = f * p1_to_origin.dotProduct(dir_cross_e2)
         if u < 0 or u > 1:
             return []
+        origin_cross_e1 = Vector.fromtuple(p1_to_origin).crossProduct(self.e1)
+        v = f * ray.direction.dotProduct(origin_cross_e1)
+        if v < 0 or (u + v) > 1:
+            return []
         return [1]
