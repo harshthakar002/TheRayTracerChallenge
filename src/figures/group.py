@@ -1,9 +1,11 @@
-from typing import List
+from typing import List, Tuple
 from features.bounds import Bounds
+from features.equality import EPSILON
 from features.point import Point
 from features.vector import Vector
 from figures.ray import Ray
 from figures.shape import Shape
+from math import inf
 
 class Group(Shape):
 
@@ -22,6 +24,9 @@ class Group(Shape):
         shape.parent = self
     
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+        if self.is_out_of_bounds(ray):
+            return []
+        
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances_and_shapes: List[tuple[float, Shape]] = []
         for shape in self.shapes:
@@ -44,3 +49,28 @@ class Group(Shape):
         for shape in self.shapes:
             bounds_list.append(shape.bounds().transform(shape.transform))
         return bounds_list
+
+    def is_out_of_bounds(self, ray: Ray) -> bool:
+        bounds = self.bounds()
+        xtmin, xtmax = Group.check_axis(bounds.min_point.x, bounds.max_point.x, ray.origin.x, ray.direction.x)
+        ytmin, ytmax = Group.check_axis(bounds.min_point.y, bounds.max_point.y, ray.origin.y, ray.direction.y)
+        ztmin, ztmax = Group.check_axis(bounds.min_point.z, bounds.max_point.z, ray.origin.z, ray.direction.z)
+        tmin = max(xtmin, ytmin, ztmin)
+        tmax = min(xtmax, ytmax, ztmax)
+        return tmin > tmax
+
+
+    @staticmethod
+    def check_axis(min_value: float, max_value: float, origin: float, direction:float) -> Tuple[float, float]:
+        tmin_numerator = min_value - origin
+        tmax_numerator = max_value - origin
+        if abs(direction) >= EPSILON:
+            tmin = tmin_numerator / direction
+            tmax = tmax_numerator / direction
+        else:
+            tmin = tmin_numerator * inf
+            tmax = tmax_numerator * inf
+        
+        if tmin > tmax:
+            tmin, tmax = tmax, tmin
+        return tmin, tmax

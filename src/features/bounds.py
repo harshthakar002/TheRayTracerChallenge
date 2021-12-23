@@ -40,6 +40,8 @@ class Bounds():
     
     @staticmethod
     def find_bounds_of_group_of_bounds(bounds_list: List[Bounds]) -> Bounds:
+        if len(bounds_list) == 0:
+            return Bounds(0, 0, 0, 0, 0, 0)
         min_x, min_y, min_z = inf, inf, inf
         max_x, max_y, max_z = -inf, -inf, -inf
         for bounds in bounds_list:
