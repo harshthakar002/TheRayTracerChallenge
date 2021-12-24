@@ -3,6 +3,9 @@ from wavefront.parsed_obj import ParsedObj
 
 class ObjParser():
 
+    DELIMITER = ' '
+    VERTEX_KEY = 'v'
+
     def __init__(self, filename: str) -> None:
         if filename == None:
             raise ValueError('Filename cannot be none')
@@ -19,4 +22,16 @@ class ObjParser():
         return parsed_obj
 
     def parse_line(self, line: str, parsed_obj: ParsedObj) -> None:
-        parsed_obj.ignore()        
+        line_components = line.split(ObjParser.DELIMITER)
+        if len(line_components) == 0:
+            parsed_obj.ignore()
+            return
+
+        if line_components[0] == ObjParser.VERTEX_KEY:
+            if len(line_components) != 4:
+                parsed_obj.ignore()
+                return
+            x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
+            parsed_obj.add_vertex(x, y, z)
+        else:
+            parsed_obj.ignore()
