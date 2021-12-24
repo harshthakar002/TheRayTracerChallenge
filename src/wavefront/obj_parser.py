@@ -47,4 +47,6 @@ class ObjParser():
         if len(line_components) < 4:
             parsed_obj.ignore()
             return
-        parsed_obj.add_triangle(int(line_components[1]), int(line_components[2]), int(line_components[3]))
+        vertice_indices = line_components[1:]
+        for i in range(1, len(vertice_indices) - 1):
+            parsed_obj.add_triangle(int(vertice_indices[0]), int(vertice_indices[i]), int(vertice_indices[i + 1]))
