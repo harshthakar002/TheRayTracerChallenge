@@ -6,6 +6,7 @@ class ObjParser():
 
     DELIMITER = ' '
     VERTEX_KEY = 'v'
+    FACE_KEY = 'f'
 
     def __init__(self, filename: str) -> None:
         if filename == None:
@@ -30,6 +31,8 @@ class ObjParser():
 
         if line_components[0] == ObjParser.VERTEX_KEY:
             self.parse_vertex_line(line_components, parsed_obj)        
+        elif line_components[0] == ObjParser.FACE_KEY:
+            self.parse_face_line(line_components, parsed_obj)
         else:
             parsed_obj.ignore()
     
@@ -39,3 +42,9 @@ class ObjParser():
             return
         x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
         parsed_obj.add_vertex(x, y, z)
+    
+    def parse_face_line(self, line_components: List[str], parsed_obj: ParsedObj) -> None:
+        if len(line_components) < 4:
+            parsed_obj.ignore()
+            return
+        parsed_obj.add_triangle(int(line_components[1]), int(line_components[2]), int(line_components[3]))
