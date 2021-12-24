@@ -1,3 +1,4 @@
+from features.equality import is_approximately_equal
 from features.point import Point
 from features.vector import Vector
 from figures.intersection import Intersection
@@ -48,3 +49,10 @@ def test_intersection_ray_misses_p2_p3_edge():
     r = Ray(Point(0, -1, -2), Vector(0, 0, 1))
     xs = Intersection.find_intersections_of_ray_and_figure(r, t)
     assert len(xs) == 0
+
+def test_ray_strikes_a_triange():
+    t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0))
+    r = Ray(Point(0, 0.5, -2), Vector(0, 0, 1))
+    xs = Intersection.find_intersections_of_ray_and_figure(r, t)
+    assert len(xs) == 1
+    assert is_approximately_equal(xs[0].t, 2)

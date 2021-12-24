@@ -33,4 +33,4 @@ class Triangle(Shape):
         v = f * ray.direction.dotProduct(origin_cross_e1)
         if v < 0 or (u + v) > 1:
             return []
-        return [1]
+        return [f * self.e2.dotProduct(origin_cross_e1)]
