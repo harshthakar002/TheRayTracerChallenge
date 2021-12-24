@@ -53,3 +53,20 @@ def test_obj_parser_polygons():
     assert parsed_obj.groups[0].shapes[2].p1 == parsed_obj.vertices[1]
     assert parsed_obj.groups[0].shapes[2].p2 == parsed_obj.vertices[4]
     assert parsed_obj.groups[0].shapes[2].p3 == parsed_obj.vertices[5]
+
+def test_obj_parser_triangles():
+    obj_parser = ObjParser('src\\wavefront\\tests\\test_files\\triangles.obj')
+    parsed_obj = obj_parser.parse()
+    assert parsed_obj.ignored == 1
+    assert parsed_obj.processed == 8
+    assert len(parsed_obj.groups) == 3
+    assert len(parsed_obj.vertices) == 5
+    assert len(parsed_obj.groups[0].shapes) == 0
+    assert len(parsed_obj.groups[1].shapes) == 1
+    assert len(parsed_obj.groups[2].shapes) == 1
+    assert parsed_obj.groups[1].shapes[0].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[1].shapes[0].p2 == parsed_obj.vertices[2]
+    assert parsed_obj.groups[1].shapes[0].p3 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[2].shapes[0].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[2].shapes[0].p2 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[2].shapes[0].p3 == parsed_obj.vertices[4]
