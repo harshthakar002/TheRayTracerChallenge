@@ -9,10 +9,11 @@ from math import inf
 
 class Group(Shape):
 
-    def __init__(self) -> None:
+    def __init__(self, name: str = 'DefaultGroup') -> None:
         super().__init__()
         self.shapes: List[Shape] = []
         self.memoized_bounds = Bounds(0, 0, 0, 0, 0, 0)
+        self.name = name
 
     def is_empty(self) -> bool:
         return len(self.shapes) == 0

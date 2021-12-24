@@ -13,6 +13,7 @@ def test_create_new_group():
     g = Group()
     assert g.transform == Matrix.generate_identity_matrix(4)
     assert g.is_empty()
+    assert g.name == 'DefaultGroup'
 
 def test_add_child_to_a_group():
     g = Group()
