@@ -1,4 +1,5 @@
 from features.point import Point
+from wavefront.obj_parser import ObjParser
 from wavefront.parsed_obj import ParsedObj
 
 def test_parsed_obj_creation():
@@ -45,3 +46,10 @@ def test_parsed_obj_add_group():
     parsed_obj.add_group('TestGroup')
     assert len(parsed_obj.groups) == 2
     assert parsed_obj.groups[1].name == 'TestGroup'
+
+def test_parsed_obj_as_group():
+    obj_parser = ObjParser('src\\wavefront\\tests\\test_files\\triangles.obj')
+    parsed_obj = obj_parser.parse()
+    g = parsed_obj.asGroup()
+    assert g.shapes[0].name == 'FirstGroup'
+    assert g.shapes[1].name == 'SecondGroup'

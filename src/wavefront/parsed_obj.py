@@ -28,3 +28,10 @@ class ParsedObj():
 
     def mark_processed(self) -> None:
         self.processed += 1
+
+    def asGroup(self) -> Group:
+        parsed_obj_group = Group()
+        for group in self.groups:
+            if len(group.shapes) > 0:
+                parsed_obj_group.add_child(group)
+        return parsed_obj_group
