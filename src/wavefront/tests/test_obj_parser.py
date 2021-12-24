@@ -39,7 +39,7 @@ def test_obj_parser_polygons():
     obj_parser = ObjParser('src\\wavefront\\tests\\test_files\\polygons.obj')
     parsed_obj = obj_parser.parse()
     assert parsed_obj.ignored == 1
-    assert parsed_obj.processed == 8
+    assert parsed_obj.processed == 6
     assert len(parsed_obj.vertices) == 6
     assert len(parsed_obj.default_group.shapes) == 3
     assert parsed_obj.default_group.shapes[0].p1 == parsed_obj.vertices[1]

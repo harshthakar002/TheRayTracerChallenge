@@ -42,6 +42,7 @@ class ObjParser():
             return
         x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
         parsed_obj.add_vertex(x, y, z)
+        parsed_obj.mark_processed()
     
     def parse_face_line(self, line_components: List[str], parsed_obj: ParsedObj) -> None:
         if len(line_components) < 4:
@@ -50,3 +51,4 @@ class ObjParser():
         vertice_indices = line_components[1:]
         for i in range(1, len(vertice_indices) - 1):
             parsed_obj.add_triangle(int(vertice_indices[0]), int(vertice_indices[i]), int(vertice_indices[i + 1]))
+        parsed_obj.mark_processed()
