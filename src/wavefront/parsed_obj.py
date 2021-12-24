@@ -23,5 +23,8 @@ class ParsedObj():
         triangle = Triangle(self.vertices[index1], self.vertices[index2], self.vertices[index3])
         self.groups[-1].add_child(triangle)
 
+    def add_group(self, name: str) -> None:
+        self.groups.append(Group(name))
+
     def mark_processed(self) -> None:
         self.processed += 1

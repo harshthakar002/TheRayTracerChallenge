@@ -39,3 +39,9 @@ def test_parsed_obj_mark_processed():
     assert parsed_obj.processed == 1
     parsed_obj.mark_processed()
     assert parsed_obj.processed == 2
+
+def test_parsed_obj_add_group():
+    parsed_obj = ParsedObj()
+    parsed_obj.add_group('TestGroup')
+    assert len(parsed_obj.groups) == 2
+    assert parsed_obj.groups[1].name == 'TestGroup'
