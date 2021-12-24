@@ -1,3 +1,4 @@
+from typing import List
 from wavefront.parsed_obj import ParsedObj
 
 
@@ -28,10 +29,13 @@ class ObjParser():
             return
 
         if line_components[0] == ObjParser.VERTEX_KEY:
-            if len(line_components) != 4:
-                parsed_obj.ignore()
-                return
-            x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
-            parsed_obj.add_vertex(x, y, z)
+            self.parse_vertex_line(line_components, parsed_obj)        
         else:
             parsed_obj.ignore()
+    
+    def parse_vertex_line(self, line_components: List[str], parsed_obj: ParsedObj) -> None:
+        if len(line_components) != 4:
+            parsed_obj.ignore()
+            return
+        x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
+        parsed_obj.add_vertex(x, y, z)
