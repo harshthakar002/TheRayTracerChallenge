@@ -27,27 +27,29 @@ def test_obj_parser_faces():
     assert parsed_obj.ignored == 1
     assert parsed_obj.processed == 6
     assert len(parsed_obj.vertices) == 5
-    assert len(parsed_obj.default_group.shapes) == 2
-    assert parsed_obj.default_group.shapes[0].p1 == parsed_obj.vertices[1]
-    assert parsed_obj.default_group.shapes[0].p2 == parsed_obj.vertices[2]
-    assert parsed_obj.default_group.shapes[0].p3 == parsed_obj.vertices[3]
-    assert parsed_obj.default_group.shapes[1].p1 == parsed_obj.vertices[1]
-    assert parsed_obj.default_group.shapes[1].p2 == parsed_obj.vertices[3]
-    assert parsed_obj.default_group.shapes[1].p3 == parsed_obj.vertices[4]
+    assert len(parsed_obj.groups) == 1
+    assert len(parsed_obj.groups[0].shapes) == 2
+    assert parsed_obj.groups[0].shapes[0].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[0].p2 == parsed_obj.vertices[2]
+    assert parsed_obj.groups[0].shapes[0].p3 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[1].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[1].p2 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[1].p3 == parsed_obj.vertices[4]
 
 def test_obj_parser_polygons():
     obj_parser = ObjParser('src\\wavefront\\tests\\test_files\\polygons.obj')
     parsed_obj = obj_parser.parse()
     assert parsed_obj.ignored == 1
     assert parsed_obj.processed == 6
+    assert len(parsed_obj.groups) == 1
     assert len(parsed_obj.vertices) == 6
-    assert len(parsed_obj.default_group.shapes) == 3
-    assert parsed_obj.default_group.shapes[0].p1 == parsed_obj.vertices[1]
-    assert parsed_obj.default_group.shapes[0].p2 == parsed_obj.vertices[2]
-    assert parsed_obj.default_group.shapes[0].p3 == parsed_obj.vertices[3]
-    assert parsed_obj.default_group.shapes[1].p1 == parsed_obj.vertices[1]
-    assert parsed_obj.default_group.shapes[1].p2 == parsed_obj.vertices[3]
-    assert parsed_obj.default_group.shapes[1].p3 == parsed_obj.vertices[4]
-    assert parsed_obj.default_group.shapes[2].p1 == parsed_obj.vertices[1]
-    assert parsed_obj.default_group.shapes[2].p2 == parsed_obj.vertices[4]
-    assert parsed_obj.default_group.shapes[2].p3 == parsed_obj.vertices[5]
+    assert len(parsed_obj.groups[0].shapes) == 3
+    assert parsed_obj.groups[0].shapes[0].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[0].p2 == parsed_obj.vertices[2]
+    assert parsed_obj.groups[0].shapes[0].p3 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[1].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[1].p2 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[1].p3 == parsed_obj.vertices[4]
+    assert parsed_obj.groups[0].shapes[2].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[2].p2 == parsed_obj.vertices[4]
+    assert parsed_obj.groups[0].shapes[2].p3 == parsed_obj.vertices[5]
