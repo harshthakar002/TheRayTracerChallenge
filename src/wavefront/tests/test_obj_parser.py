@@ -62,7 +62,9 @@ def test_obj_parser_triangles():
     assert len(parsed_obj.groups) == 3
     assert len(parsed_obj.vertices) == 5
     assert len(parsed_obj.groups[0].shapes) == 0
+    assert parsed_obj.groups[1].name == 'FirstGroup'
     assert len(parsed_obj.groups[1].shapes) == 1
+    assert parsed_obj.groups[2].name == 'SecondGroup'
     assert len(parsed_obj.groups[2].shapes) == 1
     assert parsed_obj.groups[1].shapes[0].p1 == parsed_obj.vertices[1]
     assert parsed_obj.groups[1].shapes[0].p2 == parsed_obj.vertices[2]

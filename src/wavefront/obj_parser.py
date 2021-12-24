@@ -61,5 +61,5 @@ class ObjParser():
             parsed_obj.ignore()
             return
         name = ' '.join(line_components[1:])
-        parsed_obj.add_group(name)
+        parsed_obj.add_group(name.strip())
         parsed_obj.mark_processed()
