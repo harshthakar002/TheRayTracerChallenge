@@ -24,7 +24,10 @@ class Group(Shape):
     def add_child(self, shape: Shape) -> None:
         self.shapes.append(shape)
         shape.parent = self
-        self.memoized_bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
+        if len(self.shapes) > 1:
+            self.memoized_bounds = Bounds.find_bounds_of_group_of_bounds([shape.bounds().transform(shape.transform), self.memoized_bounds])
+        else:
+            self.memoize_bounds()
         if self.parent != None:
             self.parent.memoize_bounds()
     
