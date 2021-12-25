@@ -1,4 +1,5 @@
 from typing import List
+from features.bounds import Bounds
 from features.equality import EPSILON
 from features.point import Point
 from features.vector import Vector
@@ -34,3 +35,11 @@ class Triangle(Shape):
         if v < 0 or (u + v) > 1:
             return []
         return [f * self.e2.dotProduct(origin_cross_e1)]
+    
+    def bounds(self) -> Bounds:
+        return Bounds(min(self.p1.x, self.p2.x, self.p3.x),
+                      min(self.p1.y, self.p2.y, self.p3.y),
+                      min(self.p1.z, self.p2.z, self.p3.z),
+                      max(self.p1.x, self.p2.x, self.p3.x),
+                      max(self.p1.y, self.p2.y, self.p3.y),
+                      max(self.p1.z, self.p2.z, self.p3.z))
