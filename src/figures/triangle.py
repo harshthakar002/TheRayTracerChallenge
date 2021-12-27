@@ -43,3 +43,11 @@ class Triangle(Shape):
                       max(self.p1.x, self.p2.x, self.p3.x),
                       max(self.p1.y, self.p2.y, self.p3.y),
                       max(self.p1.z, self.p2.z, self.p3.z))
+
+class SmoothTriangle(Triangle):
+
+    def __init__(self, p1: Point, p2: Point, p3: Point, n1: Vector, n2: Vector, n3: Vector) -> None:
+        super().__init__(p1, p2, p3)
+        self.n1 = n1
+        self.n2 = n2
+        self.n3 = n3

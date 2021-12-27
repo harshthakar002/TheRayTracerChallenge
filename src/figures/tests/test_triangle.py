@@ -3,7 +3,7 @@ from features.point import Point
 from features.vector import Vector
 from figures.intersection import Intersection
 from figures.ray import Ray
-from figures.triangle import Triangle
+from figures.triangle import SmoothTriangle, Triangle
 
 def test_constructing_a_triange():
     p1 = Point(0, 1, 0)
@@ -56,3 +56,18 @@ def test_ray_strikes_a_triange():
     xs = Intersection.find_intersections_of_ray_and_figure(r, t)
     assert len(xs) == 1
     assert is_approximately_equal(xs[0].t, 2)
+
+def test_constuct_smooth_triangle():
+    p1 = Point(0, 1, 0)
+    p2 = Point(-1, 0, 0)
+    p3 = Point(1, 0, 0)
+    n1 = Vector(0, 1, 0)
+    n2 = Vector(-1, 0, 0)
+    n3 = Vector(1, 0, 0)
+    t = SmoothTriangle(p1, p2, p3, n1, n2, n3)
+    assert t.p1 == p1
+    assert t.p2 == p2
+    assert t.p3 == p3
+    assert t.n1 == n1
+    assert t.n2 == n2
+    assert t.n3 == n3
