@@ -52,3 +52,6 @@ class Bounds():
             max_y = max(max_y, bounds.max_point.y)
             max_z = max(max_z, bounds.max_point.z)
         return Bounds(min_x, min_y, min_z, max_x, max_y, max_z)
+
+    def to_string(self) -> str:
+        return str(self.min_point.x) + ', ' + str(self.min_point.y) + ', ' + str(self.min_point.z) + ' -> ' + str(self.max_point.x) + ', ' + str(self.max_point.y) + ', ' + str(self.max_point.z)
