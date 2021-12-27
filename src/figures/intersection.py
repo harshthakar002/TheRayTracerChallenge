@@ -7,9 +7,11 @@ from typing import List
 
 class Intersection():
 
-    def __init__(self, t: float, object: Shape) -> None:
+    def __init__(self, t: float, object: Shape, u: float = None, v: float = None) -> None:
         self.t = t
         self.object = object
+        self.u = u
+        self.v = v
     
     @staticmethod
     def find_intersections_of_ray_and_figure(ray: Ray, shape: Shape) -> List[Intersection]:

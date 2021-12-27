@@ -4,6 +4,7 @@ from features.equality import EPSILON, is_approximately_equal
 from figures.ray import Ray
 from features.point import Point
 from features.vector import Vector
+from figures.triangle import Triangle
 from physical.default_world import DefaultWorld
 from figures.plane import Plane
 from math import sqrt
@@ -186,3 +187,9 @@ def test_schlick_approximation_with_small_angle_and_n2_greather_than_n1():
     comps = xs[0].prepare_computation(r, xs)
     reflectance = comps.schlick()
     assert is_approximately_equal(reflectance, 0.48873)
+
+def test_create_intersection_with_u_and_v():
+    s = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0))
+    i = Intersection(3.5, s, 0.2, 0.4)
+    assert is_approximately_equal(i.u, 0.2)
+    assert is_approximately_equal(i.v, 0.4)
