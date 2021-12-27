@@ -79,3 +79,27 @@ class Group(Shape):
     
     def memoize_bounds(self) -> None:
         self.memoized_bounds = Bounds.find_bounds_of_group_of_bounds(self.get_bounds_for_shapes())
+
+    def optimise_by_splitting_by_n(self, n: int) -> None:
+        n = 7
+        bounds = self.bounds()
+        delta = bounds.max_point - bounds.min_point
+        mat: list[list[list[Group]]] = []
+        for i in range(n):
+            mat.append([])
+            for j in range(n):
+                mat[i].append([])
+                for k in range(n):
+                    mat[i][j].append(Group(self.name + '_Group' + str(i) + str(j) + str(k)))
+        dx, dy, dz = delta.x / n, delta.y / n, delta.z / n
+        for shape in self.shapes:
+            s_bounds: Bounds = shape.bounds()
+            s_mid = (s_bounds.max_point + s_bounds.min_point) / 2
+            mat[int(s_mid.x / dx)][int(s_mid.y / dy)][int(s_mid.z / dz)].add_child(shape)
+        self.shapes = []
+        self.memoize_bounds()
+        for i in range(n):
+            for j in range(n):
+                for k in range(n):
+                    if len(mat[i][j][k].shapes) != 0:
+                        self.add_child(mat[i][j][k])

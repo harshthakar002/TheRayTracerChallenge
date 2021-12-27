@@ -21,40 +21,13 @@ parsing_time = datetime.now()
 print("Parsing complete. Parsing time taken:")
 print(parsing_time - begin_time)
 
-teapot_group = teapot_parsed_obj.asGroup()
-teapot_group = teapot_parsed_obj.asGroup()
-
-n = 7
-
-bounds = teapot_group.bounds()
-delta = bounds.max_point - bounds.min_point
-mat: list[list[list[Group]]] = []
-for i in range(n):
-    mat.append([])
-    for j in range(n):
-        mat[i].append([])
-        for k in range(n):
-            mat[i][j].append(Group('Group' + str(i) + str(j) + str(k)))
-
-dx, dy, dz = delta.x / n, delta.y / n, delta.z / n
-
-for shape in teapot_group.shapes[0].shapes:
-    s_bounds: Bounds = shape.bounds()
-    s_mid = (s_bounds.max_point + s_bounds.min_point) / 2
-    mat[int(s_mid.x / dx)][int(s_mid.y / dy)][int(s_mid.z / dz)].add_child(shape)
-
-split_group = Group('teapot_split')
-
-for i in range(n):
-    for j in range(n):
-        for k in range(n):
-            split_group.add_child(mat[i][j][k])
-
-split_group = split_group.scaling(0.8, 0.8, 0.8)
-
+teapot_group = teapot_parsed_obj.groups[0]
+teapot_group.optimise_by_splitting_by_n(7)
+teapot_group = teapot_group.scaling(0.8, 0.8, 0.8)
+print(len(teapot_group.shapes))
 light = PointLight(Color(1, 1, 1), Point(-10, 10, -10))
 world = World()
-world.objects = [split_group]
+world.objects = [teapot_group]
 world.light = light
 print("Rendering started.")
 transform = ViewTransformer.view_transform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0))
