@@ -11,7 +11,7 @@ class Cube(Shape):
     def __init__(self):
         super().__init__()
 
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         xtmin, xtmax = Cube.check_axis(ray.origin.x, ray.direction.x)
         ytmin, ytmax = Cube.check_axis(ray.origin.y, ray.direction.y)
         ztmin, ztmax = Cube.check_axis(ray.origin.z, ray.direction.z)
@@ -20,7 +20,7 @@ class Cube(Shape):
         if tmin > tmax:
             return []
         
-        return [tmin, tmax]
+        return [(tmin, None, None), (tmax, None, None)]
 
     @staticmethod
     def check_axis(origin: float, direction:float) -> Tuple[float, float]:

@@ -20,21 +20,27 @@ class Triangle(Shape):
     def local_normal_at(self, point: Point) -> Vector:
         return self.normal
 
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
+        distance, u, v = self.find_intersection_of_ray_and_triangle(ray)
+        if distance == None:
+            return []
+        return [(distance, None, None)]
+    
+    def find_intersection_of_ray_and_triangle(self, ray: Ray) -> tuple[float, float, float]:
         dir_cross_e2 = Vector.fromtuple(ray.direction).crossProduct(self.e2)
         det = self.e1.dotProduct(dir_cross_e2)
         if abs(det) < EPSILON:
-            return []
+            return None, None, None
         f = 1.0 / det
         p1_to_origin = ray.origin - self.p1
         u = f * p1_to_origin.dotProduct(dir_cross_e2)
         if u < 0 or u > 1:
-            return []
+            return None, None, None
         origin_cross_e1 = Vector.fromtuple(p1_to_origin).crossProduct(self.e1)
         v = f * ray.direction.dotProduct(origin_cross_e1)
         if v < 0 or (u + v) > 1:
-            return []
-        return [f * self.e2.dotProduct(origin_cross_e1)]
+            return None, None, None
+        return f * self.e2.dotProduct(origin_cross_e1), u, v
     
     def bounds(self) -> Bounds:
         return Bounds(min(self.p1.x, self.p2.x, self.p3.x),
@@ -51,3 +57,9 @@ class SmoothTriangle(Triangle):
         self.n1 = n1
         self.n2 = n2
         self.n3 = n3
+
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
+        distance, u, v = self.find_intersection_of_ray_and_triangle(ray)
+        if distance == None:
+            return []
+        return [(distance, u, v)]

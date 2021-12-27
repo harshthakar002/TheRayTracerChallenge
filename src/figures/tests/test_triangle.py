@@ -71,3 +71,16 @@ def test_constuct_smooth_triangle():
     assert t.n1 == n1
     assert t.n2 == n2
     assert t.n3 == n3
+
+def test_intersect_smooth_triangle_stores_u_and_v():
+    p1 = Point(0, 1, 0)
+    p2 = Point(-1, 0, 0)
+    p3 = Point(1, 0, 0)
+    n1 = Vector(0, 1, 0)
+    n2 = Vector(-1, 0, 0)
+    n3 = Vector(1, 0, 0)
+    t = SmoothTriangle(p1, p2, p3, n1, n2, n3)
+    r = Ray(Point(-0.2, 0.3,-2), Vector(0, 0, 1))
+    xs = Intersection.find_intersections_of_ray_and_figure(r, t)
+    assert is_approximately_equal(xs[0].u, 0.45)
+    assert is_approximately_equal(xs[0].v, 0.25)

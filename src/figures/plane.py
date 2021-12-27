@@ -15,10 +15,10 @@ class Plane(Shape):
     def local_normal_at(self, point: Point) -> Vector:
         return Vector(0, 1, 0)
     
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         if abs(ray.direction.y) < EPSILON:
             return []
-        return [-ray.origin.y / ray.direction.y]
+        return [(-ray.origin.y / ray.direction.y, None, None)]
     
     def bounds(self) -> Bounds:
         return Bounds(-inf, 0, -inf, inf, 0, inf)

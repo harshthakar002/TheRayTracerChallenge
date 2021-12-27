@@ -15,7 +15,7 @@ class Cone(Shape):
         self.closed = closed
         super().__init__()
     
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         a = (ray.direction.x * ray.direction.x) - (ray.direction.y * ray.direction.y) + (ray.direction.z * ray.direction.z)
         b = (2 * ray.origin.x * ray.direction.x) - (2 * ray.origin.y * ray.direction.y) + (2 * ray.origin.z * ray.direction.z)
         c = (ray.origin.x * ray.origin.x) - (ray.origin.y * ray.origin.y) + (ray.origin.z * ray.origin.z)
@@ -23,7 +23,7 @@ class Cone(Shape):
             if is_approximately_equal(b, 0.0):
                 return self.intersect_caps(ray, [])
             else:
-                return self.intersect_caps(ray, [- c / (2 * b)])
+                return self.intersect_caps(ray, [(- c / (2 * b), None, None)])
         disc = (b * b) - (4 * a * c)
         if disc < 0:
             return []
@@ -35,11 +35,11 @@ class Cone(Shape):
         ts = []
         y0 = ray.origin.y + (t0 * ray.direction.y)
         if self.minimum < y0 and y0 < self.maximum:
-            ts.append(t0)
+            ts.append((t0, None, None))
         
         y1 = ray.origin.y + (t1 * ray.direction.y)
         if self.minimum < y1 and y1 < self.maximum:
-            ts.append(t1)
+            ts.append((t1, None, None))
         return self.intersect_caps(ray, ts)
     
     @staticmethod
@@ -48,16 +48,16 @@ class Cone(Shape):
         z = ray.origin.z + (t * ray.direction.z)
         return ((x * x) + (z * z)) <= (radius * radius)
     
-    def intersect_caps(self, ray: Ray, ts: List[float]) -> List[float]:
+    def intersect_caps(self, ray: Ray, ts: List[tuple[float, float, float]]) -> List[tuple[float, float, float]]:
         if not self.closed or is_approximately_equal(ray.direction.y, 0):
             return ts
         t = (self.minimum - ray.origin.y) / ray.direction.y
         if Cone.check_cap(ray, t, self.minimum):
-            ts.append(t)
+            ts.append((t, None, None))
         
         t = (self.maximum - ray.origin.y) / ray.direction.y
         if Cone.check_cap(ray, t, self.maximum):
-            ts.append(t)
+            ts.append((t, None, None))
         return ts
     
     def local_normal_at(self, point: Point) -> Vector:

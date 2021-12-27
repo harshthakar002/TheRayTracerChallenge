@@ -30,18 +30,18 @@ class Shape(Transformable):
         if self.parent != None:
             self.parent.memoize_bounds()
     
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         raise NotImplementedError('Abstract method')
 
     def local_normal_at(self, point: Point) -> Vector:
         raise NotImplementedError('Abstract Method')
 
-    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape, float, float]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances = self.local_intersection_distance(transformed_ray)
         intersections: List[tuple[float, Shape]] = []
-        for intersection_distance in intersection_distances:
-            intersections.append((intersection_distance, self))
+        for intersection_distance, u, v in intersection_distances:
+            intersections.append((intersection_distance, self, u, v))
         return intersections
 
     def world_to_object(self, point: Point) -> Point:

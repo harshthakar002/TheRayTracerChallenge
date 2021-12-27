@@ -15,7 +15,7 @@ class Cylinder(Shape):
         self.closed = closed
         super().__init__()
     
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         a = (ray.direction.x * ray.direction.x) + (ray.direction.z * ray.direction.z)
         if is_approximately_equal(a, 0.0):
             return self.intersect_caps(ray, [])
@@ -32,11 +32,11 @@ class Cylinder(Shape):
         ts = []
         y0 = ray.origin.y + (t0 * ray.direction.y)
         if self.minimum < y0 and y0 < self.maximum:
-            ts.append(t0)
+            ts.append((t0, None, None))
         
         y1 = ray.origin.y + (t1 * ray.direction.y)
         if self.minimum < y1 and y1 < self.maximum:
-            ts.append(t1)
+            ts.append((t1, None, None))
         return self.intersect_caps(ray, ts)
     
     @staticmethod
@@ -45,16 +45,16 @@ class Cylinder(Shape):
         z = ray.origin.z + (t * ray.direction.z)
         return ((x * x) + (z * z)) <= 1
     
-    def intersect_caps(self, ray: Ray, ts: List[float]) -> List[float]:
+    def intersect_caps(self, ray: Ray, ts: List[float]) -> List[tuple[float, float, float]]:
         if not self.closed or is_approximately_equal(ray.direction.y, 0):
             return ts
         t = (self.minimum - ray.origin.y) / ray.direction.y
         if Cylinder.check_cap(ray, t):
-            ts.append(t)
+            ts.append((t, None, None))
         
         t = (self.maximum - ray.origin.y) / ray.direction.y
         if Cylinder.check_cap(ray, t):
-            ts.append(t)
+            ts.append((t, None, None))
         return ts
         
     def local_normal_at(self, point: Point) -> Vector:

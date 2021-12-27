@@ -17,16 +17,16 @@ def test_ray_intersects_sphere_at_two_points():
     s = Sphere()
     xs = s.local_intersection_distance(r)
     assert len(xs) == 2
-    assert is_approximately_equal(xs[0], 4.0)
-    assert is_approximately_equal(xs[1], 6.0)
+    assert is_approximately_equal(xs[0][0], 4.0)
+    assert is_approximately_equal(xs[1][0], 6.0)
 
 def test_ray_intersects_sphere_at_tangent():
     r = Ray(Point(0, 1, -5), Vector(0, 0, 1))
     s = Sphere()
     xs = s.local_intersection_distance(r)
     assert len(xs) == 2
-    assert is_approximately_equal(xs[0], 5.0)
-    assert is_approximately_equal(xs[1], 5.0)
+    assert is_approximately_equal(xs[0][0], 5.0)
+    assert is_approximately_equal(xs[1][0], 5.0)
 
 def test_ray_misses_sphere():
     r = Ray(Point(0, 2, -5), Vector(0, 0, 1))
@@ -39,16 +39,16 @@ def test_ray_originates_in_sphere():
     s = Sphere()
     xs = s.local_intersection_distance(r)
     assert len(xs) == 2
-    assert is_approximately_equal(xs[0], -1)
-    assert is_approximately_equal(xs[1], 1)
+    assert is_approximately_equal(xs[0][0], -1)
+    assert is_approximately_equal(xs[1][0], 1)
 
 def test_sphere_is_behind_ray():
     r = Ray(Point(0, 0, 5), Vector(0, 0, 1))
     s = Sphere()
     xs = s.local_intersection_distance(r)
     assert len(xs) == 2
-    assert is_approximately_equal(xs[0], -6)
-    assert is_approximately_equal(xs[1], -4)
+    assert is_approximately_equal(xs[0][0], -6)
+    assert is_approximately_equal(xs[1][0], -4)
 
 def test_spehere_default_transformation():
     s = Sphere()

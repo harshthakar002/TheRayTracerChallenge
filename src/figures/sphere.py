@@ -13,7 +13,7 @@ class Sphere(Shape):
         self.radius = 1
         super().__init__()
     
-    def local_intersection_distance(self, ray: Ray) -> List[float]:
+    def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         sphere_to_ray = ray.origin - self.origin
         a = ray.direction.dotProduct(ray.direction)
         b = 2 * ray.direction.dotProduct(sphere_to_ray)
@@ -23,7 +23,7 @@ class Sphere(Shape):
             return []
         t1 = (-b - sqrt(discriminant)) / (2 * a)
         t2 = (-b + sqrt(discriminant)) / (2 * a)
-        return [t1, t2]
+        return [(t1, None, None), (t2, None, None)]
     
     def local_normal_at(self, point: Point) -> Vector:
         return Vector.fromtuple(point - Point(0, 0, 0))
