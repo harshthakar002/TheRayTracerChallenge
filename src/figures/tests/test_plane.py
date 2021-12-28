@@ -8,9 +8,9 @@ from math import inf
 
 def test_normal_of_plane_is_constant_everywhere():
     p = Plane()
-    n1 = p.local_normal_at(Point(0, 0, 0))
-    n2 = p.local_normal_at(Point(10, 0, -10))
-    n3 = p.local_normal_at(Point(-5, 0, 150))
+    n1 = p.local_normal_at(Point(0, 0, 0), None, None)
+    n2 = p.local_normal_at(Point(10, 0, -10), None, None)
+    n3 = p.local_normal_at(Point(-5, 0, 150), None, None)
     assert n1 == Vector(0, 1, 0)
     assert n2 == Vector(0, 1, 0)
     assert n3 == Vector(0, 1, 0)

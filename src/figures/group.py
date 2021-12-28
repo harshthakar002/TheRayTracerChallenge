@@ -41,7 +41,7 @@ class Group(Shape):
             intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
         return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])
     
-    def normal_at(self, point: Point) -> Vector:
+    def normal_at(self, point: Point, u: float, v: float) -> Vector:
         raise NotImplementedError('This method should not be called for groups')
     
     def bounds(self) -> Bounds:

@@ -12,7 +12,7 @@ class Plane(Shape):
     def __init__(self):
         super().__init__()
 
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         return Vector(0, 1, 0)
     
     def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:

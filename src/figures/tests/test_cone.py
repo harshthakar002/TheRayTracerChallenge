@@ -46,11 +46,11 @@ def test_intersecting_cone_end_caps():
 
 def test_computer_normal_vector_on_cone():
     shape = Cone()
-    n = shape.local_normal_at(Point(0, 0, 0))
+    n = shape.local_normal_at(Point(0, 0, 0), None, None)
     assert n == Vector(0, 0, 0)
-    n = shape.local_normal_at(Point(1, 1, 1))
+    n = shape.local_normal_at(Point(1, 1, 1), None, None)
     assert n == Vector(1, -sqrt(2), 1)
-    n = shape.local_normal_at(Point(-1, -1, 0))
+    n = shape.local_normal_at(Point(-1, -1, 0), None, None)
     assert n == Vector(-1, 1, 0)
 
 def test_bounds_for_infinite_cone():

@@ -19,9 +19,9 @@ class Shape(Transformable):
         self.material = Material()
         self.parent: Shape = None
     
-    def normal_at(self, point: Point) -> Vector:
+    def normal_at(self, point: Point, u: float = None, v: float = None) -> Vector:
        object_point = self.world_to_object(point)
-       object_normal = self.local_normal_at(object_point)
+       object_normal = self.local_normal_at(object_point, u, v)
        return self.normal_to_world(object_normal)
     
     def set_transform(self, transform: Matrix) -> None:
@@ -33,7 +33,7 @@ class Shape(Transformable):
     def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:
         raise NotImplementedError('Abstract method')
 
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         raise NotImplementedError('Abstract Method')
 
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape, float, float]]:

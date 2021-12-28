@@ -60,7 +60,7 @@ class Cone(Shape):
             ts.append((t, None, None))
         return ts
     
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         dist = (point.x * point.x) + (point.z * point.z)
         if dist < 1 and point.y >= (self.maximum - EPSILON):
             return Vector(0, 1, 0)

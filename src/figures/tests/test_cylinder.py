@@ -39,13 +39,13 @@ def test_ray_strikes_cylinder():
 
 def test_normal_on_cylinder():
     cyl = Cylinder()
-    n = cyl.local_normal_at(Point(1, 0, 0))
+    n = cyl.local_normal_at(Point(1, 0, 0), None, None)
     assert n == Vector(1, 0, 0)
-    n = cyl.local_normal_at(Point(0, 5, -1))
+    n = cyl.local_normal_at(Point(0, 5, -1), None, None)
     assert n == Vector(0, 0, -1)
-    n = cyl.local_normal_at(Point(0, -2, 1))
+    n = cyl.local_normal_at(Point(0, -2, 1), None, None)
     assert n == Vector(0, 0, 1)
-    n = cyl.local_normal_at(Point(-1, 1, 0))
+    n = cyl.local_normal_at(Point(-1, 1, 0), None, None)
     assert n == Vector(-1, 0, 0)
 
 def test_default_minimum_and_maximun_for_a_cylinder():
@@ -98,17 +98,17 @@ def test_intersecting_caps_of_a_closed_cylinder():
 
 def test_normal_vector_on_cylinder_end_caps():
     cyl = Cylinder(1, 2, True)
-    n = cyl.local_normal_at(Point(0, 1, 0))
+    n = cyl.local_normal_at(Point(0, 1, 0), None, None)
     assert n == Vector(0, -1, 0)
-    n = cyl.local_normal_at(Point(0.5, 1, 0))
+    n = cyl.local_normal_at(Point(0.5, 1, 0), None, None)
     assert n == Vector(0, -1, 0)
-    n = cyl.local_normal_at(Point(0, 1, 0.5))
+    n = cyl.local_normal_at(Point(0, 1, 0.5), None, None)
     assert n == Vector(0, -1, 0)
-    n = cyl.local_normal_at(Point(0, 2, 0))
+    n = cyl.local_normal_at(Point(0, 2, 0), None, None)
     assert n == Vector(0, 1, 0)
-    n = cyl.local_normal_at(Point(0.5, 2, 0))
+    n = cyl.local_normal_at(Point(0.5, 2, 0), None, None)
     assert n == Vector(0, 1, 0)
-    n = cyl.local_normal_at(Point(0, 2, 0.5))
+    n = cyl.local_normal_at(Point(0, 2, 0.5), None, None)
     assert n == Vector(0, 1, 0)
 
 def test_bounds_on_infinte_cylinder():

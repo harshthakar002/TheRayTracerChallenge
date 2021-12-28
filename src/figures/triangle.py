@@ -17,7 +17,7 @@ class Triangle(Shape):
         self.e2 = Vector.fromtuple(self.p3 - self.p1)
         self.normal = self.e2.crossProduct(self.e1).normalize()
     
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         return self.normal
 
     def local_intersection_distance(self, ray: Ray) -> List[tuple[float, float, float]]:

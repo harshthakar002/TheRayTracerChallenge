@@ -37,7 +37,7 @@ class Cube(Shape):
             tmin, tmax = tmax, tmin
         return tmin, tmax
     
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         maxc = max(abs(point.x), abs(point.y), abs(point.z))
         if maxc == abs(point.x):
             return Vector(point.x, 0, 0)

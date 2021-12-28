@@ -25,7 +25,7 @@ class Sphere(Shape):
         t2 = (-b + sqrt(discriminant)) / (2 * a)
         return [(t1, None, None), (t2, None, None)]
     
-    def local_normal_at(self, point: Point) -> Vector:
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
         return Vector.fromtuple(point - Point(0, 0, 0))
 
 class GlassSphere(Sphere):

@@ -19,9 +19,9 @@ def test_constructing_a_triange():
 
 def test_normal_on_a_triange():
     t = Triangle(Point(0, 1, 0), Point(-1, 0, 0), Point(1, 0, 0))
-    n1 = t.local_normal_at(Point(0, 0.5, 0))
-    n2 = t.local_normal_at(Point(-0.5, 0.75, 0))
-    n3 = t.local_normal_at(Point(0.5, 0.25, 0))
+    n1 = t.local_normal_at(Point(0, 0.5, 0), None, None)
+    n2 = t.local_normal_at(Point(-0.5, 0.75, 0), None, None)
+    n3 = t.local_normal_at(Point(0.5, 0.25, 0), None, None)
     assert n1 == t.normal
     assert n2 == t.normal
     assert n3 == t.normal
