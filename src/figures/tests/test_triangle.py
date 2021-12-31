@@ -84,3 +84,15 @@ def test_intersect_smooth_triangle_stores_u_and_v():
     xs = Intersection.find_intersections_of_ray_and_figure(r, t)
     assert is_approximately_equal(xs[0].u, 0.45)
     assert is_approximately_equal(xs[0].v, 0.25)
+
+def test_smooth_triangle_uses_u_and_v_to_interpolate_the_normal():
+    p1 = Point(0, 1, 0)
+    p2 = Point(-1, 0, 0)
+    p3 = Point(1, 0, 0)
+    n1 = Vector(0, 1, 0)
+    n2 = Vector(-1, 0, 0)
+    n3 = Vector(1, 0, 0)
+    t = SmoothTriangle(p1, p2, p3, n1, n2, n3)
+    i = Intersection(1, t, 0.45, 0.25)
+    n = t.normal_at(Point(0, 0, 0), i.u, i.v)
+    assert n == Vector(-0.5547, 0.83205, 0)

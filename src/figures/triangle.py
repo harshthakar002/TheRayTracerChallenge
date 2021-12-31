@@ -63,3 +63,6 @@ class SmoothTriangle(Triangle):
         if distance == None:
             return []
         return [(distance, u, v)]
+    
+    def local_normal_at(self, point: Point, u: float, v: float) -> Vector:
+        return Vector.fromtuple((self.n2 * u) + (self.n3 * v) + (self.n1 * (1 - u - v)))
