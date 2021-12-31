@@ -22,7 +22,7 @@ class CSG(Shape):
         is_in_left, is_in_right = False, False
         result: List[tuple[float, Shape, float, float]] = []
         for intersection_distance, shape, u, v in intersections:
-            is_left_hit = shape == self.left
+            is_left_hit = self.left.is_equal_to_shape_or_is_child_shape(shape)
             if CSG.is_intersection_allowed(self.operation, is_left_hit, is_in_left, is_in_right):
                 result.append((intersection_distance, shape, u, v))
             if is_left_hit:
@@ -30,6 +30,9 @@ class CSG(Shape):
             else:
                 is_in_right = not is_in_right
         return result
+
+    def is_equal_to_shape_or_is_child_shape(self, s: Shape) -> bool:
+        return self == s or self.left.is_equal_to_shape_or_is_child_shape(s) or self.right.is_equal_to_shape_or_is_child_shape(s)
 
     @staticmethod
     def is_intersection_allowed(operation: CSGOperation, is_left_hit: bool, is_in_left: bool, is_in_right: bool) -> bool:

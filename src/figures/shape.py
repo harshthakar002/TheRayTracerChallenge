@@ -65,3 +65,6 @@ class Shape(Transformable):
     
     def memoize_bounds(self) -> None:
         return
+    
+    def is_equal_to_shape_or_is_child_shape(self, s: Shape) -> bool:
+        return self == s

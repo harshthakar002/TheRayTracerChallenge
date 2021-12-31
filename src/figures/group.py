@@ -103,3 +103,9 @@ class Group(Shape):
                 for k in range(n):
                     if len(mat[i][j][k].shapes) != 0:
                         self.add_child(mat[i][j][k])
+    
+    def is_equal_to_shape_or_is_child_shape(self, s: Shape) -> bool:
+        is_same_shape = self == s
+        for shape in self.shapes:
+            is_same_shape = is_same_shape or shape.is_equal_to_shape_or_is_child_shape(s)
+        return is_same_shape
