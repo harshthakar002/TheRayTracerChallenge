@@ -1,4 +1,5 @@
 from features.point import Point
+from features.vector import Vector
 from figures.group import Group
 from figures.triangle import Triangle
 from math import inf
@@ -11,6 +12,7 @@ class ParsedObj():
         self.ignored = 0
         self.vertices = [Point(-inf, -inf, -inf)]
         self.groups = [Group()]
+        self.normals = [Vector(-inf, -inf, -inf)]
     
 
     def ignore(self) -> None:
@@ -18,6 +20,9 @@ class ParsedObj():
 
     def add_vertex(self, x: float, y: float, z: float) -> None:
         self.vertices.append(Point(x, y, z))
+    
+    def add_normal(self, x: float, y: float, z: float) -> None:
+        self.normals.append(Vector(x, y, z))
 
     def add_triangle(self, index1: int, index2: int, index3: int) -> None:
         triangle = Triangle(self.vertices[index1], self.vertices[index2], self.vertices[index3])

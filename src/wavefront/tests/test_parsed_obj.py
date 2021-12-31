@@ -1,4 +1,5 @@
 from features.point import Point
+from features.vector import Vector
 from wavefront.obj_parser import ObjParser
 from wavefront.parsed_obj import ParsedObj
 
@@ -53,3 +54,11 @@ def test_parsed_obj_as_group():
     g = parsed_obj.asGroup()
     assert g.shapes[0].name == 'FirstGroup'
     assert g.shapes[1].name == 'SecondGroup'
+
+def test_parsed_obj_add_normal():
+    parsed_obj = ParsedObj()
+    parsed_obj.add_normal(1, 2, 3)
+    parsed_obj.add_normal(4, 5, 6)
+    assert len(parsed_obj.normals) == 3
+    assert parsed_obj.normals[1] == Vector(1, 2, 3)
+    assert parsed_obj.normals[2] == Vector(4, 5, 6)
