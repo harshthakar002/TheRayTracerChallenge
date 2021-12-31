@@ -83,3 +83,24 @@ def test_obj_parser_normals():
     assert parsed_obj.normals[1] == Vector(0, 0, 1)
     assert parsed_obj.normals[2] == Vector(0.707, 0, -0.707)
     assert parsed_obj.normals[3] == Vector(1, 2, 3)
+
+def test_obj_parser_faces_with_normals():
+    obj_parser = ObjParser('src\\wavefront\\tests\\test_files\\faces_with_normals.obj')
+    parsed_obj = obj_parser.parse()
+    assert parsed_obj.ignored == 2
+    assert parsed_obj.processed == 8
+    assert len(parsed_obj.vertices) == 4
+    assert len(parsed_obj.normals) == 4
+    assert len(parsed_obj.groups[0].shapes) == 2
+    assert parsed_obj.groups[0].shapes[0].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[0].p2 == parsed_obj.vertices[2]
+    assert parsed_obj.groups[0].shapes[0].p3 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[1].p1 == parsed_obj.vertices[1]
+    assert parsed_obj.groups[0].shapes[1].p2 == parsed_obj.vertices[2]
+    assert parsed_obj.groups[0].shapes[1].p3 == parsed_obj.vertices[3]
+    assert parsed_obj.groups[0].shapes[0].n1 == parsed_obj.normals[3]
+    assert parsed_obj.groups[0].shapes[0].n2 == parsed_obj.normals[1]
+    assert parsed_obj.groups[0].shapes[0].n3 == parsed_obj.normals[2]
+    assert parsed_obj.groups[0].shapes[1].n1 == parsed_obj.normals[3]
+    assert parsed_obj.groups[0].shapes[1].n2 == parsed_obj.normals[1]
+    assert parsed_obj.groups[0].shapes[1].n3 == parsed_obj.normals[2]

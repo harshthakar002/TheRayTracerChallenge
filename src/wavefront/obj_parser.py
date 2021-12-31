@@ -54,9 +54,18 @@ class ObjParser():
         if len(line_components) < 4:
             parsed_obj.ignore()
             return
-        vertice_indices = line_components[1:]
+        vertice_indices = []
+        for component in line_components[1:]:
+            vertice_indices.append(component.split('/'))
         for i in range(1, len(vertice_indices) - 1):
-            parsed_obj.add_triangle(int(vertice_indices[0]), int(vertice_indices[i]), int(vertice_indices[i + 1]))
+            n1_index, n2_index, n3_index = None, None, None
+            if len(vertice_indices[0]) >= 3:
+                n1_index = int(vertice_indices[0][2])
+            if len(vertice_indices[i]) >= 3:
+                n2_index = int(vertice_indices[i][2])
+            if len(vertice_indices[i+1]) >= 3:
+                n3_index = int(vertice_indices[i+1][2])
+            parsed_obj.add_triangle(int(vertice_indices[0][0]), int(vertice_indices[i][0]), int(vertice_indices[i + 1][0]), n1_index, n2_index, n3_index)
         parsed_obj.mark_processed()
     
     def parse_group_line(self, line_components: List[str], parsed_obj: ParsedObj) -> None:

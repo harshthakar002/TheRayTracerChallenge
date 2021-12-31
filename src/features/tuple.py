@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Union
 from features.equality import is_approximately_equal
 
 
@@ -19,10 +20,12 @@ class Tuple:
     def __truediv__(self, o: float) -> Tuple:
         return Tuple(self.x / o, self.y / o, self.z / o, self.w / o)
 
-    def __eq__(self, o: Tuple) -> bool:
+    def __eq__(self, o: Union[Tuple, None]) -> bool:
+        if o == None:
+            return False
         return is_approximately_equal(self.x, o.x) and is_approximately_equal(self.y, o.y) and is_approximately_equal(self.z, o.z) and is_approximately_equal(self.w, o.w)
 
-    def __ne__(self, o: Tuple) -> bool:
+    def __ne__(self, o: Union[Tuple, None]) -> bool:
         return not (self == o)
 
     def is_point(self) -> bool:
