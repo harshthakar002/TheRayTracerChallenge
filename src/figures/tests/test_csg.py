@@ -11,3 +11,13 @@ def test_csg_construction():
     assert c.right == s2
     assert s1.parent == c
     assert s2.parent == c
+
+def test_csg_intersection_allowed_for_union():
+    assert not CSG.is_intersection_allowed(CSGOperation.UNION, True, True, True)
+    assert CSG.is_intersection_allowed(CSGOperation.UNION, True, True, False)
+    assert not CSG.is_intersection_allowed(CSGOperation.UNION, True, False, True)
+    assert CSG.is_intersection_allowed(CSGOperation.UNION, True, False, False)
+    assert not CSG.is_intersection_allowed(CSGOperation.UNION, False, True, True)
+    assert not CSG.is_intersection_allowed(CSGOperation.UNION, False, True, False)
+    assert CSG.is_intersection_allowed(CSGOperation.UNION, False, False, True)
+    assert CSG.is_intersection_allowed(CSGOperation.UNION, False, False, False)
