@@ -31,12 +31,12 @@ class Group(Shape):
         if self.parent != None:
             self.parent.memoize_bounds()
     
-    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape]]:
+    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape, float, float]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
         if self.is_out_of_bounds(transformed_ray):
             return []
         
-        intersection_distances_and_shapes: List[tuple[float, Shape]] = []
+        intersection_distances_and_shapes: List[tuple[float, Shape, float, float]] = []
         for shape in self.shapes:
             intersection_distances_and_shapes += shape.local_intersect(transformed_ray)
         return sorted(intersection_distances_and_shapes, key=lambda intersection_distance_and_shape: intersection_distance_and_shape[0])
