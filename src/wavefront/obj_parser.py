@@ -8,6 +8,7 @@ class ObjParser():
     VERTEX_KEY = 'v'
     FACE_KEY = 'f'
     GROUP_KEY = 'g'
+    VERTEX_NORMAL_KEY = 'vn'
 
     def __init__(self, filename: str) -> None:
         if filename == None:
@@ -36,6 +37,8 @@ class ObjParser():
             self.parse_face_line(line_components, parsed_obj)
         elif line_components[0] == ObjParser.GROUP_KEY:
             self.parse_group_line(line_components, parsed_obj)
+        elif line_components[0] == ObjParser.VERTEX_NORMAL_KEY:
+            self.parse_vertex_normal_line(line_components, parsed_obj)
         else:
             parsed_obj.ignore()
     
@@ -62,4 +65,12 @@ class ObjParser():
             return
         name = ' '.join(line_components[1:])
         parsed_obj.add_group(name.strip())
+        parsed_obj.mark_processed()
+    
+    def parse_vertex_normal_line(self, line_components: List[str], parsed_obj: ParsedObj) -> None:
+        if len(line_components) < 4:
+            parsed_obj.ignore()
+            return
+        x, y, z = float(line_components[1]), float(line_components[2]), float(line_components[3])
+        parsed_obj.add_normal(x, y, z)
         parsed_obj.mark_processed()
