@@ -21,4 +21,6 @@ class CSG(Shape):
     def is_intersection_allowed(operation: CSGOperation, is_left_hit: bool, is_in_left: bool, is_in_right: bool) -> bool:
         if operation == CSGOperation.UNION:
             return (is_left_hit and not is_in_right) or (not is_left_hit and not is_in_left)
+        elif operation == CSGOperation.INTERSECTION:
+            return (is_left_hit and is_in_right) or (not is_left_hit and is_in_left)
         return False
