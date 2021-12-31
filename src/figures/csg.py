@@ -1,5 +1,6 @@
 from enum import Enum, unique
 from typing import List
+from figures.ray import Ray
 from figures.shape import Shape
 
 @unique
@@ -12,6 +13,7 @@ class CSGOperation(Enum):
 class CSG(Shape):
 
     def __init__(self, operation: CSGOperation, left: Shape, right: Shape):
+        super().__init__()
         self.operation = operation
         self.left = left
         left.parent = self
@@ -33,6 +35,12 @@ class CSG(Shape):
 
     def is_equal_to_shape_or_is_child_shape(self, s: Shape) -> bool:
         return self == s or self.left.is_equal_to_shape_or_is_child_shape(s) or self.right.is_equal_to_shape_or_is_child_shape(s)
+
+    def local_intersect(self, ray: Ray) -> List[tuple[float, Shape, float, float]]:
+        transformed_ray = ray.get_transformed_ray(self.ray_transform)
+        xs = self.left.local_intersect(transformed_ray) + self.right.local_intersect(transformed_ray)
+        xs = sorted(xs, key=lambda intersection: intersection[0])
+        return self.filter_intersections(xs)
 
     @staticmethod
     def is_intersection_allowed(operation: CSGOperation, is_left_hit: bool, is_in_left: bool, is_in_right: bool) -> bool:
