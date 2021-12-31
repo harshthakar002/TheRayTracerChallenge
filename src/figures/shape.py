@@ -39,7 +39,7 @@ class Shape(Transformable):
     def local_intersect(self, ray: Ray) -> List[tuple[float, Shape, float, float]]:
         transformed_ray = ray.get_transformed_ray(self.ray_transform)
         intersection_distances = self.local_intersection_distance(transformed_ray)
-        intersections: List[tuple[float, Shape]] = []
+        intersections: List[tuple[float, Shape, float, float]] = []
         for intersection_distance, u, v in intersection_distances:
             intersections.append((intersection_distance, self, u, v))
         return intersections
