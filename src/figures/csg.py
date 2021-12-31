@@ -23,4 +23,6 @@ class CSG(Shape):
             return (is_left_hit and not is_in_right) or (not is_left_hit and not is_in_left)
         elif operation == CSGOperation.INTERSECTION:
             return (is_left_hit and is_in_right) or (not is_left_hit and is_in_left)
+        elif operation == CSGOperation.DIFFERENCE:
+            return (is_left_hit and not is_in_right) or (not is_left_hit and is_in_left)
         return False
